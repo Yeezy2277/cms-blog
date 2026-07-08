@@ -1,0 +1,10 @@
+{
+  "name": "Rich Text Editor",
+  "locations": [
+    { "location": "app-config" },
+    {
+      "location": "entry-field",
+      "fieldTypes": [{ "type": "RichText" }]
+    }
+  ]
+}

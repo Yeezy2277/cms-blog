@@ -1,0 +1,43 @@
+# Build the Rich Text Editor app and upload the bundle to Contentful Hosting.
+# Same free-tier pattern as deploy-toolkit.yml — no GCP.
+#
+# Required repository secrets:
+#   CONTENTFUL_ORG_ID            organisation id
+#   RICH_TEXT_EDITOR_APP_ID      AppDefinition id (from `npm run create-app`)
+#   CONTENTFUL_CMA_TOKEN         CMA token with app-upload permission
+name: Deploy Rich Text Editor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/rich-text-editor/**"
+      - ".github/workflows/deploy-rich-text-editor.yml"
+  workflow_dispatch:
+
+jobs:
+  upload:
+    name: Build & upload bundle
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/rich-text-editor
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/rich-text-editor/package-lock.json
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Upload bundle to Contentful Hosting
+        run: npm run upload-ci
+        env:
+          CONTENTFUL_ORG_ID: ${{ secrets.CONTENTFUL_ORG_ID }}
+          RICH_TEXT_EDITOR_APP_ID: ${{ secrets.RICH_TEXT_EDITOR_APP_ID }}
+          CONTENTFUL_CMA_TOKEN: ${{ secrets.CONTENTFUL_CMA_TOKEN }}

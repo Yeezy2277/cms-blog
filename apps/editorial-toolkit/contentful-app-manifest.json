@@ -1,0 +1,15 @@
+{
+  "name": "Editorial Toolkit",
+  "locations": [
+    { "location": "app-config" },
+    {
+      "location": "entry-field",
+      "fieldTypes": [
+        { "type": "Symbol" },
+        { "type": "Integer" },
+        { "type": "Array", "items": { "type": "Link", "linkType": "Entry" } }
+      ]
+    },
+    { "location": "page", "navigationItem": { "name": "Content QA", "path": "/" } }
+  ]
+}

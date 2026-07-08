@@ -1,0 +1,33 @@
+{
+  "name": "editorial-toolkit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A single multi-location Contentful App that consolidates the editorial field widgets and QA tools for the blogPost content type.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "create-app": "contentful-app-scripts create-app-definition",
+    "upload": "npm run build && contentful-app-scripts upload --bundle-dir ./dist",
+    "upload-ci": "contentful-app-scripts upload-ci --bundle-dir ./dist --organization-id $CONTENTFUL_ORG_ID --definition-id $EDITORIAL_TOOLKIT_APP_ID --token $CONTENTFUL_CMA_TOKEN"
+  },
+  "dependencies": {
+    "@contentful/app-sdk": "^4.47.0",
+    "@contentful/f36-components": "^5.9.0",
+    "@contentful/f36-icons": "^5.9.0",
+    "@contentful/f36-tokens": "^5.1.0",
+    "@contentful/react-apps-toolkit": "^1.2.16",
+    "@contentful/rich-text-plain-text-renderer": "^17.1.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@contentful/app-scripts": "^2.5.6",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.0"
+  }
+}

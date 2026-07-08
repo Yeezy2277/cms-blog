@@ -1,0 +1,41 @@
+# Scheduled content audit — free-tier replacement for Cloud Scheduler.
+#
+# A cron-triggered GitHub Action runs the CMA audit script instead of a billed
+# Cloud Scheduler job hitting a Cloud Run service. Results land in the run's
+# Step Summary (and Slack, if SLACK_WEBHOOK_URL is set).
+#
+# Required repository secrets:
+#   CONTENTFUL_SPACE_ID
+#   CONTENTFUL_MANAGEMENT_TOKEN
+# Optional:
+#   SLACK_WEBHOOK_URL
+name: Scheduled content audit
+
+on:
+  schedule:
+    # 07:00 UTC every weekday.
+    - cron: "0 7 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit blogPost content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install CMA SDK
+        run: npm install contentful-management@^11.0.0 --no-save
+
+      - name: Run audit
+        run: node integrations/scheduled-jobs/content-audit/index.mjs
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+          CONTENTFUL_ENVIRONMENT: master
+          STALE_DAYS: "14"
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
