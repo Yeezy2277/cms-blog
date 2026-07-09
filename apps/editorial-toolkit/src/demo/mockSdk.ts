@@ -139,21 +139,23 @@ export function createDemoSpace() {
     notify = cb;
   };
 
+  // Single accessor implementation shared by entry.fields[x] and field.* —
+  // the real SDK guarantees those behave identically, so the mock must too.
+  const fieldAccessor = (fieldId: string) => ({
+    getValue: (_locale?: string) => getField(fieldId),
+    setValue: (value: unknown) => {
+      setField(fieldId, value);
+      return Promise.resolve();
+    },
+    onValueChanged: (localeOrCb: unknown, maybeCb?: Listener) => {
+      const cb = (typeof localeOrCb === "function" ? localeOrCb : maybeCb) as Listener;
+      return subscribe(fieldId, cb);
+    },
+  });
+
   const entryFields = new Proxy(
     {},
-    {
-      get: (_t, fieldId: string) => ({
-        getValue: (_locale?: string) => getField(fieldId),
-        setValue: (value: unknown) => {
-          setField(fieldId, value);
-          return Promise.resolve();
-        },
-        onValueChanged: (localeOrCb: unknown, maybeCb?: Listener) => {
-          const cb = (typeof localeOrCb === "function" ? localeOrCb : maybeCb) as Listener;
-          return subscribe(fieldId, cb);
-        },
-      }),
-    },
+    { get: (_t, fieldId: string) => fieldAccessor(fieldId) },
   );
 
   const base = {
@@ -192,17 +194,9 @@ export function createDemoSpace() {
       fields: entryFields as Record<string, never>,
     },
     field: {
+      ...fieldAccessor(fieldId),
       id: fieldId,
       locale: LOCALE,
-      getValue: () => getField(fieldId),
-      setValue: (value: unknown) => {
-        setField(fieldId, value);
-        return Promise.resolve();
-      },
-      onValueChanged: (localeOrCb: unknown, maybeCb?: Listener) => {
-        const cb = (typeof localeOrCb === "function" ? localeOrCb : maybeCb) as Listener;
-        return subscribe(fieldId, cb);
-      },
       setInvalid: () => {},
     },
   });

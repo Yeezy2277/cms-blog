@@ -127,3 +127,25 @@
   color: #97a3b2 !important;
   opacity: 1 !important;
 }
+
+/* Link popover — inline replacement for window.prompt (blocked in sandboxed iframes). */
+.rte-tb__linkpop {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+  padding-top: 6px;
+}
+.rte-tb__linkinput {
+  flex: 1;
+  min-width: 160px;
+  padding: 6px 10px;
+  border: 1px solid #cdd5e0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+}
+.rte-tb__linkinput:focus {
+  outline: none;
+  border-color: #4c8dff;
+}

@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useRef, useState } from "react";
-import { Editor, Element as SlateElement, Node as SlateNode, Range as SlateRange, Transforms } from "slate";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Editor, Node as SlateNode, Range as SlateRange, Transforms, type Editor as SlateEditor } from "slate";
 import { Plate, PlateContent, usePlateEditor, ParagraphPlugin, createPlatePlugin } from "platejs/react";
 import {
   BoldPlugin,
@@ -26,39 +26,40 @@ import {
   EmbeddedEntryBlockElement,
   EmbeddedAssetBlockElement,
 } from "./elements";
-import { Toolbar, setBlockType, insertHr, toggleList, insertEmbed, type Ed } from "./Toolbar";
+import {
+  Toolbar,
+  setBlockType,
+  insertHr,
+  toggleList,
+  insertEmbed,
+  unwrapList,
+  isLi,
+  type Ed,
+} from "./Toolbar";
 import { SlashMenu, type SlashItem } from "./SlashMenu";
 import "./editor.css";
 
 const element = (key: string, type: string, isVoid = false) =>
   createPlatePlugin({ key, node: { isElement: true, isVoid, type } });
 
-const isListEl = (n: unknown) =>
-  SlateElement.isElement(n) && ((n as { type?: string }).type === "ul" || (n as { type?: string }).type === "ol");
-const isLi = (n: unknown) => SlateElement.isElement(n) && (n as { type?: string }).type === "li";
-
 // Enter in a list item splits into a new item; Enter in an empty item exits the
-// list. Everything else falls through to Plate's default behaviour.
+// list (via the same unwrapList the toolbar button uses, so the two behaviours
+// can't drift). Everything else falls through to Plate's default behaviour.
 const ListBehaviorPlugin = createPlatePlugin({ key: "list-behavior" }).overrideEditor(
   ({ editor }) => {
-    const e = editor as unknown as {
-      selection: unknown;
-      insertBreak: () => void;
-    };
+    const e = editor as unknown as SlateEditor;
     const original = e.insertBreak.bind(e);
     e.insertBreak = () => {
-      const sel = (e as { selection: SlateRange | null }).selection;
+      const sel = e.selection;
       if (sel && SlateRange.isCollapsed(sel)) {
-        const [li] = Editor.nodes(e as never, { match: isLi });
+        const [li] = Editor.nodes(e, { match: isLi });
         if (li) {
           const [liNode] = li;
-          if (SlateNode.string(liNode as never).trim() === "") {
-            Transforms.unwrapNodes(e as never, { match: isListEl, split: true });
-            Transforms.unwrapNodes(e as never, { match: isLi, split: true });
-            Transforms.setNodes(e as never, { type: "p" } as never);
+          if (SlateNode.string(liNode).trim() === "") {
+            unwrapList(e);
             return;
           }
-          Transforms.splitNodes(e as never, { match: isLi, always: true });
+          Transforms.splitNodes(e, { match: isLi, always: true });
           return;
         }
       }
@@ -105,6 +106,13 @@ export function RichTextEditor({
   const ed = editor as unknown as Ed;
   const containerRef = useRef<HTMLDivElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // A pending debounce tick must not fire into an unmounted tree.
+  useEffect(() => {
+    return () => {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
+  }, []);
 
   // Debounced write-back to the Contentful field (and the standalone JSON panel).
   const handleChange = useCallback(() => {

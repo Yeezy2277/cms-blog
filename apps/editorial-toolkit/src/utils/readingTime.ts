@@ -10,6 +10,8 @@
  * platform).
  */
 
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+
 export const WORDS_PER_MINUTE = 200;
 
 type RichTextNode = {
@@ -18,13 +20,12 @@ type RichTextNode = {
   content?: RichTextNode[];
 };
 
+// Same extractor the webhook uses. A hand-rolled version subtly disagreed on
+// words split across marks (text-node boundaries), which is exactly the
+// preview-vs-published drift this module exists to prevent.
 export function richTextToPlainText(node: RichTextNode | undefined | null): string {
-  if (!node) return "";
-  if (node.nodeType === "text" && typeof node.value === "string") return node.value;
-  if (Array.isArray(node.content)) {
-    return node.content.map(richTextToPlainText).join(" ");
-  }
-  return "";
+  if (!node || !Array.isArray(node.content)) return "";
+  return documentToPlainTextString(node as never);
 }
 
 export function countWords(text: string): number {
