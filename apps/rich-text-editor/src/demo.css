@@ -1,4 +1,8 @@
-:root {
+/* Demo shell — dark by default, light via [data-theme="light"] (toggle in the header). */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
   --d-bg: #0d1117;
   --d-surface: #161b22;
   --d-border: #2a313c;
@@ -6,6 +10,21 @@
   --d-muted: #9aa7b4;
   --d-accent: #4c8dff;
   --d-accent-soft: rgba(76, 141, 255, 0.14);
+  --d-json-bg: #0b0f14;
+  --d-json-text: #b9c6d3;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --d-bg: #f7f9fb;
+  --d-surface: #ffffff;
+  --d-border: #e3e8ee;
+  --d-text: #17202b;
+  --d-muted: #66707d;
+  --d-accent: #2f6fe4;
+  --d-accent-soft: rgba(47, 111, 228, 0.1);
+  --d-json-bg: #ffffff;
+  --d-json-text: #33404e;
 }
 
 * {
@@ -23,11 +42,37 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   padding: 56px 24px 80px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .rte-demo__head {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto 32px;
+}
+
+.rte-demo__theme {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--d-border);
+  border-radius: 999px;
+  background: var(--d-surface);
+  color: var(--d-muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.rte-demo__theme:hover {
+  border-color: var(--d-accent);
+  color: var(--d-accent);
 }
 
 .rte-demo__badge {
@@ -85,14 +130,14 @@ body {
   margin: 0;
   height: 560px;
   overflow: auto;
-  background: #0b0f14;
+  background: var(--d-json-bg);
   border: 1px solid var(--d-border);
   border-radius: 10px;
   padding: 16px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12px;
   line-height: 1.5;
-  color: #b9c6d3;
+  color: var(--d-json-text);
   white-space: pre;
 }
 

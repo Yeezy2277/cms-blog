@@ -1,8 +1,50 @@
-/* Standalone demo chrome — dark SaaS shell around the (light) Forma 36 widgets. */
+/* Standalone demo shell. Light by default — the real widgets are Forma 36
+   (light), so a light page keeps them native; dark is available via the
+   toggle and frames the widgets as light "app islands". */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --t-bg: #f7f9fb;
+  --t-surface: #ffffff;
+  --t-surface-2: #eef1f5;
+  --t-border: #e3e8ee;
+  --t-text: #17202b;
+  --t-muted: #66707d;
+  --t-hint: #8a95a3;
+  --t-accent: #2f6fe4;
+  --t-accent-text: #2f6fe4;
+  --t-accent-soft: rgba(47, 111, 228, 0.1);
+  --t-accent-border: rgba(47, 111, 228, 0.35);
+  --t-error: #a32d2d;
+  --t-error-border: rgba(226, 75, 74, 0.5);
+  --t-success: #0f6e56;
+  --t-success-border: rgba(29, 158, 117, 0.5);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --t-bg: #0d1117;
+  --t-surface: #161b22;
+  --t-surface-2: #1c2230;
+  --t-border: #2a313c;
+  --t-text: #e6edf3;
+  --t-muted: #9aa7b4;
+  --t-hint: #7c8896;
+  --t-accent: #4c8dff;
+  --t-accent-text: #7fb0ff;
+  --t-accent-soft: rgba(76, 141, 255, 0.14);
+  --t-accent-border: rgba(76, 141, 255, 0.4);
+  --t-error: #f09595;
+  --t-error-border: rgba(226, 75, 74, 0.5);
+  --t-success: #5dcaa5;
+  --t-success-border: rgba(29, 158, 117, 0.5);
+}
 
 body {
   margin: 0;
-  background: #0d1117;
+  background: var(--t-bg);
+  transition: background-color 0.2s ease;
 }
 
 .demo-page {
@@ -10,7 +52,35 @@ body {
   margin: 0 auto;
   padding: 48px 20px 80px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #e6edf3;
+  color: var(--t-text);
+}
+
+.demo-hero {
+  position: relative;
+}
+
+.demo-theme {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--t-border);
+  border-radius: 999px;
+  background: var(--t-surface);
+  color: var(--t-muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.demo-theme:hover {
+  border-color: var(--t-accent);
+  color: var(--t-accent);
 }
 
 .demo-hero h1 {
@@ -22,17 +92,17 @@ body {
 .demo-hero p {
   margin: 0 0 20px;
   max-width: 640px;
-  color: #9aa7b4;
+  color: var(--t-muted);
   line-height: 1.6;
 }
 
 .demo-badge {
   display: inline-block;
   padding: 4px 12px;
-  border: 1px solid rgba(76, 141, 255, 0.45);
+  border: 1px solid var(--t-accent-border);
   border-radius: 999px;
-  background: rgba(76, 141, 255, 0.12);
-  color: #7fb0ff;
+  background: var(--t-accent-soft);
+  color: var(--t-accent-text);
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -45,18 +115,18 @@ body {
 
 .demo-tab {
   padding: 8px 16px;
-  border: 1px solid #2a313c;
+  border: 1px solid var(--t-border);
   border-radius: 999px;
-  background: #161b22;
-  color: #9aa7b4;
+  background: var(--t-surface);
+  color: var(--t-muted);
   font-size: 0.88rem;
   cursor: pointer;
 }
 
 .demo-tab--active {
-  background: rgba(76, 141, 255, 0.14);
-  border-color: #4c8dff;
-  color: #7fb0ff;
+  background: var(--t-accent-soft);
+  border-color: var(--t-accent);
+  color: var(--t-accent-text);
 }
 
 .demo-notice {
@@ -64,20 +134,20 @@ body {
   padding: 10px 14px;
   border-radius: 8px;
   font-size: 0.88rem;
-  border: 1px solid #2a313c;
-  background: #161b22;
+  border: 1px solid var(--t-border);
+  background: var(--t-surface);
 }
 .demo-notice--error {
-  border-color: rgba(226, 75, 74, 0.5);
-  color: #f09595;
+  border-color: var(--t-error-border);
+  color: var(--t-error);
 }
 .demo-notice--success {
-  border-color: rgba(29, 158, 117, 0.5);
-  color: #5dcaa5;
+  border-color: var(--t-success-border);
+  color: var(--t-success);
 }
 .demo-notice--info {
-  border-color: rgba(76, 141, 255, 0.5);
-  color: #7fb0ff;
+  border-color: var(--t-accent-border);
+  color: var(--t-accent-text);
 }
 
 .demo-entry,
@@ -98,7 +168,7 @@ body {
 }
 
 .demo-hint {
-  color: #7c8896;
+  color: var(--t-hint);
   font-size: 0.78rem;
   font-weight: 400;
 }
@@ -106,9 +176,9 @@ body {
 .demo-widget-tag {
   padding: 1px 8px;
   border-radius: 999px;
-  background: rgba(76, 141, 255, 0.14);
-  border: 1px solid rgba(76, 141, 255, 0.4);
-  color: #7fb0ff;
+  background: var(--t-accent-soft);
+  border: 1px solid var(--t-accent-border);
+  color: var(--t-accent-text);
   font-size: 0.68rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -118,17 +188,17 @@ body {
 .demo-input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #2a313c;
+  border: 1px solid var(--t-border);
   border-radius: 8px;
-  background: #161b22;
-  color: #e6edf3;
+  background: var(--t-surface);
+  color: var(--t-text);
   font-size: 0.95rem;
   font-family: inherit;
 }
 
 .demo-input:focus {
   outline: none;
-  border-color: #4c8dff;
+  border-color: var(--t-accent);
 }
 
 .demo-textarea {
@@ -140,7 +210,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: #b5c0cc;
+  color: var(--t-muted);
   font-size: 0.9rem;
   cursor: pointer;
 }
@@ -148,7 +218,7 @@ body {
 .demo-switch input {
   width: 18px;
   height: 18px;
-  accent-color: #4c8dff;
+  accent-color: var(--t-accent);
 }
 
 .demo-chips {
@@ -159,18 +229,18 @@ body {
 .demo-chip {
   padding: 3px 12px;
   border-radius: 999px;
-  background: #161b22;
-  border: 1px solid #2a313c;
-  color: #b5c0cc;
+  background: var(--t-surface);
+  border: 1px solid var(--t-border);
+  color: var(--t-muted);
   font-size: 0.82rem;
 }
 
-/* The real widgets are Forma 36 (light) — give them a light island. */
+/* The real widgets are Forma 36 (light) — a white island in both themes. */
 .demo-widget {
   padding: 14px;
   border-radius: 10px;
   background: #ffffff;
-  border: 1px solid #2a313c;
+  border: 1px solid var(--t-border);
 }
 
 .demo-widget--page {
@@ -179,7 +249,7 @@ body {
 
 .demo-qa-note {
   margin: 0;
-  color: #9aa7b4;
+  color: var(--t-muted);
   line-height: 1.6;
   max-width: 640px;
 }
@@ -188,12 +258,12 @@ body {
   display: flex;
   gap: 10px;
   margin-top: 40px;
-  color: #7c8896;
+  color: var(--t-hint);
   font-size: 0.85rem;
 }
 
 .demo-footer a {
-  color: #7fb0ff;
+  color: var(--t-accent-text);
   text-decoration: none;
 }
 

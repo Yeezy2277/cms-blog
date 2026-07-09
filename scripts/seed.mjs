@@ -293,10 +293,155 @@ const articles = [
   },
 ];
 
+/* ----- cover art -------------------------------------------------------------
+   Abstract geometric SVG covers, one motif per article, in the site's dark
+   palette. Generated here and uploaded as Contentful assets so the cards and
+   post heroes aren't empty placeholders. */
+
+const C = {
+  bg: "#0d1117",
+  surface: "#161b22",
+  line: "#2a313c",
+  blue: "#4c8dff",
+  blueSoft: "rgba(76,141,255,0.35)",
+  teal: "#2dd4bf",
+  amber: "#f5b544",
+  text: "#e6edf3",
+};
+
+const svgWrap = (inner) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">` +
+  `<rect width="1200" height="675" fill="${C.bg}"/>` +
+  `<g stroke="${C.line}" stroke-width="1">` +
+  Array.from({ length: 11 }, (_, i) => `<line x1="${i * 120}" y1="0" x2="${i * 120}" y2="675"/>`).join("") +
+  `</g>` +
+  inner +
+  `</svg>`;
+
+const covers = {
+  // nested schema blocks
+  "content-model-that-survives-change": svgWrap(
+    `<rect x="330" y="150" width="540" height="375" rx="24" fill="none" stroke="${C.blue}" stroke-width="3"/>
+     <rect x="400" y="220" width="400" height="90" rx="14" fill="${C.surface}" stroke="${C.blueSoft}" stroke-width="2"/>
+     <rect x="400" y="340" width="270" height="60" rx="12" fill="${C.surface}" stroke="${C.blueSoft}" stroke-width="2"/>
+     <rect x="400" y="430" width="330" height="60" rx="12" fill="${C.surface}" stroke="${C.blueSoft}" stroke-width="2"/>
+     <circle cx="430" cy="265" r="10" fill="${C.teal}"/>
+     <circle cx="430" cy="370" r="10" fill="${C.blue}"/>
+     <circle cx="430" cy="460" r="10" fill="${C.amber}"/>`,
+  ),
+  // server block streaming to small client islands
+  "server-components-changed-structure": svgWrap(
+    `<rect x="180" y="180" width="330" height="315" rx="20" fill="${C.surface}" stroke="${C.blue}" stroke-width="3"/>
+     <g fill="${C.blueSoft}">${[0, 1, 2, 3].map((i) => `<rect x="220" y="${225 + i * 60}" width="${250 - i * 40}" height="24" rx="8"/>`).join("")}</g>
+     <g stroke="${C.teal}" stroke-width="2.5" fill="none">
+       <path d="M510 260 C 640 260, 640 240, 760 240"/>
+       <path d="M510 340 C 660 340, 660 380, 780 380"/>
+       <path d="M510 420 C 630 420, 630 500, 740 500"/>
+     </g>
+     <circle cx="800" cy="240" r="34" fill="${C.teal}" opacity="0.9"/>
+     <circle cx="822" cy="382" r="26" fill="${C.teal}" opacity="0.65"/>
+     <circle cx="778" cy="502" r="20" fill="${C.teal}" opacity="0.45"/>`,
+  ),
+  // regeneration arcs
+  "isr-in-practice": svgWrap(
+    `<g fill="none" stroke-linecap="round">
+       <circle cx="600" cy="337" r="170" stroke="${C.line}" stroke-width="26"/>
+       <path d="M600 167 A 170 170 0 1 1 430 337" stroke="${C.blue}" stroke-width="26"/>
+       <path d="M600 237 A 100 100 0 1 1 500 337" stroke="${C.teal}" stroke-width="16"/>
+     </g>
+     <polygon points="418,300 468,337 404,360" fill="${C.blue}"/>
+     <circle cx="600" cy="337" r="14" fill="${C.amber}"/>`,
+  ),
+  // a loop deliberately broken
+  "webhook-that-writes-back": svgWrap(
+    `<g fill="none" stroke-linecap="round">
+       <path d="M420 460 C 320 360, 380 200, 540 190 L 660 185" stroke="${C.blue}" stroke-width="22"/>
+       <path d="M660 185 C 840 180, 900 330, 800 440" stroke="${C.blue}" stroke-width="22" opacity="0.55"/>
+       <path d="M800 440 C 760 480, 700 500, 640 500" stroke="${C.amber}" stroke-width="22" stroke-dasharray="4 44"/>
+     </g>
+     <polygon points="655,150 715,187 655,222" fill="${C.blue}"/>
+     <rect x="560" y="462" width="76" height="76" rx="16" fill="${C.surface}" stroke="${C.teal}" stroke-width="3"/>
+     <path d="M580 500 l 14 14 l 28 -32" stroke="${C.teal}" stroke-width="6" fill="none" stroke-linecap="round"/>`,
+  ),
+  // five tiles feeding one app
+  "one-app-five-tools": svgWrap(
+    `<g>${[0, 1, 2, 3, 4].map((i) => `<rect x="${240 + i * 90}" y="150" width="66" height="66" rx="14" fill="${C.surface}" stroke="${i === 2 ? C.amber : C.blueSoft}" stroke-width="2.5"/>`).join("")}</g>
+     <g stroke="${C.line}" stroke-width="2.5" fill="none">${[0, 1, 2, 3, 4].map((i) => `<path d="M${273 + i * 90} 216 C ${273 + i * 90} 300, 600 290, 600 350"/>`).join("")}</g>
+     <rect x="450" y="350" width="300" height="150" rx="20" fill="${C.surface}" stroke="${C.blue}" stroke-width="3"/>
+     <circle cx="520" cy="425" r="14" fill="${C.blue}"/>
+     <rect x="560" y="405" width="140" height="14" rx="7" fill="${C.blueSoft}"/>
+     <rect x="560" y="432" width="100" height="14" rx="7" fill="${C.blueSoft}"/>`,
+  ),
+  // two trees, lossless bridge
+  "slate-contentful-transform": svgWrap(
+    `<g stroke="${C.blue}" stroke-width="2.5" fill="${C.surface}">
+       <circle cx="320" cy="220" r="26"/><circle cx="250" cy="340" r="20"/><circle cx="390" cy="340" r="20"/><circle cx="320" cy="460" r="20"/>
+       <line x1="320" y1="246" x2="250" y2="320"/><line x1="320" y1="246" x2="390" y2="320"/><line x1="390" y1="360" x2="320" y2="440"/>
+     </g>
+     <g stroke="${C.teal}" stroke-width="2.5" fill="${C.surface}">
+       <circle cx="880" cy="220" r="26"/><circle cx="810" cy="340" r="20"/><circle cx="950" cy="340" r="20"/><circle cx="880" cy="460" r="20"/>
+       <line x1="880" y1="246" x2="810" y2="320"/><line x1="880" y1="246" x2="950" y2="320"/><line x1="950" y1="360" x2="880" y2="440"/>
+     </g>
+     <g stroke="${C.amber}" stroke-width="8" fill="none" stroke-linecap="round">
+       <path d="M480 310 L 700 310"/><path d="M700 365 L 480 365"/>
+     </g>
+     <polygon points="700,290 740,310 700,330" fill="${C.amber}"/>
+     <polygon points="480,345 440,365 480,385" fill="${C.amber}"/>`,
+  ),
+};
+
+const AVATAR_SVG =
+  `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">` +
+  `<rect width="400" height="400" rx="200" fill="#161b22"/>` +
+  `<circle cx="200" cy="155" r="70" fill="#4c8dff"/>` +
+  `<path d="M60 400 C 60 300, 340 300, 340 400 Z" fill="#4c8dff" opacity="0.75"/>` +
+  `</svg>`;
+
 /* ----- upsert ---------------------------------------------------------------- */
 
 const link = (id) => ({ sys: { type: "Link", linkType: "Entry", id } });
+const assetLink = (id) => ({ sys: { type: "Link", linkType: "Asset", id } });
 const f = (value) => ({ [LOCALE]: value });
+
+/** Create-or-reuse a published SVG asset, matched by title. */
+async function ensureSvgAsset(env, title, fileName, svg) {
+  const found = await env.getAssets({ "fields.title": title, limit: 1 });
+  if (found.items.length > 0) return found.items[0];
+
+  let asset = await env.createAssetFromFiles({
+    fields: {
+      title: f(title),
+      description: f("Generated cover art"),
+      file: f({
+        contentType: "image/svg+xml",
+        fileName,
+        file: svg,
+      }),
+    },
+  });
+  asset = await asset.processForAllLocales();
+  asset = await asset.publish();
+  console.log(`Asset: ${title}`);
+  return asset;
+}
+
+/** Create-or-reuse the demo author entry. */
+async function ensureAuthor(env) {
+  const found = await env.getEntries({ content_type: "author", limit: 1 });
+  if (found.items.length > 0) return found.items[0];
+
+  const avatar = await ensureSvgAsset(env, "Author avatar", "avatar.svg", AVATAR_SVG);
+  let author = await env.createEntry("author", {
+    fields: {
+      name: f("Vitaly Popov"),
+      title: f("Frontend Engineer"),
+      avatar: f(assetLink(avatar.sys.id)),
+    },
+  });
+  author = await author.publish();
+  console.log("Author: Vitaly Popov");
+  return author;
+}
 
 async function run() {
   const client = contentfulManagement.createClient({ accessToken: TOKEN });
@@ -308,9 +453,15 @@ async function run() {
     existing.items.map((e) => [e.fields.slug?.[LOCALE], e]),
   );
 
+  const author = await ensureAuthor(env);
+
   // Pass 1 — create or update every article (without relations).
   const saved = new Map();
   for (const a of articles) {
+    const cover = covers[a.slug]
+      ? await ensureSvgAsset(env, `Cover — ${a.slug}`, `${a.slug}.svg`, covers[a.slug])
+      : null;
+
     const fields = {
       title: f(a.title),
       slug: f(a.slug),
@@ -320,6 +471,8 @@ async function run() {
       body: f(a.body),
       isSponsored: f(Boolean(a.isSponsored)),
       sponsorName: f(a.sponsorName ?? ""),
+      author: f(link(author.sys.id)),
+      ...(cover ? { coverImage: f(assetLink(cover.sys.id)) } : {}),
     };
 
     let entry = bySlug.get(a.slug);

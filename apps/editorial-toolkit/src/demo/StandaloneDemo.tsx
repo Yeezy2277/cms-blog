@@ -18,9 +18,29 @@ function Widget({ sdk, children }: { sdk: unknown; children: React.ReactNode }) 
   return <SDKContext.Provider value={value}>{children}</SDKContext.Provider>;
 }
 
+type Theme = "light" | "dark";
+
+function initialTheme(): Theme {
+  try {
+    return localStorage.getItem("toolkit-demo-theme") === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
 export function StandaloneDemo() {
   const space = useMemo(() => createDemoSpace(), []);
   const [tab, setTab] = useState<"editor" | "qa">("editor");
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("toolkit-demo-theme", theme);
+    } catch {
+      /* private mode */
+    }
+  }, [theme]);
   const [notice, setNotice] = useState<{ kind: string; message: string } | null>(null);
   const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -82,6 +102,15 @@ export function StandaloneDemo() {
       <GlobalStyles />
 
       <header className="demo-hero">
+        <button
+          type="button"
+          className="demo-theme"
+          onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          title={theme === "dark" ? "Light theme" : "Dark theme"}
+        >
+          {theme === "dark" ? "☀" : "☾"}
+        </button>
         <span className="demo-badge">Live demo · no login</span>
         <h1>Editorial Toolkit</h1>
         <p>

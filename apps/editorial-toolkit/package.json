@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "create-app": "contentful-app-scripts create-app-definition",
     "upload": "npm run build && contentful-app-scripts upload --bundle-dir ./dist",
-    "upload-ci": "contentful-app-scripts upload-ci --bundle-dir ./dist --organization-id $CONTENTFUL_ORG_ID --definition-id $EDITORIAL_TOOLKIT_APP_ID --token $CONTENTFUL_CMA_TOKEN"
+    "upload-ci": "contentful-app-scripts upload --bundle-dir ./dist --organization-id \"$CONTENTFUL_ORG_ID\" --definition-id \"$EDITORIAL_TOOLKIT_APP_ID\" --token \"$CONTENTFUL_CMA_TOKEN\""
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.47.0",

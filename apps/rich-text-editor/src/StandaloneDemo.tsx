@@ -1,8 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Document } from "@contentful/rich-text-types";
 import { RichTextEditor } from "./editor/RichTextEditor";
 import { deserialize, serialize } from "./transform";
 import "./demo.css";
+
+type Theme = "dark" | "light";
+
+function initialTheme(): Theme {
+  try {
+    return localStorage.getItem("rte-demo-theme") === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+}
 
 /**
  * Public, Contentful-free playground for the editor. Rendered when the bundle is
@@ -47,10 +57,29 @@ const STARTER = {
 export function StandaloneDemo() {
   const initialValue = useMemo(() => deserialize(STARTER), []);
   const [doc, setDoc] = useState<Document>(() => serialize(initialValue));
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("rte-demo-theme", theme);
+    } catch {
+      /* private mode */
+    }
+  }, [theme]);
 
   return (
     <div className="rte-demo">
       <header className="rte-demo__head">
+        <button
+          type="button"
+          className="rte-demo__theme"
+          onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          title={theme === "dark" ? "Light theme" : "Dark theme"}
+        >
+          {theme === "dark" ? "☀" : "☾"}
+        </button>
         <div className="rte-demo__badge">Live demo · no login</div>
         <h1>Rich Text Editor</h1>
         <p>

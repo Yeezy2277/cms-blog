@@ -15,7 +15,7 @@ export const LiElement = (props: ElProps) => <PlateElement as="li" {...props} />
 export const HrElement = (props: ElProps) => (
   <PlateElement {...props}>
     <div contentEditable={false}>
-      <hr style={{ border: "none", borderTop: "1px solid #cdd5e0", margin: "16px 0" }} />
+      <hr className="rte-hr" />
     </div>
     {props.children}
   </PlateElement>
@@ -29,7 +29,6 @@ export const LinkElement = (props: ElProps) => {
       {...props}
       // eslint-disable-next-line react/jsx-no-target-blank
       attributes={{ ...props.attributes, href: url } as ElProps["attributes"]}
-      style={{ color: "#0070f3", textDecoration: "underline" }}
     />
   );
 };
@@ -46,30 +45,9 @@ function EmbedCard({
   loading: boolean;
 }) {
   return (
-    <div
-      style={{
-        border: "1px solid #cdd5e0",
-        borderRadius: 6,
-        padding: "10px 14px",
-        background: "#f7f9fa",
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        userSelect: "none",
-      }}
-    >
-      <span
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          textTransform: "uppercase",
-          color: "#5a657a",
-          letterSpacing: "0.03em",
-        }}
-      >
-        {label}
-      </span>
-      <span style={{ color: loading ? "#8091a5" : "#11161f" }}>
+    <div className="rte-embed">
+      <span className="rte-embed__label">{label}</span>
+      <span className={loading ? "rte-embed__title rte-embed__title--loading" : "rte-embed__title"}>
         {loading ? "Loading…" : title}
       </span>
     </div>
