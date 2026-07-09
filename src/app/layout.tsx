@@ -18,12 +18,16 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before paint so the stored theme applies with no flash. Dark is the default.
+const themeInit = `try{var t=localStorage.getItem("lumen-theme");document.documentElement.dataset.theme=t==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

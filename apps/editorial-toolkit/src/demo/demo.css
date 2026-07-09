@@ -1,0 +1,202 @@
+/* Standalone demo chrome — dark SaaS shell around the (light) Forma 36 widgets. */
+
+body {
+  margin: 0;
+  background: #0d1117;
+}
+
+.demo-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #e6edf3;
+}
+
+.demo-hero h1 {
+  margin: 14px 0 10px;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+}
+
+.demo-hero p {
+  margin: 0 0 20px;
+  max-width: 640px;
+  color: #9aa7b4;
+  line-height: 1.6;
+}
+
+.demo-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(76, 141, 255, 0.45);
+  border-radius: 999px;
+  background: rgba(76, 141, 255, 0.12);
+  color: #7fb0ff;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 26px;
+}
+
+.demo-tab {
+  padding: 8px 16px;
+  border: 1px solid #2a313c;
+  border-radius: 999px;
+  background: #161b22;
+  color: #9aa7b4;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.demo-tab--active {
+  background: rgba(76, 141, 255, 0.14);
+  border-color: #4c8dff;
+  color: #7fb0ff;
+}
+
+.demo-notice {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  border: 1px solid #2a313c;
+  background: #161b22;
+}
+.demo-notice--error {
+  border-color: rgba(226, 75, 74, 0.5);
+  color: #f09595;
+}
+.demo-notice--success {
+  border-color: rgba(29, 158, 117, 0.5);
+  color: #5dcaa5;
+}
+.demo-notice--info {
+  border-color: rgba(76, 141, 255, 0.5);
+  color: #7fb0ff;
+}
+
+.demo-entry,
+.demo-qa {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.demo-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.demo-hint {
+  color: #7c8896;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.demo-widget-tag {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(76, 141, 255, 0.14);
+  border: 1px solid rgba(76, 141, 255, 0.4);
+  color: #7fb0ff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.demo-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #2a313c;
+  border-radius: 8px;
+  background: #161b22;
+  color: #e6edf3;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.demo-input:focus {
+  outline: none;
+  border-color: #4c8dff;
+}
+
+.demo-textarea {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.demo-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #b5c0cc;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.demo-switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: #4c8dff;
+}
+
+.demo-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.demo-chip {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #161b22;
+  border: 1px solid #2a313c;
+  color: #b5c0cc;
+  font-size: 0.82rem;
+}
+
+/* The real widgets are Forma 36 (light) — give them a light island. */
+.demo-widget {
+  padding: 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #2a313c;
+}
+
+.demo-widget--page {
+  padding: 20px;
+}
+
+.demo-qa-note {
+  margin: 0;
+  color: #9aa7b4;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+.demo-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 40px;
+  color: #7c8896;
+  font-size: 0.85rem;
+}
+
+.demo-footer a {
+  color: #7fb0ff;
+  text-decoration: none;
+}
+
+.demo-footer a:hover {
+  text-decoration: underline;
+}

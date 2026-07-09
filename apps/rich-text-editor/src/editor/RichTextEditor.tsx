@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from "react";
+import { Editor, Element as SlateElement, Node as SlateNode, Range as SlateRange, Transforms } from "slate";
 import { Plate, PlateContent, usePlateEditor, ParagraphPlugin, createPlatePlugin } from "platejs/react";
 import {
   BoldPlugin,
@@ -13,6 +14,7 @@ import {
 import { LinkPlugin } from "@platejs/link/react";
 import type { FieldAppSDK } from "@contentful/app-sdk";
 
+import type { Document } from "@contentful/rich-text-types";
 import { deserialize, serialize, type PlateValue } from "../transform";
 import { SdkContext } from "../sdkContext";
 import {
@@ -26,18 +28,56 @@ import {
 } from "./elements";
 import { Toolbar, setBlockType, insertHr, toggleList, insertEmbed, type Ed } from "./Toolbar";
 import { SlashMenu, type SlashItem } from "./SlashMenu";
+import "./editor.css";
 
 const element = (key: string, type: string, isVoid = false) =>
   createPlatePlugin({ key, node: { isElement: true, isVoid, type } });
+
+const isListEl = (n: unknown) =>
+  SlateElement.isElement(n) && ((n as { type?: string }).type === "ul" || (n as { type?: string }).type === "ol");
+const isLi = (n: unknown) => SlateElement.isElement(n) && (n as { type?: string }).type === "li";
+
+// Enter in a list item splits into a new item; Enter in an empty item exits the
+// list. Everything else falls through to Plate's default behaviour.
+const ListBehaviorPlugin = createPlatePlugin({ key: "list-behavior" }).overrideEditor(
+  ({ editor }) => {
+    const e = editor as unknown as {
+      selection: unknown;
+      insertBreak: () => void;
+    };
+    const original = e.insertBreak.bind(e);
+    e.insertBreak = () => {
+      const sel = (e as { selection: SlateRange | null }).selection;
+      if (sel && SlateRange.isCollapsed(sel)) {
+        const [li] = Editor.nodes(e as never, { match: isLi });
+        if (li) {
+          const [liNode] = li;
+          if (SlateNode.string(liNode as never).trim() === "") {
+            Transforms.unwrapNodes(e as never, { match: isListEl, split: true });
+            Transforms.unwrapNodes(e as never, { match: isLi, split: true });
+            Transforms.setNodes(e as never, { type: "p" } as never);
+            return;
+          }
+          Transforms.splitNodes(e as never, { match: isLi, always: true });
+          return;
+        }
+      }
+      original();
+    };
+    return {};
+  },
+);
 
 export function RichTextEditor({
   sdk,
   initialValue,
   isDisabled,
+  onDocChange,
 }: {
   sdk: FieldAppSDK | null;
   initialValue: PlateValue;
   isDisabled: boolean;
+  onDocChange?: (doc: Document) => void;
 }) {
   const editor = usePlateEditor({
     plugins: [
@@ -57,6 +97,7 @@ export function RichTextEditor({
       element("hr", "hr", true).withComponent(HrElement),
       element("embedded-entry-block", "embedded-entry-block", true).withComponent(EmbeddedEntryBlockElement),
       element("embedded-asset-block", "embedded-asset-block", true).withComponent(EmbeddedAssetBlockElement),
+      ListBehaviorPlugin,
     ],
     value: initialValue as never,
   });
@@ -65,15 +106,15 @@ export function RichTextEditor({
   const containerRef = useRef<HTMLDivElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Debounced write-back to the Contentful field.
+  // Debounced write-back to the Contentful field (and the standalone JSON panel).
   const handleChange = useCallback(() => {
-    if (!sdk) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
       const doc = serialize((editor.children as unknown as PlateValue) ?? []);
-      void sdk.field.setValue(doc);
-    }, 400);
-  }, [sdk, editor]);
+      onDocChange?.(doc);
+      if (sdk) void sdk.field.setValue(doc);
+    }, 300);
+  }, [sdk, editor, onDocChange]);
 
   /* ----- slash menu ----- */
   const [slash, setSlash] = useState<{ top: number; left: number } | null>(null);
@@ -140,29 +181,14 @@ export function RichTextEditor({
 
   return (
     <SdkContext.Provider value={sdk}>
-      <div
-        ref={containerRef}
-        style={{
-          position: "relative",
-          border: "1px solid #cdd5e0",
-          borderRadius: 6,
-          background: "white",
-          opacity: isDisabled ? 0.6 : 1,
-        }}
-      >
+      <div ref={containerRef} className={isDisabled ? "rte-shell rte-shell--disabled" : "rte-shell"}>
         <Plate editor={editor} onValueChange={handleChange}>
           <Toolbar editor={ed} sdk={sdk} />
           <PlateContent
+            className="rte-content"
             readOnly={isDisabled}
             onKeyDown={onKeyDown}
             placeholder="Write something, or press / for blocks…"
-            style={{
-              minHeight: 240,
-              padding: "12px 16px",
-              outline: "none",
-              fontSize: 15,
-              lineHeight: 1.6,
-            }}
           />
         </Plate>
         {slash && (

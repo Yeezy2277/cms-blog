@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ThemeToggle } from "./ThemeToggle";
 import styles from "./SiteHeader.module.css";
 
 export function SiteHeader() {
@@ -22,6 +23,7 @@ export function SiteHeader() {
           >
             Built on Contentful
           </a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

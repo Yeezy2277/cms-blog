@@ -1,0 +1,31 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "editorial-toolkit",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "apps/editorial-toolkit", "run", "dev", "--", "--port", "5199", "--strictPort"],
+      "port": 5199
+    },
+    {
+      "name": "rich-text-editor",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "apps/rich-text-editor", "run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "lumen-blog",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "portfolio-hub",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/vitaliypopov/portfolio-hub", "run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

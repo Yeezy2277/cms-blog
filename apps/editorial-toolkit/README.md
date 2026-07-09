@@ -1,5 +1,9 @@
 # Editorial Toolkit — Contentful App
 
+> **▶ Live demo (no login):** <https://editorial-toolkit.vercel.app> — the real widget
+> code running against an in-memory mock of the App SDK (`src/demo/`). Inside
+> Contentful the same bundle runs as the actual field/page apps.
+
 One [App Framework](https://www.contentful.com/developers/docs/extensibility/app-framework/) bundle that provides every custom editor tool for the `blogPost` content type. Rather than ship one app per field, this routes on `sdk.location` (and a per-field `tool` instance parameter) so it's a single build, a single bundle on Contentful Hosting, and a single thing to maintain.
 
 | Tool | Location | What it does |
