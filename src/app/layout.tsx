@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lumen-cms-blog.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cms-blog-steel.vercel.app"),
   title: {
     default: "Lumen — a headless-CMS content platform",
     template: "%s · Lumen",

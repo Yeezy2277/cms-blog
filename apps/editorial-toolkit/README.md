@@ -12,6 +12,8 @@ One [App Framework](https://www.contentful.com/developers/docs/extensibility/app
 | **Reading time** | entry-field (`estimatedReadingTime`) | Read-only display with a live estimate recomputed from the body as you type; flags when it has drifted from the saved value. |
 | **Sponsored field** | entry-field (`sponsorName`) | Enabled only when `isSponsored` is on; clears itself and shows a validation error otherwise — a cross-field rule the content model can't express. |
 | **Related content** | entry-field (`relatedPosts`) | Suggests posts sharing tags, lets editors add via the native picker or remove, and writes entry links. |
+| **Media importer** | entry-field (`coverImage`) | Paste an https image URL → the app creates the asset via the CMA (create → process → poll → publish) and links it to the field; the native asset picker stays one click away. |
+| **Author manager** | entry-sidebar | Shows the post's author, switches it from a dropdown of all `author` entries, or creates + publishes a new author inline — without leaving the entry. |
 | **Validation Hub** | page | One scan, every editorial QA check: duplicate slugs, links to deleted entries, incomplete metadata (cover/tags/excerpt/reading time) and stale drafts — with severity badges and jump-to-entry. Checks are pure functions (`src/utils/audit.ts`), unit-tested and mirrored by the scheduled GitHub-Actions audit. |
 | **Config** | app-config | Install screen + docs. |
 

@@ -2,12 +2,14 @@
   "name": "Editorial Toolkit",
   "locations": [
     { "location": "app-config" },
+    { "location": "entry-sidebar" },
     {
       "location": "entry-field",
       "fieldTypes": [
         { "type": "Symbol" },
         { "type": "Integer" },
-        { "type": "Array", "items": { "type": "Link", "linkType": "Entry" } }
+        { "type": "Array", "items": { "type": "Link", "linkType": "Entry" } },
+        { "type": "Link", "linkType": "Asset" }
       ]
     },
     { "location": "page", "navigationItem": { "name": "Content QA", "path": "/" } }

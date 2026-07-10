@@ -7,6 +7,8 @@ import { SlugField } from "../locations/SlugField";
 import { ReadingTimeField } from "../locations/ReadingTimeField";
 import { SponsoredField } from "../locations/SponsoredField";
 import { RelatedContentField } from "../locations/RelatedContentField";
+import { MediaField } from "../locations/MediaField";
+import { AuthorSidebar } from "../locations/AuthorSidebar";
 import { ValidationHubPage } from "../locations/ValidationHubPage";
 import { createDemoSpace, LOCALE } from "./mockSdk";
 import { richTextToPlainText } from "../utils/readingTime";
@@ -65,6 +67,8 @@ export function StandaloneDemo() {
       readingTime: space.fieldSdk("estimatedReadingTime", "reading-time"),
       sponsor: space.fieldSdk("sponsorName", "sponsored"),
       related: space.fieldSdk("relatedPosts", "related"),
+      media: space.fieldSdk("coverImage", "media"),
+      sidebar: space.fieldSdk("author", "author"),
       page: space.pageSdk,
     }),
     [space],
@@ -114,7 +118,7 @@ export function StandaloneDemo() {
         <span className="demo-badge">Live demo · no login</span>
         <h1>Editorial Toolkit</h1>
         <p>
-          One Contentful App, five editor tools. Everything below is the <em>real</em>{" "}
+          One Contentful App, seven editor tools. Everything below is the <em>real</em>{" "}
           production widget code running against an in-memory mock of the Contentful App
           SDK — type in the entry fields and watch the tools react, exactly as editors see
           them inside the CMS.
@@ -238,6 +242,34 @@ export function StandaloneDemo() {
             <div className="demo-widget">
               <Widget sdk={sdks.related}>
                 <RelatedContentField />
+              </Widget>
+            </div>
+          </section>
+
+          <section className="demo-field">
+            <div className="demo-label">
+              Cover image <span className="demo-widget-tag">app widget</span>
+              <span className="demo-hint">
+                paste an https image URL → asset is created, processed and linked
+              </span>
+            </div>
+            <div className="demo-widget">
+              <Widget sdk={sdks.media}>
+                <MediaField />
+              </Widget>
+            </div>
+          </section>
+
+          <section className="demo-field">
+            <div className="demo-label">
+              Author <span className="demo-widget-tag">app widget</span>
+              <span className="demo-hint">
+                entry-sidebar location · switch the author or create one inline
+              </span>
+            </div>
+            <div className="demo-widget" style={{ maxWidth: 340 }}>
+              <Widget sdk={sdks.sidebar}>
+                <AuthorSidebar />
               </Widget>
             </div>
           </section>

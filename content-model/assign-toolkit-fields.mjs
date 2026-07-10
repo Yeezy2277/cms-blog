@@ -30,11 +30,15 @@ if (!SPACE_ID || !TOKEN || !APP_ID) {
 }
 
 // fieldId -> the toolkit "tool" it should render (passed as instance parameter).
+// NOTE: coverImage needs the AppDefinition's entry-field location to include the
+// "Media" field type. Definitions created before the Media importer existed must
+// tick that box once: Apps → Editorial Toolkit → Definition → Entry field → Media.
 const FIELD_WIDGETS = {
   slug: "slug",
   estimatedReadingTime: "reading-time",
   sponsorName: "sponsored",
   relatedPosts: "related",
+  coverImage: "media",
 };
 
 async function run() {
@@ -69,6 +73,29 @@ async function run() {
     control.widgetId = APP_ID;
     control.settings = { tool };
     console.log(`Assigned toolkit (${tool}) to field "${fieldId}".`);
+  }
+
+  // 3. Put the Author sidebar tool at the top of the entry sidebar.
+  // If the sidebar was never customised it is undefined and Contentful renders
+  // the default set — replicate that set so Publish & friends survive.
+  const DEFAULT_SIDEBAR = [
+    "publication-widget",
+    "content-preview-widget",
+    "incoming-links-widget",
+    "translation-widget",
+    "versions-widget",
+  ].map((widgetId) => ({ widgetNamespace: "sidebar-builtin", widgetId }));
+
+  const sidebar = editorInterface.sidebar ?? DEFAULT_SIDEBAR;
+  if (!sidebar.some((w) => w.widgetNamespace === "app" && w.widgetId === APP_ID)) {
+    editorInterface.sidebar = [
+      { widgetNamespace: "app", widgetId: APP_ID, settings: { tool: "author" } },
+      ...sidebar,
+    ];
+    console.log("Added toolkit (author) to the entry sidebar.");
+  } else {
+    editorInterface.sidebar = sidebar;
+    console.log("Toolkit already in the sidebar — leaving as is.");
   }
 
   await editorInterface.update();
