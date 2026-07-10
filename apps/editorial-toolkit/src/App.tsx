@@ -3,7 +3,7 @@ import { useSDK } from "@contentful/react-apps-toolkit";
 import { locations, type FieldAppSDK } from "@contentful/app-sdk";
 
 import { ConfigScreen } from "./locations/ConfigScreen";
-import { DuplicateScannerPage } from "./locations/DuplicateScannerPage";
+import { ValidationHubPage } from "./locations/ValidationHubPage";
 import { SlugField } from "./locations/SlugField";
 import { ReadingTimeField } from "./locations/ReadingTimeField";
 import { SponsoredField } from "./locations/SponsoredField";
@@ -66,7 +66,7 @@ export default function App() {
 
   const component = useMemo(() => {
     if (sdk.location.is(locations.LOCATION_APP_CONFIG)) return <ConfigScreen />;
-    if (sdk.location.is(locations.LOCATION_PAGE)) return <DuplicateScannerPage />;
+    if (sdk.location.is(locations.LOCATION_PAGE)) return <ValidationHubPage />;
     if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) return <FieldRouter />;
     return null;
   }, [sdk.location]);

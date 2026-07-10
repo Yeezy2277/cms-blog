@@ -1,0 +1,33 @@
+# Static analysis + Quality Gate via SonarCloud (free for public repos).
+# No-ops politely until the SONAR_TOKEN secret is configured — see
+# sonar-project.properties for the one-time setup steps.
+name: SonarCloud Code Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Quality Gate
+    runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - name: Checkout (full history for accurate blame/new-code detection)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: Skipped (no SONAR_TOKEN yet)
+        if: env.SONAR_TOKEN == ''
+        run: echo "SONAR_TOKEN secret is not set — add it to enable the Quality Gate."

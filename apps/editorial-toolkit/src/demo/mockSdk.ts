@@ -14,7 +14,12 @@ const CURRENT_ID = "entry-current";
 
 type Fields = Record<string, unknown>;
 type MockEntry = {
-  sys: { id: string; updatedAt: string; contentType: { sys: { id: string } } };
+  sys: {
+    id: string;
+    updatedAt: string;
+    publishedAt?: string;
+    contentType: { sys: { id: string } };
+  };
   fields: Record<string, Record<string, unknown>>;
 };
 
@@ -30,60 +35,111 @@ const doc = (text: string) => ({
   ],
 });
 
-const entry = (id: string, fields: Fields): MockEntry => ({
-  sys: { id, updatedAt: "2026-06-01T09:00:00Z", contentType: { sys: { id: "blogPost" } } },
+const entry = (
+  id: string,
+  fields: Fields,
+  sys: { updatedAt?: string; publishedAt?: string } = {},
+): MockEntry => ({
+  sys: {
+    id,
+    updatedAt: sys.updatedAt ?? "2026-06-01T09:00:00Z",
+    ...(sys.publishedAt ? { publishedAt: sys.publishedAt } : {}),
+    contentType: { sys: { id: "blogPost" } },
+  },
   fields: Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, { [LOCALE]: v }])),
 });
+
+// Complete editorial metadata for "healthy" demo posts.
+const healthy = {
+  excerpt: "A short standfirst so the completeness check passes.",
+  coverImage: { sys: { type: "Link", linkType: "Asset", id: "asset-cover" } },
+  estimatedReadingTime: 2,
+};
 
 /* ----- the demo "space" ---------------------------------------------------- */
 
 export function createDemoSpace() {
+  // Each Validation Hub check has something planted to find; the rest of the
+  // entries are deliberately "healthy" so the summary isn't all red.
   const entries: MockEntry[] = [
-    entry(CURRENT_ID, {
-      title: "Designing a content model that survives change",
-      slug: "designing-content-model-survives-change",
-      tags: ["Architecture", "CMS"],
-      isSponsored: false,
-      sponsorName: "",
-      body: doc(
-        "The fields you choose on day one quietly decide how painful year two will be. " +
-          "A content model is an API contract with your future self: every shortcut you " +
-          "take in modelling becomes a migration later. Start from the queries your " +
-          "frontend needs, not from the shape of the source data.",
-      ),
-      relatedPosts: [],
-    }),
-    entry("entry-isr", {
-      title: "ISR in practice: static speed without the redeploys",
-      slug: "isr-in-practice",
-      tags: ["Next.js", "Performance"],
-      body: doc("Incremental Static Regeneration is the quiet workhorse of content sites."),
-    }),
-    entry("entry-rsc", {
-      title: "Server Components changed how I structure a frontend",
-      slug: "server-components-structure",
-      tags: ["React", "Performance"],
-      body: doc("Moving data fetching to the server made our pages faster and calmer."),
-    }),
-    entry("entry-webhooks", {
-      title: "Webhooks that don't loop: lessons from a reading-time pipeline",
-      slug: "webhooks-that-dont-loop",
-      tags: ["CMS", "Architecture"],
-      body: doc("A webhook that writes to the entry that triggered it is a loop waiting to happen."),
-    }),
-    // Deliberate duplicate slug pair — food for the Content QA scanner.
-    entry("entry-dup-a", {
-      title: "Typed CMS access with view models",
-      slug: "typed-cms-access",
-      tags: ["TypeScript", "CMS"],
-      body: doc("Components never touch raw entries."),
-    }),
-    entry("entry-dup-b", {
-      title: "Typed CMS access with view models (draft rewrite)",
-      slug: "typed-cms-access",
-      tags: ["TypeScript"],
-      body: doc("A rewrite that accidentally kept the old slug."),
-    }),
+    entry(
+      CURRENT_ID,
+      {
+        title: "Designing a content model that survives change",
+        slug: "designing-content-model-survives-change",
+        tags: ["Architecture", "CMS"],
+        isSponsored: false,
+        sponsorName: "",
+        body: doc(
+          "The fields you choose on day one quietly decide how painful year two will be. " +
+            "A content model is an API contract with your future self: every shortcut you " +
+            "take in modelling becomes a migration later. Start from the queries your " +
+            "frontend needs, not from the shape of the source data.",
+        ),
+        relatedPosts: [],
+        ...healthy,
+      },
+      { publishedAt: "2026-06-01T10:00:00Z" },
+    ),
+    entry(
+      "entry-isr",
+      {
+        title: "ISR in practice: static speed without the redeploys",
+        slug: "isr-in-practice",
+        tags: ["Next.js", "Performance"],
+        body: doc("Incremental Static Regeneration is the quiet workhorse of content sites."),
+        ...healthy,
+      },
+      { publishedAt: "2026-05-20T10:00:00Z" },
+    ),
+    // Planted: published but missing cover image + excerpt.
+    entry(
+      "entry-rsc",
+      {
+        title: "Server Components changed how I structure a frontend",
+        slug: "server-components-structure",
+        tags: ["React", "Performance"],
+        body: doc("Moving data fetching to the server made our pages faster and calmer."),
+        estimatedReadingTime: 1,
+      },
+      { publishedAt: "2026-05-12T10:00:00Z" },
+    ),
+    // Planted: relatedPosts link to an entry that no longer exists.
+    entry(
+      "entry-webhooks",
+      {
+        title: "Webhooks that don't loop: lessons from a reading-time pipeline",
+        slug: "webhooks-that-dont-loop",
+        tags: ["CMS", "Architecture"],
+        body: doc("A webhook that writes to the entry that triggered it is a loop waiting to happen."),
+        relatedPosts: [{ sys: { type: "Link", linkType: "Entry", id: "entry-deleted-long-ago" } }],
+        ...healthy,
+      },
+      { publishedAt: "2026-06-10T10:00:00Z" },
+    ),
+    // Planted: duplicate slug pair — the second one is also a stale draft.
+    entry(
+      "entry-dup-a",
+      {
+        title: "Typed CMS access with view models",
+        slug: "typed-cms-access",
+        tags: ["TypeScript", "CMS"],
+        body: doc("Components never touch raw entries."),
+        ...healthy,
+      },
+      { publishedAt: "2026-04-28T10:00:00Z" },
+    ),
+    entry(
+      "entry-dup-b",
+      {
+        title: "Typed CMS access with view models (draft rewrite)",
+        slug: "typed-cms-access",
+        tags: ["TypeScript"],
+        body: doc("A rewrite that accidentally kept the old slug."),
+        ...healthy,
+      },
+      { updatedAt: "2026-04-02T10:00:00Z" }, // draft, untouched for months
+    ),
   ];
 
   /* ----- field-level store + subscriptions on the current entry ----- */

@@ -7,7 +7,7 @@ import { SlugField } from "../locations/SlugField";
 import { ReadingTimeField } from "../locations/ReadingTimeField";
 import { SponsoredField } from "../locations/SponsoredField";
 import { RelatedContentField } from "../locations/RelatedContentField";
-import { DuplicateScannerPage } from "../locations/DuplicateScannerPage";
+import { ValidationHubPage } from "../locations/ValidationHubPage";
 import { createDemoSpace, LOCALE } from "./mockSdk";
 import { richTextToPlainText } from "../utils/readingTime";
 import "./demo.css";
@@ -130,7 +130,7 @@ export function StandaloneDemo() {
             className={tab === "qa" ? "demo-tab demo-tab--active" : "demo-tab"}
             onClick={() => setTab("qa")}
           >
-            Content QA (page location)
+            Validation Hub (page location)
           </button>
         </nav>
       </header>
@@ -245,13 +245,14 @@ export function StandaloneDemo() {
       ) : (
         <main className="demo-qa">
           <p className="demo-qa-note">
-            The same bundle also ships a full-page location — an editorial QA tool that
-            scans every post for duplicate slugs. The demo space contains one deliberate
-            collision; hit <strong>Scan</strong> to find it.
+            The same bundle also ships a full-page location — a validation hub that runs
+            every editorial QA check in one scan: duplicate slugs, links to deleted posts,
+            incomplete metadata and forgotten drafts. The demo space has one of each
+            planted — hit <strong>Re-scan</strong> and the summary lights up.
           </p>
           <div className="demo-widget demo-widget--page">
             <Widget sdk={sdks.page}>
-              <DuplicateScannerPage />
+              <ValidationHubPage />
             </Widget>
           </div>
         </main>
