@@ -1,13 +1,11 @@
-# Build the Editorial Toolkit app and upload the bundle to Contentful Hosting.
+# Deploy the Editorial Toolkit standalone demo to Vercel on every change.
+# The same bundle serves the public playground (opened directly) and the real
+# Contentful app (loaded in the CMS iframe). Contentful-hosted bundle uploads
+# stay a local step (`npm run upload`) — that path needs an OAuth token a CI
+# secret can't provide.
 #
-# Free-tier replacement for the source platform's Cloud Build pipeline: the
-# bundle is hosted by Contentful itself (no GCP, no Artifact Registry), and
-# GitHub Actions does the build + upload that Cloud Build used to.
-#
-# Required repository secrets:
-#   CONTENTFUL_ORG_ID            organisation id
-#   EDITORIAL_TOOLKIT_APP_ID     AppDefinition id (from `npm run create-app`)
-#   CONTENTFUL_CMA_TOKEN         CMA token with app-upload permission
+# Setup: add a VERCEL_TOKEN repo secret (Vercel → Account → Settings → Tokens).
+# The org/project ids below are not secret — they identify the linked project.
 name: Deploy Editorial Toolkit
 
 on:
@@ -19,28 +17,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  upload:
-    name: Build & upload bundle
+  deploy:
+    name: Deploy demo to Vercel
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: apps/editorial-toolkit
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: team_J6bRosdsPJvAb4Ci7J70WHk7
+      VERCEL_PROJECT_ID: prj_LT1OCk5jSbRqs39Nb9QxOaa6ZymC
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: apps/editorial-toolkit/package-lock.json
+          node-version: 22
 
-      - run: npm ci
+      - name: Install Vercel CLI
+        if: env.VERCEL_TOKEN != ''
+        run: npm i --global vercel@latest
 
-      - run: npm run build
+      - name: Deploy to production
+        if: env.VERCEL_TOKEN != ''
+        run: |
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
 
-      - name: Upload bundle to Contentful Hosting
-        run: npm run upload-ci
-        env:
-          CONTENTFUL_ORG_ID: ${{ secrets.CONTENTFUL_ORG_ID }}
-          EDITORIAL_TOOLKIT_APP_ID: ${{ secrets.EDITORIAL_TOOLKIT_APP_ID }}
-          CONTENTFUL_CMA_TOKEN: ${{ secrets.CONTENTFUL_CMA_TOKEN }}
+      - name: Skipped (no VERCEL_TOKEN yet)
+        if: env.VERCEL_TOKEN == ''
+        run: echo "Add a VERCEL_TOKEN secret to enable automatic demo deploys."

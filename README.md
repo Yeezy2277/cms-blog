@@ -170,9 +170,14 @@ In Contentful → **Settings → Webhooks**, add two webhooks, both sending the 
 
 ### 5. CI/CD secrets (GitHub repo → Settings → Secrets)
 
-`CONTENTFUL_SPACE_ID`, `CONTENTFUL_ACCESS_TOKEN`, `CONTENTFUL_PREVIEW_ACCESS_TOKEN`,
-`CONTENTFUL_MANAGEMENT_TOKEN`, `CONTENTFUL_ORG_ID`, `EDITORIAL_TOOLKIT_APP_ID`,
-`RICH_TEXT_EDITOR_APP_ID`, `CONTENTFUL_CMA_TOKEN` (+ optional `SLACK_WEBHOOK_URL`).
+- **CI build** (`ci.yml`): `CONTENTFUL_SPACE_ID`, `CONTENTFUL_ACCESS_TOKEN`, `CONTENTFUL_PREVIEW_ACCESS_TOKEN`.
+- **App demo deploys** (`deploy-toolkit.yml`, `deploy-rich-text-editor.yml` → Vercel): `VERCEL_TOKEN`.
+- **Scheduled audit** (`scheduled-content-audit.yml`): `CONTENTFUL_MANAGEMENT_TOKEN` (+ optional `SLACK_WEBHOOK_URL`).
+- **Static analysis** (`sonarcloud.yml`): `SONAR_TOKEN`.
+
+> Contentful-hosted app bundles are uploaded with a local `npm run upload` (interactive,
+> OAuth-authenticated) — the `app_uploads` API isn't reachable with a CI token, so the
+> deploy workflows publish the Vercel demos instead (the same bundle the CMS iframe loads).
 
 ---
 
