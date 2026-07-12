@@ -126,6 +126,17 @@ body {
   line-height: 1.5;
 }
 
+/* Editor and JSON panels share one height so the demo reads as a balanced,
+   finished split rather than a tiny editor beside a tall code dump. */
+.rte-demo__pane .rte-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+}
+.rte-demo__pane .rte-content {
+  flex: 1;
+}
+
 .rte-demo__json {
   margin: 0;
   height: 560px;
@@ -144,6 +155,9 @@ body {
 @media (max-width: 860px) {
   .rte-demo__grid {
     grid-template-columns: 1fr;
+  }
+  .rte-demo__pane .rte-shell {
+    min-height: 380px;
   }
   .rte-demo__json {
     height: 360px;

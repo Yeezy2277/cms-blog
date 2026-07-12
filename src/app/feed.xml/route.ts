@@ -2,7 +2,7 @@ import { getAllPosts } from "@/lib/contentful";
 
 export const revalidate = 3600;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cms-blog-steel.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lumen.vitaliipopov.dev";
 
 const escapeXml = (s: string) =>
   s.replace(/[<>&'"]/g, (c) =>

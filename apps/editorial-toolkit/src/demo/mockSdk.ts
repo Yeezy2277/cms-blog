@@ -12,6 +12,21 @@
 export const LOCALE = "en-US";
 const CURRENT_ID = "entry-current";
 
+/** Inline cover art so the demo asset always renders (no external fetch). */
+const DEMO_COVER_URL =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200">` +
+      `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
+      `<stop offset="0" stop-color="#4c8dff"/><stop offset="1" stop-color="#7b5cff"/>` +
+      `</linearGradient></defs>` +
+      `<rect width="320" height="200" fill="#161b22"/>` +
+      `<rect width="320" height="200" fill="url(#g)" opacity="0.9"/>` +
+      `<circle cx="118" cy="74" r="22" fill="#ffffff" opacity="0.75"/>` +
+      `<path d="M40 168 L128 92 L182 132 L232 88 L300 168 Z" fill="#ffffff" opacity="0.55"/>` +
+      `</svg>`,
+  );
+
 type Fields = Record<string, unknown>;
 type MockEntry = {
   sys: {
@@ -85,7 +100,7 @@ export function createDemoSpace() {
     // Author entries — the sidebar tool lists, assigns and creates these.
     entry(
       "author-vp",
-      { name: "Vitaly Popov", title: "Frontend Engineer" },
+      { name: "Vitalii Popov", title: "Senior Frontend Engineer" },
       { publishedAt: "2026-05-01T10:00:00Z", contentType: "author" },
     ),
     entry(
@@ -187,7 +202,7 @@ export function createDemoSpace() {
           [LOCALE]: {
             contentType: "image/svg+xml",
             fileName: "cover.svg",
-            url: "https://images.ctfassets.net/demo/cover.svg",
+            url: DEMO_COVER_URL,
           },
         },
       },

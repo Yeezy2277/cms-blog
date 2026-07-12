@@ -24,7 +24,7 @@ type Theme = "light" | "dark";
 
 function initialTheme(): Theme {
   try {
-    return localStorage.getItem("toolkit-demo-theme") === "dark" ? "dark" : "light";
+    return localStorage.getItem("toolkit-demo-theme") === "light" ? "light" : "dark";
   } catch {
     return "light";
   }

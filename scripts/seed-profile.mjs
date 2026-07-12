@@ -24,12 +24,12 @@ const data = {
   headline: "Senior Frontend Engineer",
   tagline: "React · Next.js · TypeScript · Headless CMS (Contentful)",
   location: "Tbilisi, Georgia",
-  timezone: "UTC+4 · comfortable in EU / Central-European hours",
+  timezone: "Remote · daily overlap with US East Coast hours",
   available: true,
-  availability: "Open to long-term remote B2B — European teams, incl. DACH",
+  availability: "Open to remote roles with US teams — full-time or B2B contract",
   bio: [
-    "Senior Frontend Engineer with 5+ years building product-oriented web platforms in React, Next.js and TypeScript. I work best when I own the frontend end-to-end — component architecture, performance, and the delivery pipeline that ships it — and I'll happily pick up the DevOps slack so delivery stays unblocked.",
-    "Everything on this page is live, inspectable, and built on free infrastructure: a public reproduction of the kind of Contentful platform work I do day to day — custom CMS apps, webhooks, content-model migrations and CI/CD — so you can read the code, not just the résumé.",
+    "Senior Frontend Engineer with 5+ years shipping product web platforms in React, Next.js and TypeScript. I own the frontend end-to-end — architecture, performance, and the CI/CD pipeline that ships it — and I pick up the DevOps slack so delivery never blocks on someone else.",
+    "Don't take the résumé's word for it: everything on this page is live and inspectable. It's a public reproduction of my production Contentful platform work — custom CMS apps, webhooks, content-model migrations, quality gates — plus real-time canvas and 3D/BIM work. Read the code, click the demos.",
   ].join("\n\n"),
   stack: ["React", "Next.js", "TypeScript", "React Native", "Contentful", "GCP", "CI/CD (GitHub Actions)"],
   certifications: ["Contentful Certified Professional", "Meta — Introduction to Front-End Development"],
@@ -42,11 +42,11 @@ const data = {
   ],
   experience: [
     {
-      company: "Confidential European Media Client",
+      company: "Confidential Media Client (EU)",
       title: "Frontend Developer",
       period: "2025 – 2026",
       summary:
-        "Owned the frontend of a Contentful-based media platform (React, Next.js, TypeScript): custom in-CMS editor apps, an RSS syndication system, and GCP deployments with GitHub Actions CI/CD.",
+        "Owned the frontend of a Contentful-based media platform (React, Next.js, TypeScript): shipped custom in-CMS editor apps, an RSS syndication system, and ran GCP deployments with GitHub Actions CI/CD solo.",
       href: "/projects/cms-blog",
       hrefLabel: "This portfolio reproduces that work in public →",
     },
@@ -55,14 +55,25 @@ const data = {
       title: "Senior Frontend Developer",
       period: "2023 – 2025",
       summary:
-        "Frontend owner of a real-time multiplayer game client: built the core UI framework every in-game screen rendered through (web UI over the game via CEF) and real-time systems — player economy, messaging, interactive maps.",
+        "Frontend owner of a real-time multiplayer game client: built the core UI framework every in-game screen rendered through (web UI over the game via CEF) and the real-time systems on top — player economy, messaging, interactive maps.",
+      href: "/projects/live-ops-console",
+      hrefLabel: "Real-time patterns demoed in Pulse →",
     },
     {
-      company: "Sberbank · Internetica",
-      title: "Frontend Developer",
+      company: "Internetica",
+      title: "Frontend Developer · Outsourcing",
       period: "2020 – 2022",
       summary:
-        "Reusable component libraries, feature-toggling to de-risk releases, and a React Native rewrite that cut launch time and UI latency for a web marketplace.",
+        "Product work for telecom, marketplace and construction-tech clients: rewrote a hybrid app to native React Native (cutting launch time and UI latency) and built BIM viewer extensions on three.js — clash-review and element-grouping tooling on top of an embedded 3D component.",
+      href: "/projects/bim-clash-viewer",
+      hrefLabel: "BIM tooling reproduced in Girder →",
+    },
+    {
+      company: "Sberbank",
+      title: "Frontend Developer",
+      period: "2022",
+      summary:
+        "Introduced feature-toggling to ship and roll back features without redeploys, built a reusable UI component library that cut delivery time on new internal tools, and a reporting dashboard that removed manual data-collection work for analysts.",
     },
   ],
   links: [

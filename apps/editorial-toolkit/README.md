@@ -1,6 +1,6 @@
 # Editorial Toolkit — Contentful App
 
-> **▶ Live demo (no login):** <https://editorial-toolkit.vercel.app> — the real widget
+> **▶ Live demo (no login):** <https://toolkit.vitaliipopov.dev> — the real widget
 > code running against an in-memory mock of the App SDK (`src/demo/`). Inside
 > Contentful the same bundle runs as the actual field/page apps.
 

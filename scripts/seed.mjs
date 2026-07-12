@@ -291,6 +291,160 @@ const articles = [
       ),
     ),
   },
+  {
+    title: "The CI that couldn't upload: when a token isn't enough",
+    slug: "ci-that-couldnt-upload",
+    excerpt:
+      "A deploy pipeline that kept failing taught me to read the HTTP status, not the stack trace — and that the cheapest fix is often moving the work, not forcing the path.",
+    publishedDate: "2026-07-08T09:00:00Z",
+    tags: ["CI/CD", "Architecture"],
+    related: ["webhook-that-writes-back", "isr-in-practice"],
+    body: doc(
+      p(
+        "The deploy workflow for the CMS apps kept going red. Two problems hid behind one red X, and untangling them is a decent tour of how I debug a pipeline: read the exact failure, then decide whether to fix the path or change it.",
+      ),
+      h2("Problem one: a prompt with no one to answer it"),
+      p(
+        "The job died with exit code 130. That number is the tell — ",
+        code("128 + SIGINT"),
+        " — a process interrupted while waiting. The upload CLI was asking, interactively, ",
+        code("Add a comment to the created bundle?"),
+        " and CI has no keyboard. Passing ",
+        code("--comment"),
+        " answered the first prompt; a second one (",
+        code("activate the bundle? (Y/n)"),
+        ") needed ",
+        code("yes |"),
+        " piped in — with ",
+        code("set +o pipefail"),
+        " so the ",
+        code("SIGPIPE"),
+        " that kills ",
+        code("yes"),
+        " doesn't fail the step. Non-interactive at last.",
+      ),
+      h2("Problem two: a 404 that wasn't about the URL"),
+      p(
+        "Then the upload itself returned ",
+        code("404"),
+        " on ",
+        code("POST /organizations/{org}/app_uploads"),
+        ". A 404 on a write endpoint you can see in the docs is rarely a wrong URL — it's usually the API saying \"your credentials can't do this here.\" And that was it: Contentful's app-bundle hosting needs an OAuth token, not a personal management token. A PAT can read definitions and 404s on uploads.",
+      ),
+      h2("The decision"),
+      p(
+        "I could have stood up an OAuth app with a refresh-token dance in CI. For a portfolio, that's a lot of moving parts to keep a green checkmark. But the apps already live as public demos on Vercel — and the same bundle that serves the demo serves the CMS iframe. So the honest move was to point the deploy workflow at Vercel, where the apps actually run, and keep the Contentful bundle refresh as a local, OAuth-authenticated step.",
+      ),
+      ul(
+        li("Lost: \"CI uploads to Contentful Hosting.\""),
+        li("Gained: a green, honest pipeline that deploys exactly where the code runs."),
+      ),
+      quote(
+        p(
+          "A 404 on a write endpoint means \"you can't,\" not \"wrong address.\" And the cheapest fix is often to change where the work happens, not to force the original path.",
+        ),
+      ),
+    ),
+  },
+  {
+    title: "An invisible clash: the three.js transparency trap",
+    slug: "threejs-transparency-trap",
+    excerpt:
+      "Setting material.opacity did nothing. The fix was one line — and a reminder that in retained-mode 3D, some properties are compiled into the shader, not read every frame.",
+    publishedDate: "2026-07-09T09:00:00Z",
+    tags: ["three.js", "Debugging", "Performance"],
+    related: ["slate-contentful-transform", "living-world-no-server"],
+    body: doc(
+      p(
+        "In the BIM clash viewer, clicking a clash isolates the offending pair and ghosts the rest of the model to glass — the way a coordination review reads a conflict through the surrounding structure. It worked for some elements and silently did nothing for others.",
+      ),
+      h2("The symptom"),
+      p(
+        "The ghosting code was trivial: for every element that isn't in the clash, set ",
+        code("material.opacity = 0.07"),
+        ". Elements that were already translucent (the architecture layer) faded correctly. Elements that started fully opaque (columns, beams) stayed solid — the same line, ignored.",
+      ),
+      h2("The cause"),
+      p(
+        "three.js compiles a material into a GPU shader program once, and whether the material is ",
+        bold("transparent"),
+        " is baked into that program at compile time — it changes the render pass, blending and depth-write behaviour. Flipping ",
+        code("material.transparent = true"),
+        " at runtime doesn't recompile the program, so a material that was born opaque keeps rendering opaque no matter what you do to ",
+        code("opacity"),
+        ".",
+      ),
+      p("The fix is one line — force the recompile:"),
+      ul(
+        li(code("material.transparent = true")),
+        li(code("material.opacity = 0.07")),
+        li(code("material.needsUpdate = true"), "  ← the line that was missing"),
+      ),
+      h2("The nuance worth keeping"),
+      p(
+        "Not every property behaves this way. ",
+        code("color"),
+        " and ",
+        code("opacity"),
+        " are shader uniforms — live, cheap, per-frame. ",
+        code("transparent"),
+        ", clipping planes, and light counts are compile-time — changing them costs a program rebuild. So ",
+        code("needsUpdate"),
+        " is a sledgehammer: right once on a state change, wrong every frame in the render loop.",
+      ),
+      quote(
+        p(
+          "In retained-mode 3D, \"set a property\" isn't always \"and it takes effect.\" Know which properties are uniforms and which recompile the shader.",
+        ),
+      ),
+    ),
+  },
+  {
+    title: "A living world with no server: real-time on the client",
+    slug: "living-world-no-server",
+    excerpt:
+      "A live ops dashboard with no backend. The trick was decoupling the thing that changes fast (animation) from the thing that changes meaningfully (data) — three layers, one smooth result.",
+    publishedDate: "2026-07-10T09:00:00Z",
+    tags: ["React", "Performance", "Real-time"],
+    related: ["threejs-transparency-trap", "server-components-changed-structure"],
+    body: doc(
+      p(
+        "The live ops console had to feel alive — regions pulsing, metrics ticking, an event stream scrolling — with no backend at all. The interesting engineering isn't the simulation; it's keeping the whole thing smooth without asking React to animate.",
+      ),
+      h2("Three layers, deliberately separate"),
+      ol(
+        li(
+          bold("The simulation"),
+          " ticks at 4 Hz on a seeded RNG, mutating a plain state object. Deterministic, so it's the same world every load — and unit-testable.",
+        ),
+        li(
+          bold("An observable store"),
+          " bumps a version each tick. React's scalar readouts (players online, matches per minute) read it through ",
+          code("useSyncExternalStore"),
+          " and re-render four times a second — cheap, and exactly as often as the numbers change.",
+        ),
+        li(
+          bold("The canvas map"),
+          " runs its own ",
+          code("requestAnimationFrame"),
+          " loop, reads the latest state directly, and interpolates the pulse by wall-clock time. 60 fps, zero React re-renders.",
+        ),
+      ),
+      h2("Why not just re-render everything?"),
+      p(
+        "Because the map's pulse animates every frame, and the data behind it changes four times a second. If React drove the animation, you'd reconcile a tree 60 times a second for motion the reconciler adds nothing to — and the pulse would stutter whenever the sim ticked. Letting the canvas own the hot path means the animation is smooth regardless of the simulation rate.",
+      ),
+      quote(
+        p(
+          "Decouple the thing that changes fast from the thing that changes meaningfully. React for data; requestAnimationFrame and canvas for motion.",
+        ),
+      ),
+      hr(),
+      p(
+        "It's the same split I leaned on shipping real-time game UI: the framework renders state, a separate loop renders time. Keep them apart and each stays simple.",
+      ),
+    ),
+  },
 ];
 
 /* ----- cover art -------------------------------------------------------------
@@ -387,6 +541,42 @@ const covers = {
      </g>
      <polygon points="700,290 740,310 700,330" fill="${C.amber}"/>
      <polygon points="480,345 440,365 480,385" fill="${C.amber}"/>`,
+  ),
+  // pipeline: blocked node, rerouted around it
+  "ci-that-couldnt-upload": svgWrap(
+    `<g fill="none" stroke-width="8" stroke-linecap="round">
+       <path d="M170 337 L 470 337" stroke="${C.blue}"/>
+       <path d="M470 337 L 560 337" stroke="${C.red}" stroke-dasharray="2 26"/>
+       <path d="M470 337 C 560 337, 560 200, 690 200 L 1030 200" stroke="${C.teal}"/>
+     </g>
+     <rect x="120" y="307" width="60" height="60" rx="12" fill="${C.surface}" stroke="${C.blue}" stroke-width="3"/>
+     <rect x="500" y="300" width="74" height="74" rx="14" fill="${C.surface}" stroke="${C.red}" stroke-width="3"/>
+     <path d="M518 318 l 38 38 M556 318 l -38 38" stroke="${C.red}" stroke-width="5" stroke-linecap="round"/>
+     <rect x="1000" y="170" width="60" height="60" rx="12" fill="${C.surface}" stroke="${C.teal}" stroke-width="3"/>
+     <path d="M1016 200 l 12 12 l 26 -30" stroke="${C.teal}" stroke-width="5" fill="none" stroke-linecap="round"/>`,
+  ),
+  // overlapping translucent cubes — the transparency trap
+  "threejs-transparency-trap": svgWrap(
+    `<g stroke-width="2.5">
+       <rect x="430" y="240" width="180" height="180" rx="6" fill="${C.blueSoft}" stroke="${C.blue}"/>
+       <rect x="540" y="300" width="180" height="180" rx="6" fill="rgba(45,212,191,0.28)" stroke="${C.teal}"/>
+       <rect x="490" y="360" width="150" height="150" rx="6" fill="rgba(226,86,74,0.30)" stroke="${C.red}"/>
+     </g>
+     <circle cx="565" cy="390" r="9" fill="${C.amber}"/>`,
+  ),
+  // concentric pulse — a world tick
+  "living-world-no-server": svgWrap(
+    `<g fill="none" stroke="${C.teal}" stroke-width="2.5">
+       <circle cx="600" cy="337" r="40" opacity="0.9"/>
+       <circle cx="600" cy="337" r="90" opacity="0.55"/>
+       <circle cx="600" cy="337" r="150" opacity="0.3"/>
+       <circle cx="600" cy="337" r="220" opacity="0.14"/>
+     </g>
+     <circle cx="600" cy="337" r="16" fill="${C.teal}"/>
+     <g fill="${C.blue}">
+       <circle cx="330" cy="200" r="10"/><circle cx="900" cy="240" r="10"/>
+       <circle cx="860" cy="470" r="10"/><circle cx="340" cy="460" r="10"/>
+     </g>`,
   ),
 };
 

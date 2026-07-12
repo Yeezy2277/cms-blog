@@ -7,7 +7,7 @@
 
 Not just a blog: a **public site + the editorial tooling and automation around it**, built the way a real Contentful-backed product is. A typed Next.js frontend, a consolidated **Contentful App Framework** app for the editors, **webhook** automation, a **scheduled content audit**, and **content-model migrations** — all running on free infrastructure (Vercel + GitHub Actions + Contentful Hosting), no cloud billing account required.
 
-> **Live demo:** <https://cms-blog-steel.vercel.app> · [Rich Text Editor playground](https://rich-text-editor-psi.vercel.app) · [Editorial Toolkit playground](https://editorial-toolkit.vercel.app)
+> **Live demo:** <https://lumen.vitaliipopov.dev> · [Rich Text Editor playground](https://rte.vitaliipopov.dev) · [Editorial Toolkit playground](https://toolkit.vitaliipopov.dev)
 > **Status:** demo / portfolio project
 
 ![Home page screenshot](./public/screenshot-home.png)
