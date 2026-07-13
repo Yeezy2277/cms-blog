@@ -13,7 +13,14 @@
     "seed:profile": "node scripts/seed-profile.mjs",
     "bootstrap": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/000-create-content-types.cjs",
     "migrate": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/001-add-editorial-fields.cjs",
-    "migrate:profile": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/002-create-profile.cjs"
+    "migrate:profile": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/002-create-profile.cjs",
+    "migrate:profile-avatar": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/003-add-profile-avatar.cjs",
+    "seed:profile-avatar": "node scripts/seed-profile-avatar.mjs",
+    "migrate:projects": "contentful space migration --space-id \"$CONTENTFUL_SPACE_ID\" --environment-id \"${CONTENTFUL_ENVIRONMENT:-master}\" --management-token \"$CONTENTFUL_MANAGEMENT_TOKEN\" --yes content-model/migrations/004-create-project.cjs",
+    "seed:projects": "node scripts/seed-projects.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "lhci": "lhci autorun"
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^17.1.6",
@@ -26,6 +33,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@types/node": "^22.10.0",
     "contentful-cli": "^4.0.0",
     "@types/react": "^19.0.0",

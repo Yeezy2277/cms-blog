@@ -14,11 +14,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-md);
 }
 .brand {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
+  flex-shrink: 0;
 }
 .mark {
   display: grid;
@@ -51,4 +53,15 @@
 }
 .navLink:hover {
   color: var(--color-ink);
+}
+
+/* Mobile: keep the brand from touching the nav — drop the secondary link and
+   tighten spacing so "Lumen · Articles · toggle" breathe on a phone. */
+@media (max-width: 560px) {
+  .nav {
+    gap: var(--space-sm);
+  }
+  .builtOn {
+    display: none;
+  }
 }

@@ -1,6 +1,8 @@
 # Lumen — a Contentful content platform
 
 [![CI](https://github.com/Yeezy2277/cms-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/ci.yml)
+[![E2E](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml)
+[![Lighthouse](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml)
 [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=Yeezy2277_cms-blog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Yeezy2277_cms-blog)
 [![Deploy Rich Text Editor](https://github.com/Yeezy2277/cms-blog/actions/workflows/deploy-rich-text-editor.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/deploy-rich-text-editor.yml)
 [![Scheduled content audit](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml)

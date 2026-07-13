@@ -17,7 +17,7 @@ export function SiteHeader() {
           </Link>
           <a
             href="https://www.contentful.com"
-            className={styles.navLink}
+            className={`${styles.navLink} ${styles.builtOn}`}
             target="_blank"
             rel="noreferrer"
           >

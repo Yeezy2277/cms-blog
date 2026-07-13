@@ -106,9 +106,14 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0,1fr) so the JSON <pre> (huge min-content width) can't push the
+     column wider than half — both panes stay exactly 50/50, JSON scrolls. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
   align-items: start;
+}
+.rte-demo__pane {
+  min-width: 0;
 }
 
 .rte-demo__label {
@@ -161,5 +166,21 @@ body {
   }
   .rte-demo__json {
     height: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .rte-demo {
+    padding: 40px 16px 56px;
+  }
+  /* Toggle gets its own top row above the badge, clear of the heading. */
+  .rte-demo__theme {
+    top: -6px;
+  }
+  .rte-demo__head h1 {
+    font-size: 1.7rem;
+  }
+  .rte-demo__json {
+    font-size: 11px;
   }
 }
