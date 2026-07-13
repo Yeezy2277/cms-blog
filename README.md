@@ -4,7 +4,6 @@
 [![E2E](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml)
 [![Lighthouse](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml)
 [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=Yeezy2277_cms-blog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Yeezy2277_cms-blog)
-[![Deploy Rich Text Editor](https://github.com/Yeezy2277/cms-blog/actions/workflows/deploy-rich-text-editor.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/deploy-rich-text-editor.yml)
 [![Scheduled content audit](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml)
 
 Not just a blog: a **public site + the editorial tooling and automation around it**, built the way a real Contentful-backed product is. A typed Next.js frontend, a consolidated **Contentful App Framework** app for the editors, **webhook** automation, a **scheduled content audit**, and **content-model migrations** — all running on free infrastructure (Vercel + GitHub Actions + Contentful Hosting), no cloud billing account required.
