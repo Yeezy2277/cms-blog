@@ -5,10 +5,22 @@
  * top — same "local seed + remote enrich" pattern as the profile. Any field left
  * blank in Contentful falls back to the seed, so a half-filled entry is safe.
  *
+ * Idempotent: if the content type already exists it is left untouched, so this
+ * can be re-run safely.
+ *
  *   npm run migrate:projects
  *   npm run seed:projects
  */
-module.exports = function (migration) {
+module.exports = async function (migration, { makeRequest }) {
+  const exists = await makeRequest({ method: "GET", url: "/content_types/project" })
+    .then(() => true)
+    .catch(() => false);
+
+  if (exists) {
+    console.log('Content type "project" already exists — nothing to migrate.');
+    return;
+  }
+
   const project = migration
     .createContentType("project")
     .name("Project")
