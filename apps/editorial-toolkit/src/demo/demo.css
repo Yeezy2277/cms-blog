@@ -248,6 +248,8 @@ body {
 
 .demo-widget--page {
   padding: 20px;
+  /* Wide Forma 36 tables scroll inside the widget instead of the page. */
+  overflow-x: auto;
 }
 
 .demo-qa-note {

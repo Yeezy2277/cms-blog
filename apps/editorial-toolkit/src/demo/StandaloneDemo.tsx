@@ -24,7 +24,9 @@ type Theme = "light" | "dark";
 
 function initialTheme(): Theme {
   try {
-    return localStorage.getItem("toolkit-demo-theme") === "light" ? "light" : "dark";
+    // Default to light: the real widgets are Forma 36 (light), so a light shell
+    // keeps them native. Dark stays available via the toggle.
+    return localStorage.getItem("toolkit-demo-theme") === "dark" ? "dark" : "light";
   } catch {
     return "light";
   }

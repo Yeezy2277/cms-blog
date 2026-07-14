@@ -127,7 +127,7 @@ export function ValidationHubPage() {
       {error && <Note variant="negative">{error}</Note>}
 
       {ran && !error && (
-        <Grid columns="1fr 1fr 1fr 1fr" columnGap="spacingM">
+        <Grid columns="repeat(auto-fit, minmax(130px, 1fr))" columnGap="spacingM" rowGap="spacingM">
           {summary.map((s) => (
             <Card key={s.label} padding="default">
               <Flex flexDirection="column" gap="spacing2Xs">
