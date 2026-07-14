@@ -23,10 +23,11 @@ const data = {
   name: "Vitalii Popov",
   headline: "Senior Frontend Engineer",
   tagline: "React · Next.js · TypeScript · Headless CMS (Contentful)",
-  location: "Tbilisi, Georgia",
-  timezone: "Remote · daily overlap with US East Coast hours",
+  location: "Medellín, Colombia",
+  timezone: "Remote · same working hours as US East Coast (UTC-5)",
   available: true,
-  availability: "Open to remote roles with US teams — full-time or B2B contract",
+  availability:
+    "Open to remote roles with US teams — full-time or B2B contract. Based in Medellín, Colombia — working US Eastern hours (UTC-5): the same working day as US East Coast teams.",
   bio: [
     "Senior Frontend Engineer with 5+ years shipping product web platforms in React, Next.js and TypeScript. I own the frontend end-to-end — architecture, performance, and the CI/CD pipeline that ships it — and I pick up the DevOps slack so delivery never blocks on someone else.",
     "Don't take the résumé's word for it: everything on this page is live and inspectable. It's a public reproduction of my production Contentful platform work — custom CMS apps, webhooks, content-model migrations, quality gates — plus real-time canvas and 3D/BIM work. Read the code, click the demos.",
@@ -43,7 +44,7 @@ const data = {
   experience: [
     {
       company: "Confidential Media Client (EU)",
-      title: "Frontend Developer",
+      title: "Senior Frontend Developer",
       period: "2025 – 2026",
       summary:
         "Owned the frontend of a Contentful-based media platform (React, Next.js, TypeScript): shipped custom in-CMS editor apps, an RSS syndication system, and ran GCP deployments with GitHub Actions CI/CD solo.",
