@@ -51,6 +51,19 @@ const projects = [
     order: 1,
   },
   {
+    slug: "depot",
+    title: "Depot — content API",
+    summary:
+      "The backend half of a CMS: email/password sessions + hashed delivery tokens, a typed Postgres content model (collections → items with a publish lifecycle), Zod validation, rate limiting and a token-secured delivery API. Next.js route handlers + Drizzle + Neon.",
+    liveUrl: "https://depot.vitaliipopov.dev",
+    repoUrl: "https://github.com/Yeezy2277/depot",
+    tags: ["Next.js", "PostgreSQL", "Drizzle", "Auth", "REST API"],
+    embeddable: true,
+    featured: true,
+    hidden: false,
+    order: 1,
+  },
+  {
     slug: "editorial-toolkit",
     title: "Editorial Toolkit",
     summary:
