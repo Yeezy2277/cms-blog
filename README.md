@@ -3,7 +3,7 @@
 [![CI](https://github.com/Yeezy2277/cms-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/ci.yml)
 [![E2E](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/e2e.yml)
 [![Lighthouse](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/lighthouse.yml)
-[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=Yeezy2277_cms-blog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Yeezy2277_cms-blog)
+[![CodeQL](https://github.com/Yeezy2277/cms-blog/actions/workflows/codeql.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/codeql.yml)
 [![Scheduled content audit](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml/badge.svg)](https://github.com/Yeezy2277/cms-blog/actions/workflows/scheduled-content-audit.yml)
 
 Not just a blog: a **public site + the editorial tooling and automation around it**, built the way a real Contentful-backed product is. A typed Next.js frontend, a consolidated **Contentful App Framework** app for the editors, **webhook** automation, a **scheduled content audit**, and **content-model migrations** — all running on free infrastructure (Vercel + GitHub Actions + Contentful Hosting), no cloud billing account required.
@@ -171,10 +171,10 @@ In Contentful → **Settings → Webhooks**, add two webhooks, both sending the 
 
 ### 5. CI/CD secrets (GitHub repo → Settings → Secrets)
 
-- **CI build** (`ci.yml`): `CONTENTFUL_SPACE_ID`, `CONTENTFUL_ACCESS_TOKEN`, `CONTENTFUL_PREVIEW_ACCESS_TOKEN`.
-- **App demo deploys** (`deploy-toolkit.yml`, `deploy-rich-text-editor.yml` → Vercel): `VERCEL_TOKEN`.
+- **CI build** (`ci.yml`) + **E2E** (`e2e.yml`) + **Lighthouse** (`lighthouse.yml`): `CONTENTFUL_SPACE_ID`, `CONTENTFUL_ACCESS_TOKEN`, `CONTENTFUL_PREVIEW_ACCESS_TOKEN`.
 - **Scheduled audit** (`scheduled-content-audit.yml`): `CONTENTFUL_MANAGEMENT_TOKEN` (+ optional `SLACK_WEBHOOK_URL`).
-- **Static analysis** (`sonarcloud.yml`): `SONAR_TOKEN`.
+- **Static analysis** (`codeql.yml`): none — GitHub-native, no token required.
+- **App demos** (Toolkit, RTE): deployed via Vercel git integration (Root Directory set per project); no CI secret needed.
 
 > Contentful-hosted app bundles are uploaded with a local `npm run upload` (interactive,
 > OAuth-authenticated) — the `app_uploads` API isn't reachable with a CI token, so the

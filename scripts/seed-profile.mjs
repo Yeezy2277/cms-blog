@@ -73,7 +73,7 @@ const data = {
       title: "Frontend Developer",
       period: "2022",
       summary:
-        "Introduced feature-toggling to ship and roll back features without redeploys, built a reusable UI component library that cut delivery time on new internal tools, and a reporting dashboard that removed manual data-collection work for analysts.",
+        "Short engagement on internal tooling: introduced feature-toggling for safe releases and contributed to a shared React component library.",
     },
   ],
   links: [
