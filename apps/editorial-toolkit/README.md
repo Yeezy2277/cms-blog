@@ -17,6 +17,13 @@ One [App Framework](https://www.contentful.com/developers/docs/extensibility/app
 | **Validation Hub** | page | One scan, every editorial QA check: duplicate slugs, links to deleted entries, incomplete metadata (cover/tags/excerpt/reading time) and stale drafts — with severity badges and jump-to-entry. Checks are pure functions (`src/utils/audit.ts`), unit-tested and mirrored by the scheduled GitHub-Actions audit. |
 | **Config** | app-config | Install screen + docs. |
 
+## Performance
+
+Lighthouse (PageSpeed Insights) on the live demo — mobile (Forma 36 is a heavier UI kit,
+so mobile Performance lands in the high 80s):
+
+![Lighthouse scores — Performance 88, Accessibility 96, Best Practices 100, SEO 91](./docs/lighthouse.png)
+
 ## Develop
 
 ```bash
