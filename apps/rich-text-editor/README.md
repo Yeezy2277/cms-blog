@@ -4,6 +4,12 @@ A custom **PlateJS** (Slate) editor that replaces the native Rich Text field UI 
 
 It demonstrates the hardest part of a custom Contentful editor: owning the editing surface while still storing schema-valid CDA content. The conversion layer ([`src/transform.ts`](src/transform.ts)) is round-trip tested.
 
+## Performance
+
+Lighthouse (PageSpeed Insights) on the live playground — desktop:
+
+![Lighthouse scores — Performance 100, Accessibility 94, Best Practices 100, SEO 90](./docs/lighthouse.png)
+
 ## Features
 
 - **Marks** — bold, italic, underline, inline code
