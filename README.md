@@ -16,13 +16,10 @@ Not just a blog: a **public site + the editorial tooling and automation around i
 
 ### Performance
 
-Lighthouse CI runs on every push (badge above). Latest scores:
+Lighthouse CI runs on every push (badge above). A run against the live site scores
+**100 across the board on desktop** (PageSpeed Insights):
 
-![Lighthouse scores — Performance / Accessibility / Best Practices / SEO](./docs/lighthouse.png)
-
-<!-- Generate the image: open https://lumen.vitaliipopov.dev in Chrome →
-     DevTools → Lighthouse → Analyze (Desktop), or `npx lighthouse https://lumen.vitaliipopov.dev --view`.
-     Screenshot the four category rings (aim 95+) and save as docs/lighthouse.png. -->
+![Lighthouse scores — Performance 100, Accessibility 100, Best Practices 100, SEO 100 (desktop)](./docs/lighthouse.png)
 
 ---
 
