@@ -14,6 +14,16 @@ Not just a blog: a **public site + the editorial tooling and automation around i
 ![Home page screenshot](./public/screenshot-home.png)
 <!-- Add screenshots to /public and update these paths -->
 
+### Performance
+
+Lighthouse CI runs on every push (badge above). Latest scores:
+
+![Lighthouse scores — Performance / Accessibility / Best Practices / SEO](./docs/lighthouse.png)
+
+<!-- Generate the image: open https://lumen.vitaliipopov.dev in Chrome →
+     DevTools → Lighthouse → Analyze (Desktop), or `npx lighthouse https://lumen.vitaliipopov.dev --view`.
+     Screenshot the four category rings (aim 95+) and save as docs/lighthouse.png. -->
+
 ---
 
 ## Why this exists
