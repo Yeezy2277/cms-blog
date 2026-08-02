@@ -12,18 +12,34 @@
 export const LOCALE = "en-US";
 const CURRENT_ID = "entry-current";
 
-/** Inline cover art so the demo asset always renders (no external fetch). */
+/** Inline cover art so the demo asset always renders (no external fetch).
+    On-brand geometric scene matching the portfolio's dark palette. */
 const DEMO_COVER_URL =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200">` +
-      `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
-      `<stop offset="0" stop-color="#4c8dff"/><stop offset="1" stop-color="#7b5cff"/>` +
-      `</linearGradient></defs>` +
-      `<rect width="320" height="200" fill="#161b22"/>` +
-      `<rect width="320" height="200" fill="url(#g)" opacity="0.9"/>` +
-      `<circle cx="118" cy="74" r="22" fill="#ffffff" opacity="0.75"/>` +
-      `<path d="M40 168 L128 92 L182 132 L232 88 L300 168 Z" fill="#ffffff" opacity="0.55"/>` +
+    `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200">` +
+      `<defs>` +
+      `<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">` +
+      `<stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#182034"/>` +
+      `</linearGradient>` +
+      `<linearGradient id="mb" x1="0" y1="0" x2="1" y2="1">` +
+      `<stop offset="0" stop-color="#5c9bff"/><stop offset="1" stop-color="#2f6fe4"/>` +
+      `</linearGradient>` +
+      `<linearGradient id="mt" x1="0" y1="0" x2="1" y2="1">` +
+      `<stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#1f9e75"/>` +
+      `</linearGradient>` +
+      `</defs>` +
+      `<rect width="320" height="200" fill="url(#sky)"/>` +
+      `<g stroke="#2a313c" stroke-width="1" opacity="0.45">` +
+      `<line x1="53" y1="0" x2="53" y2="200"/><line x1="107" y1="0" x2="107" y2="200"/>` +
+      `<line x1="160" y1="0" x2="160" y2="200"/><line x1="213" y1="0" x2="213" y2="200"/>` +
+      `<line x1="267" y1="0" x2="267" y2="200"/>` +
+      `</g>` +
+      `<circle cx="242" cy="54" r="42" fill="#f5b544" opacity="0.12"/>` +
+      `<circle cx="242" cy="54" r="24" fill="#f5b544"/>` +
+      `<path d="M0 200 L92 104 L166 156 L166 200 Z" fill="url(#mt)" opacity="0.9"/>` +
+      `<path d="M118 200 L214 82 L320 158 L320 200 Z" fill="url(#mb)"/>` +
+      `<rect x="0" y="198" width="320" height="2" fill="#4c8dff" opacity="0.5"/>` +
       `</svg>`,
   );
 
