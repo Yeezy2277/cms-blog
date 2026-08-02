@@ -1,0 +1,45 @@
+# Scheduled Contentful backup — disaster recovery for the shared space.
+#
+# One free-tier space backs the whole portfolio (blog, profile, projects, and
+# Recall's prep content). This dumps it to JSON weekly and stores it as a
+# downloadable workflow artifact, so content is recoverable even if the space
+# is lost or corrupted.
+#
+# Required repository secrets:
+#   CONTENTFUL_SPACE_ID
+#   CONTENTFUL_MANAGEMENT_TOKEN
+name: Scheduled backup
+
+on:
+  schedule:
+    # 06:00 UTC every Monday.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    name: Export Contentful space
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install CMA SDK
+        run: npm install contentful-management@^11.0.0 --no-save
+
+      - name: Export space
+        run: node scripts/export-space.mjs --out=backups
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+          CONTENTFUL_ENVIRONMENT: master
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: contentful-backup
+          path: backups/*.json
+          retention-days: 90
