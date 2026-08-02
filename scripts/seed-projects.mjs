@@ -1,26 +1,35 @@
 /**
  * Seed the `project` entries the portfolio hub overlays onto its local seed.
- * Idempotent: matches on `slug` and updates in place. Run after migration 004.
+ * Change-detected: matches on `slug`, writes only when a field differs.
+ * Run after migration 004.
  *
  * Images are intentionally left unset — the hub ships committed SVG previews as
  * its fallback; set a Preview image in Contentful only if you want to override.
  *
- *   set -a; source .env.local; set +a
- *   npm run seed:projects
+ *   npm run seed:projects              # create/update, skipping unchanged
+ *   npm run seed:projects -- --prune   # also delete orphaned project entries
+ *   npm run seed:projects -- --dry-run # report changes, write nothing
  */
 import contentfulManagement from "contentful-management";
+import { parseFlags, upsertBySlug, loadBySlug, prune, reportStats } from "./lib/cma.mjs";
 
 const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
 const ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT ?? "master";
 const LOCALE = process.env.CONTENTFUL_LOCALE ?? "en-US";
 
-if (!SPACE_ID || !TOKEN) {
-  console.error("Set CONTENTFUL_SPACE_ID and CONTENTFUL_MANAGEMENT_TOKEN.");
-  process.exit(1);
-}
-
+const flags = parseFlags();
 const f = (value) => ({ [LOCALE]: value });
+
+function requireCreds() {
+  if (!SPACE_ID || !TOKEN) {
+    console.error(
+      "Missing CONTENTFUL_SPACE_ID / CONTENTFUL_MANAGEMENT_TOKEN.\n" +
+        "Run via `npm run seed:projects` (loads .env.local).",
+    );
+    process.exit(1);
+  }
+}
 
 /** Mirrors portfolio-hub/config/projects.local.ts (the seed the CMS overlays). */
 const projects = [
@@ -105,32 +114,39 @@ const projects = [
 ];
 
 async function run() {
+  requireCreds();
   const client = contentfulManagement.createClient({ accessToken: TOKEN });
   const space = await client.getSpace(SPACE_ID);
   const env = await space.getEnvironment(ENVIRONMENT);
 
-  const existing = await env.getEntries({ content_type: "project", limit: 100 });
-  const bySlug = new Map(
-    existing.items.map((e) => [e.fields.slug?.[LOCALE], e]),
-  );
+  const bySlug = await loadBySlug(env, "project", LOCALE);
+  const stats = { created: 0, updated: 0, unchanged: 0, deleted: 0 };
 
   for (const p of projects) {
     const fields = Object.fromEntries(Object.entries(p).map(([k, v]) => [k, f(v)]));
-    let entry = bySlug.get(p.slug);
-    if (entry) {
-      Object.assign(entry.fields, fields);
-      entry = await entry.update();
-      console.log(`Updated project: ${p.slug}`);
-    } else {
-      entry = await env.createEntry("project", { fields });
-      console.log(`Created project: ${p.slug}`);
-    }
-    await entry.publish();
+    await upsertBySlug(env, bySlug, "project", p.slug, fields, {
+      locale: LOCALE, stats, dryRun: flags.dryRun,
+    });
   }
-  console.log("Done. All projects published — the hub overlays them on its next revalidation.");
+
+  if (flags.prune) {
+    stats.deleted += await prune(bySlug, projects.map((p) => p.slug), {
+      dryRun: flags.dryRun, label: "project",
+    });
+  }
+
+  reportStats(stats, { dryRun: flags.dryRun });
+  if (!flags.dryRun) {
+    console.log("The hub overlays projects on its next revalidation.");
+  }
 }
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Export the dataset so the validator can check it without credentials (CI).
+export { projects };
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  run().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

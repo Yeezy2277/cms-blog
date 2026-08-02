@@ -8,3 +8,7 @@ dist
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Contentful backups (npm run backup) — kept out of git; CI uploads them
+# as workflow artifacts instead.
+backups/

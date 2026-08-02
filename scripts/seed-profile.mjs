@@ -1,11 +1,13 @@
 /**
  * Seed the singleton `profile` entry the portfolio hub renders in its hero.
- * Idempotent: updates the existing entry if one exists. Run after migration 002.
+ * Change-detected: updates + republishes only when a field actually differs.
+ * Run after migration 002.
  *
- *   set -a; source .env.local; set +a
- *   npm run seed:profile
+ *   npm run seed:profile              # update if changed
+ *   npm run seed:profile -- --dry-run # report whether it would change
  */
 import contentfulManagement from "contentful-management";
+import { parseFlags, isUpToDate } from "./lib/cma.mjs";
 
 const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
@@ -13,10 +15,14 @@ const ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT ?? "master";
 const LOCALE = process.env.CONTENTFUL_LOCALE ?? "en-US";
 
 if (!SPACE_ID || !TOKEN) {
-  console.error("Set CONTENTFUL_SPACE_ID and CONTENTFUL_MANAGEMENT_TOKEN.");
+  console.error(
+    "Missing CONTENTFUL_SPACE_ID / CONTENTFUL_MANAGEMENT_TOKEN.\n" +
+      "Run via `npm run seed:profile` (loads .env.local).",
+  );
   process.exit(1);
 }
 
+const flags = parseFlags();
 const f = (value) => ({ [LOCALE]: value });
 
 const data = {
@@ -93,6 +99,16 @@ async function run() {
 
   const existing = await env.getEntries({ content_type: "profile", limit: 1 });
   let entry = existing.items[0];
+
+  if (entry && isUpToDate(entry, fields, LOCALE)) {
+    console.log("Profile already up to date — nothing to do.");
+    return;
+  }
+  if (flags.dryRun) {
+    console.log(`[dry-run] would ${entry ? "update" : "create"} the profile entry.`);
+    return;
+  }
+
   if (entry) {
     Object.assign(entry.fields, fields);
     entry = await entry.update();

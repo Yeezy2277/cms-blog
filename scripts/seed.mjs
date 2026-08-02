@@ -6,24 +6,36 @@
  * custom PlateJS editor and the site's renderer both have something real to
  * chew on.
  *
- * Idempotent: entries are matched by slug — existing ones are updated and
- * re-published, missing ones are created. Safe to run repeatedly.
+ * Change-detected: entries matched by slug are updated and re-published only
+ * when their stored value actually differs, so re-runs are near-instant no-ops.
+ * Missing ones are created; `--prune` deletes entries whose slug was removed.
  *
  * Usage:
- *   set -a; source .env; set +a
- *   npm run seed
+ *   npm run seed              # create/update, skipping unchanged
+ *   npm run seed -- --prune   # also delete orphaned blogPost entries
+ *   npm run seed -- --dry-run # report changes, write nothing
  */
 
 import contentfulManagement from "contentful-management";
+import { parseFlags, upsertBySlug, loadBySlug, prune, reportStats } from "./lib/cma.mjs";
 
 const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
 const ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT ?? "master";
 const LOCALE = process.env.CONTENTFUL_LOCALE ?? "en-US";
 
-if (!SPACE_ID || !TOKEN) {
-  console.error("Set CONTENTFUL_SPACE_ID and CONTENTFUL_MANAGEMENT_TOKEN.");
-  process.exit(1);
+const flags = parseFlags();
+
+/** Guard used before any network call; kept out of module scope so this file
+ *  can be imported for its `articles` export (by the validator) without creds. */
+function requireCreds() {
+  if (!SPACE_ID || !TOKEN) {
+    console.error(
+      "Missing CONTENTFUL_SPACE_ID / CONTENTFUL_MANAGEMENT_TOKEN.\n" +
+        "Run via `npm run seed` (loads .env.local).",
+    );
+    process.exit(1);
+  }
 }
 
 /* ----- tiny Rich Text DSL --------------------------------------------------- */
@@ -57,7 +69,7 @@ const articles = [
       "The fields you choose on day one quietly decide how painful year two will be. Principles for modelling content you won't regret.",
     publishedDate: "2026-05-12T09:00:00Z",
     tags: ["Architecture", "CMS"],
-    related: ["typed-cms-layer-view-models", "one-app-five-tools"],
+    related: ["server-components-changed-structure", "one-app-five-tools"],
     body: doc(
       p(
         "A content model is an API contract with your future self. Every shortcut you take while modelling — a stringly-typed status field, a rich-text blob doing a structured field's job — becomes a migration you'll be writing a year from now, live, against production content.",
@@ -634,25 +646,28 @@ async function ensureAuthor(env) {
 }
 
 async function run() {
+  requireCreds();
+  // Fail fast on bad data (broken relations, duplicate slugs) before writing.
+  const { validateArticles } = await import("./validate-content.mjs");
+  validateArticles(articles);
+
   const client = contentfulManagement.createClient({ accessToken: TOKEN });
   const space = await client.getSpace(SPACE_ID);
   const env = await space.getEnvironment(ENVIRONMENT);
 
-  const existing = await env.getEntries({ content_type: "blogPost", limit: 100 });
-  const bySlug = new Map(
-    existing.items.map((e) => [e.fields.slug?.[LOCALE], e]),
-  );
-
+  const bySlug = await loadBySlug(env, "blogPost", LOCALE);
   const author = await ensureAuthor(env);
 
-  // Pass 1 — create or update every article (without relations).
-  const saved = new Map();
+  const stats = { created: 0, updated: 0, unchanged: 0, deleted: 0 };
+  let linked = 0;
+
+  // Pass 1 — create/update every article without relations (change-detected).
   for (const a of articles) {
     const cover = covers[a.slug]
       ? await ensureSvgAsset(env, `Cover — ${a.slug}`, `${a.slug}.svg`, covers[a.slug])
       : null;
 
-    const fields = {
+    await upsertBySlug(env, bySlug, "blogPost", a.slug, {
       title: f(a.title),
       slug: f(a.slug),
       excerpt: f(a.excerpt),
@@ -663,37 +678,49 @@ async function run() {
       sponsorName: f(a.sponsorName ?? ""),
       author: f(link(author.sys.id)),
       ...(cover ? { coverImage: f(assetLink(cover.sys.id)) } : {}),
-    };
-
-    let entry = bySlug.get(a.slug);
-    if (entry) {
-      Object.assign(entry.fields, fields);
-      entry = await entry.update();
-      console.log(`Updated: ${a.title}`);
-    } else {
-      entry = await env.createEntry("blogPost", { fields });
-      console.log(`Created: ${a.title}`);
-    }
-    saved.set(a.slug, entry);
+    }, { locale: LOCALE, stats, dryRun: flags.dryRun });
   }
 
-  // Pass 2 — wire relations by slug, then publish.
+  // Pass 2 — wire relations by slug; write only when the link set changed.
   for (const a of articles) {
-    let entry = saved.get(a.slug);
-    const related = (a.related ?? [])
-      .map((slug) => saved.get(slug))
+    const entry = bySlug.get(a.slug);
+    if (!entry) continue; // dry-run: entry not created yet
+    const desired = (a.related ?? [])
+      .map((slug) => bySlug.get(slug))
       .filter(Boolean)
       .map((e) => link(e.sys.id));
-    entry.fields.relatedPosts = f(related);
-    entry = await entry.update();
-    await entry.publish();
-    console.log(`Published: ${a.title}`);
+    const current = entry.fields.relatedPosts?.[LOCALE] ?? [];
+    const same =
+      JSON.stringify(current.map((l) => l.sys?.id)) ===
+      JSON.stringify(desired.map((l) => l.sys.id));
+    if (same && entry.isPublished() && !entry.isUpdated()) continue;
+    linked++;
+    if (flags.dryRun) continue;
+    entry.fields.relatedPosts = f(desired);
+    const updated = await (await entry.update()).publish();
+    bySlug.set(a.slug, updated);
   }
 
-  console.log(`Done. ${articles.length} articles are live.`);
+  // Pass 3 — prune orphaned articles (renamed/removed slugs).
+  if (flags.prune) {
+    stats.deleted += await prune(bySlug, articles.map((a) => a.slug), {
+      dryRun: flags.dryRun, label: "blogPost",
+    });
+  }
+
+  console.log(
+    `${flags.dryRun ? "[dry-run] " : ""}articles ${articles.length}, relation writes ${linked}`,
+  );
+  reportStats(stats, { dryRun: flags.dryRun });
 }
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Export the dataset so the validator can check it without credentials (CI).
+// Only run the seed when this file is executed directly.
+export { articles };
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  run().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
