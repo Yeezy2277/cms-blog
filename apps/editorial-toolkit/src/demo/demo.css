@@ -20,6 +20,12 @@
   --t-error-border: rgba(226, 75, 74, 0.5);
   --t-success: #0f6e56;
   --t-success-border: rgba(29, 158, 117, 0.5);
+  /* Widget island (the real Forma 36 widget lives on this). In light mode it
+     blends into the page; the dark overrides frame it as an editor panel. */
+  --t-widget-bg: #ffffff;
+  --t-widget-border: var(--t-border);
+  --t-widget-chrome: #eef1f5;
+  --t-widget-shadow: none;
 }
 
 :root[data-theme="dark"] {
@@ -39,6 +45,14 @@
   --t-error-border: rgba(226, 75, 74, 0.5);
   --t-success: #5dcaa5;
   --t-success-border: rgba(29, 158, 117, 0.5);
+  /* Softer than pure white so the light island doesn't glare on the dark page,
+     lifted with a shadow + accent-tinted border so it reads as an intentional
+     embedded editor panel (Forma 36 is light-only — this is the real CMS UI). */
+  --t-widget-bg: #f4f6f9;
+  --t-widget-border: rgba(76, 141, 255, 0.28);
+  --t-widget-chrome: #e6eaf0;
+  --t-widget-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.75),
+    0 3px 10px -6px rgba(0, 0, 0, 0.55);
 }
 
 body {
@@ -238,16 +252,35 @@ body {
   font-size: 0.82rem;
 }
 
-/* The real widgets are Forma 36 (light) — a white island in both themes. */
+/* The real widgets are Forma 36 (Contentful's light-only design system). Rather
+   than a stark white slab on the dark page, each is framed as an intentional
+   embedded editor panel: soft off-white surface, accent top-bar, elevation. */
 .demo-widget {
-  padding: 14px;
+  position: relative;
+  padding: 16px 14px 14px;
   border-radius: 10px;
-  background: #ffffff;
-  border: 1px solid var(--t-border);
+  background: var(--t-widget-bg);
+  border: 1px solid var(--t-widget-border);
+  box-shadow: var(--t-widget-shadow);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* A thin accent bar along the top reads as a panel header without the noise of
+   repeated window chrome across every widget. */
+.demo-widget::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(90deg, var(--t-accent), transparent 72%);
+  opacity: 0.9;
 }
 
 .demo-widget--page {
-  padding: 20px;
+  padding: 22px 20px 20px;
   /* Wide Forma 36 tables scroll inside the widget instead of the page. */
   overflow-x: auto;
 }
