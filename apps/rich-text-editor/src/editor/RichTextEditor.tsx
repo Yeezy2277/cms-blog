@@ -194,6 +194,8 @@ export function RichTextEditor({
           <Toolbar editor={ed} sdk={sdk} />
           <PlateContent
             className="rte-content"
+            aria-label="Rich text body"
+            aria-multiline="true"
             readOnly={isDisabled}
             onKeyDown={onKeyDown}
             placeholder="Write something, or press / for blocks…"

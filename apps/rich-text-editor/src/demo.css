@@ -1,30 +1,33 @@
-/* Demo shell — dark by default, light via [data-theme="light"] (toggle in the header). */
+/* Demo shell, in Lumen's family: newsprint and ink, one magazine red,
+   Fraunces headings over IBM Plex. The editor itself is Forma 36, as it is
+   inside Contentful; only the frame around it carries the identity.
+   Dark by default, light via [data-theme="light"]. */
 
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --d-bg: #0d1117;
-  --d-surface: #161b22;
-  --d-border: #2a313c;
-  --d-text: #e6edf3;
-  --d-muted: #9aa7b4;
-  --d-accent: #4c8dff;
-  --d-accent-soft: rgba(76, 141, 255, 0.14);
-  --d-json-bg: #0b0f14;
-  --d-json-text: #b9c6d3;
+  --d-bg: #16130f;
+  --d-surface: #201b16;
+  --d-border: #3a322a;
+  --d-text: #f0e9dc;
+  --d-muted: #a69c8d;
+  --d-accent: #ff6b5b;
+  --d-accent-soft: rgba(255, 107, 91, 0.12);
+  --d-json-bg: #120f0c;
+  --d-json-text: #d3c9b9;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --d-bg: #f7f9fb;
+  --d-bg: #f4efe4;
   --d-surface: #ffffff;
-  --d-border: #e3e8ee;
-  --d-text: #17202b;
-  --d-muted: #66707d;
-  --d-accent: #2f6fe4;
-  --d-accent-soft: rgba(47, 111, 228, 0.1);
-  --d-json-bg: #ffffff;
-  --d-json-text: #33404e;
+  --d-border: #d8cfbe;
+  --d-text: #1a1714;
+  --d-muted: #655c50;
+  --d-accent: #b3121f;
+  --d-accent-soft: rgba(179, 18, 31, 0.08);
+  --d-json-bg: #fbf8f1;
+  --d-json-text: #3b342c;
 }
 
 * {
@@ -39,7 +42,7 @@ body {
   min-height: 100vh;
   background: var(--d-bg);
   color: var(--d-text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   padding: 56px 24px 80px;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -81,7 +84,7 @@ body {
   font-weight: 500;
   color: var(--d-accent);
   background: var(--d-accent-soft);
-  border: 1px solid rgba(76, 141, 255, 0.35);
+  border: 1px solid var(--d-accent);
   border-radius: 999px;
   padding: 4px 12px;
   margin-bottom: 16px;
@@ -183,4 +186,24 @@ body {
   .rte-demo__json {
     font-size: 11px;
   }
+}
+
+/* ---- Lumen family: type and the proof-sheet frame ---- */
+.rte-demo__head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 50, "opsz" 144;
+}
+.rte-demo__badge,
+.rte-demo__theme {
+  border-radius: 0;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.rte-demo__head {
+  border-bottom: 1px solid var(--d-text);
+  box-shadow: 0 3px 0 -2px var(--d-bg), 0 4px 0 -2px var(--d-text);
+  padding-bottom: 20px;
 }
