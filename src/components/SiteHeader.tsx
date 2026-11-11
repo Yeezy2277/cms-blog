@@ -8,8 +8,8 @@ export function SiteHeader() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link href="/" className={styles.brand} aria-label="Lumen — home">
-          <span className={styles.mark}>L</span>
           <span className={styles.wordmark}>Lumen</span>
+          <span className={`meta-label ${styles.edition}`}>The Review</span>
         </Link>
         <nav className={styles.nav} aria-label="Primary">
           <Link href="/" className={styles.navLink}>
