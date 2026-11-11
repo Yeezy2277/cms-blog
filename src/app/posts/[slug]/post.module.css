@@ -8,7 +8,10 @@
 }
 .back {
   display: inline-block;
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-muted);
   margin-bottom: var(--space-md);
   transition: color 0.15s ease;
@@ -23,17 +26,24 @@
   margin-bottom: var(--space-sm);
 }
 .tag {
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
+  letter-spacing: 0.14em;
+  font-weight: 500;
   color: var(--color-accent);
 }
 .title {
-  font-size: var(--step-3);
+  font-size: clamp(2.4rem, 1.4rem + 4vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
   margin: 0 0 var(--space-md);
+  font-variation-settings: "SOFT" 50, "opsz" 144;
 }
 .byline {
+  padding-block: var(--space-sm);
+  border-block: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -49,7 +59,8 @@
 }
 .authorMeta {
   margin: 0;
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   color: var(--color-muted);
 }
 .cover {

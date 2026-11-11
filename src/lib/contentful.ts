@@ -1,4 +1,5 @@
 import { createClient, type Asset, type ContentfulClientApi } from "contentful";
+import { samplePost, samplePosts } from "./sample";
 
 import type {
   AuthorFields,
@@ -30,7 +31,7 @@ function getClient(): ContentfulClientApi<undefined> | null {
   // its empty states instead of hard-crashing. Real creds light it up.
   if (!space || !accessToken || space === "your_space_id") {
     console.warn(
-      "[contentful] No credentials set — returning empty content. Add them to .env.local.",
+      "[contentful] No credentials set: serving the bundled sample posts. Add them to .env.local for real content.",
     );
     return null;
   }
@@ -131,7 +132,7 @@ function toDetail(entry: BlogPostEntry): PostDetail {
 /* -------------------------------------------------------------------------- */
 
 export async function getAllPosts(): Promise<PostSummary[]> {
-  if (!client) return [];
+  if (!client) return samplePosts();
   try {
     const entries = await client.getEntries<BlogPostSkeleton>({
       content_type: "blogPost",
@@ -146,7 +147,7 @@ export async function getAllPosts(): Promise<PostSummary[]> {
 }
 
 export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
-  if (!client) return null;
+  if (!client) return samplePost(slug);
   try {
     const entries = await client.getEntries<BlogPostSkeleton>({
       content_type: "blogPost",
@@ -163,7 +164,7 @@ export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
 }
 
 export async function getAllSlugs(): Promise<string[]> {
-  if (!client) return [];
+  if (!client) return samplePosts().map((p) => p.slug);
   try {
     const entries = await client.getEntries<BlogPostSkeleton>({
       content_type: "blogPost",
