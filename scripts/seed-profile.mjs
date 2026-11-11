@@ -61,8 +61,8 @@ const data = {
       period: "2025 – 2026",
       summary:
         "Built most of the event-driven feeds platform (Contentful webhooks → Cloud Run → Pub/Sub → Node.js worker → GCS/CDN): RSS, Google News sitemaps and partner feeds for MSN, Yahoo and Flipboard. Also built the newsroom's custom PlateJS rich-text editor app and the reading-time webhook service.",
-      href: "/projects/rich-text-editor",
-      hrefLabel: "Rich-text editor patterns rebuilt in public →",
+      href: "/projects/wire",
+      hrefLabel: "Feeds pipeline rebuilt in public: Wire →",
     },
     {
       company: "EvionRP",
