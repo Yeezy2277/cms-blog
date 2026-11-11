@@ -25,7 +25,7 @@ Lighthouse CI runs on every push (badge above). A run against the live site scor
 
 ## Why this exists
 
-Most of my recent production work — a Contentful media platform with a dozen custom apps, webhooks, schedulers and migration pipelines — is under NDA. This is a public, self-contained reproduction of the same *shape* of system, scaled to a personal Contentful space and free hosting:
+My recent production work was on a Contentful media platform under NDA: a team-built system with a dozen custom apps, webhooks, schedulers and migration pipelines. My parts were the event-driven feeds pipeline, the custom rich-text editor and the reading-time webhook. This is a public, self-contained rebuild of the same *shape* of system, scaled to a personal Contentful space and free hosting:
 
 - the original deploys its apps and backends on **GCP** (Cloud Build, Cloud Run, Cloud Scheduler, Secret Manager). This project does the equivalent on **Vercel + GitHub Actions + Contentful Hosting** — see the mapping below.
 - the original ships ~12 separate field/sidebar apps. This project consolidates the same patterns into **one multi-location App Framework app**, which is the more maintainable approach anyway.
