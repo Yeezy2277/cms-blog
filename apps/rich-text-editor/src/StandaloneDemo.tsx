@@ -101,7 +101,9 @@ export function StandaloneDemo() {
 
         <div className="rte-demo__pane">
           <div className="rte-demo__label">Contentful Rich Text document</div>
-          <pre className="rte-demo__json">{JSON.stringify(doc, null, 2)}</pre>
+          <pre className="rte-demo__json" tabIndex={0} role="region" aria-label="Contentful Rich Text document JSON">
+            {JSON.stringify(doc, null, 2)}
+          </pre>
         </div>
       </div>
     </div>
