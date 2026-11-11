@@ -27,19 +27,19 @@ const f = (value) => ({ [LOCALE]: value });
 
 const data = {
   name: "Vitalii Popov",
-  headline: "Senior Frontend Engineer",
-  tagline: "React · Next.js · TypeScript · Headless CMS (Contentful)",
+  headline: "Senior Fullstack Engineer",
+  tagline: "React · Node.js · TypeScript · Headless CMS (Contentful)",
   location: "São Paulo, Brazil",
-  timezone: "Remote · full overlap with US East Coast (UTC-3, 1–2h ahead of US Eastern)",
-  available: true,
+  timezone: "Remote · US business hours (UTC-3, 1–2h ahead of US Eastern)",
+  available: false,
   availability:
-    "Open to remote roles with US teams — full-time or B2B contract. Based in São Paulo, Brazil (UTC-3) — 1–2 hours ahead of US Eastern, a full working-day overlap with US East Coast teams.",
+    "Remote · São Paulo, Brazil (UTC-3), working US business hours.",
   bio: [
-    "Senior Frontend Engineer with 5+ years shipping product web platforms in React, Next.js and TypeScript. I own the frontend end-to-end — architecture, performance, and the CI/CD pipeline that ships it — and I pick up the DevOps slack so delivery never blocks on someone else.",
-    "Don't take the résumé's word for it: everything on this page is live and inspectable. It's a public reproduction of my production Contentful platform work — custom CMS apps, webhooks, content-model migrations, quality gates — plus real-time canvas and 3D/BIM work. Read the code, click the demos.",
+    "Fullstack engineer with 6 years building product platforms, mostly React and Node.js in TypeScript. I own features end-to-end: the UI, the API, the service behind it and the release. Right now I own the back office of a B2B platform for regulated gaming operators (React, NestJS, Java/Spring); before that I built the event-driven feeds platform and the newsroom's rich-text editor at Paris Match.",
+    "The projects below are public rebuilds of patterns from my NDA work: Contentful apps and webhooks, a headless content API, real-time canvas and 3D/BIM. Read the code, click the demos.",
   ].join("\n\n"),
-  stack: ["React", "Next.js", "TypeScript", "React Native", "Contentful", "GCP", "CI/CD (GitHub Actions)"],
-  certifications: ["Contentful Certified Professional", "Meta — Introduction to Front-End Development"],
+  stack: ["React", "Next.js", "TypeScript", "Node.js (NestJS, Express)", "Java (Spring Boot)", "Contentful", "GCP", "CI/CD"],
+  certifications: ["Contentful Certified Professional"],
   languages: [
     { name: "English", level: "Professional" },
     { name: "German", level: "Limited working" },
@@ -49,13 +49,20 @@ const data = {
   ],
   experience: [
     {
-      company: "Confidential Media Client (EU)",
-      title: "Senior Frontend Developer",
+      company: "Anakatech (via InDevLabs)",
+      title: "Senior Frontend Engineer · Contract",
+      period: "2026 – Present",
+      summary:
+        "Own the back office of a B2B iGaming platform for regulated operators, the React/TypeScript app and its NestJS layer, and ship changes into the Java/Spring Boot core services through backend review: promo tools, reporting, Brazilian regulatory time-zone support, and a tournament-prize data migration.",
+    },
+    {
+      company: "Paris Match",
+      title: "Fullstack Engineer (CMS) · Part-time contract",
       period: "2025 – 2026",
       summary:
-        "Owned the frontend of a Contentful-based media platform (React, Next.js, TypeScript): shipped custom in-CMS editor apps, an RSS syndication system, and ran GCP deployments with GitHub Actions CI/CD solo.",
-      href: "/projects/cms-blog",
-      hrefLabel: "This portfolio reproduces that work in public →",
+        "Built most of the event-driven feeds platform (Contentful webhooks → Cloud Run → Pub/Sub → Node.js worker → GCS/CDN): RSS, Google News sitemaps and partner feeds for MSN, Yahoo and Flipboard. Also built the newsroom's custom PlateJS rich-text editor app and the reading-time webhook service.",
+      href: "/projects/rich-text-editor",
+      hrefLabel: "Rich-text editor patterns rebuilt in public →",
     },
     {
       company: "EvionRP",
@@ -67,6 +74,13 @@ const data = {
       hrefLabel: "Real-time patterns demoed in Pulse →",
     },
     {
+      company: "Sberbank",
+      title: "Frontend Developer",
+      period: "2022 – 2023",
+      summary:
+        "Short engagement on internal tooling: introduced feature-toggling for safe releases and contributed to a shared React component library.",
+    },
+    {
       company: "Internetica",
       title: "Frontend Developer · Outsourcing",
       period: "2020 – 2022",
@@ -75,16 +89,9 @@ const data = {
       href: "/projects/bim-clash-viewer",
       hrefLabel: "BIM tooling reproduced in Girder →",
     },
-    {
-      company: "Sberbank",
-      title: "Frontend Developer",
-      period: "2022",
-      summary:
-        "Short engagement on internal tooling: introduced feature-toggling for safe releases and contributed to a shared React component library.",
-    },
   ],
   links: [
-    { label: "Email", url: "mailto:vital.popov.03@gmail.com" },
+    { label: "Email", url: "mailto:contact@vitaliipopov.dev" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/vitalii-popov-front-dev" },
     { label: "GitHub", url: "https://github.com/Yeezy2277" },
   ],
