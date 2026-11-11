@@ -75,7 +75,7 @@ The neat part: on Vercel, the original "Express service on Cloud Run" collapses 
 
 **ISR, instant when it matters.** Pages are statically generated and revalidate hourly; the `/api/revalidate` webhook makes publish-to-live near-instant without a redeploy.
 
-**Resilient by default.** Missing credentials degrade to empty states, so `npm run build` works on a fresh clone with no Contentful setup.
+**Resilient by default.** Without Contentful credentials the site serves a small bundled set of sample posts (fixed dates, deterministic), so `npm install && npm run dev` shows a real front page and articles on a fresh clone. A malformed `NEXT_PUBLIC_SITE_URL` falls back to production instead of crashing every page.
 
 ---
 
