@@ -1,9 +1,10 @@
+import { siteUrl } from "@/lib/site";
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/contentful";
 
 export const revalidate = 3600;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lumen.vitaliipopov.dev";
+const SITE_URL = siteUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
