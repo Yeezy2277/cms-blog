@@ -3,44 +3,54 @@
    swapped by `data-theme` on <html> (set pre-paint by the inline script in the
    root layout, toggled by <ThemeToggle/>). */
 
+/*
+ * Lumen identity: a printed review.
+ *   Type    Fraunces (display: high-contrast, soft optical sizes, 300 vs 800)
+ *           + Newsreader (text, built for long reading) + IBM Plex Mono (meta).
+ *   Colour  newsprint and ink, one magazine red for kickers, rules and links.
+ *           Light is the default here: it's a publication.
+ *   Detail  a double rule under the masthead, red kickers, a drop cap on the
+ *           first paragraph of every article.
+ *   Motion  the front page sets in, card by card; off with reduced motion.
+ * Components only reference the semantic vars below.
+ */
 :root,
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --color-paper: #0d1117; /* page background */
-  --color-paper-raised: #161b22; /* cards / raised surfaces */
-  --color-border: #262e39;
-  --color-ink: #e6edf3; /* primary text */
-  --color-ink-soft: #b5c0cc; /* secondary text */
-  --color-muted: #8a97a5;
-  --color-accent: #4c8dff;
-  --color-accent-soft: rgba(76, 141, 255, 0.14);
-  --color-accent-contrast: #0d1117; /* text on accent fills */
-  --color-shadow: rgba(0, 0, 0, 0.45);
-  --header-veil: rgba(13, 17, 23, 0.82);
-}
-
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --color-paper: #f7f9fb;
-  --color-paper-raised: #ffffff;
-  --color-border: #e3e8ee;
-  --color-ink: #17202b;
-  --color-ink-soft: #3c4a5c;
-  --color-muted: #66707d;
-  --color-accent: #2f6fe4;
-  --color-accent-soft: rgba(47, 111, 228, 0.1);
+  --color-paper: #f4efe4; /* newsprint */
+  --color-paper-raised: #fbf8f1;
+  --color-border: #d8cfbe;
+  --color-ink: #1a1714;
+  --color-ink-soft: #3b342c;
+  --color-muted: #655c50;
+  --color-accent: #b3121f; /* magazine red */
+  --color-accent-soft: rgba(179, 18, 31, 0.08);
   --color-accent-contrast: #ffffff;
-  --color-shadow: rgba(23, 32, 43, 0.12);
-  --header-veil: rgba(247, 249, 251, 0.85);
+  --color-shadow: rgba(26, 23, 20, 0.14);
+  --header-veil: rgba(244, 239, 228, 0.9);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-paper: #16130f; /* the same paper, read by lamplight */
+  --color-paper-raised: #201b16;
+  --color-border: #3a322a;
+  --color-ink: #f0e9dc;
+  --color-ink-soft: #d3c9b9;
+  --color-muted: #a69c8d;
+  --color-accent: #ff6b5b;
+  --color-accent-soft: rgba(255, 107, 91, 0.12);
+  --color-accent-contrast: #16130f;
+  --color-shadow: rgba(0, 0, 0, 0.5);
+  --header-veil: rgba(22, 19, 15, 0.88);
 }
 
 :root {
-  /* Type scale — modern SaaS: one sans family, display sizes get tighter tracking. */
-  --font-display: var(--font-body);
-  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: "SF Mono", ui-monospace, "Cascadia Code", Menlo, monospace;
+  --font-display: var(--font-fraunces, "Fraunces"), "Iowan Old Style", Georgia, serif;
+  --font-body: var(--font-newsreader, "Newsreader"), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-plex-mono, "IBM Plex Mono"), ui-monospace, Menlo, monospace;
 
   --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
   --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.06rem);
@@ -54,7 +64,7 @@
   --space-lg: 2.5rem;
   --space-xl: 4.5rem;
 
-  --radius: 10px;
+  --radius: 2px;
   --maxw: 64rem;
   --maxw-prose: 42rem;
 }
@@ -73,7 +83,8 @@ body {
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.65;
+  line-height: 1.6;
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -94,8 +105,29 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.022em;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 50;
+}
+
+/* Small mono label: kickers, metadata, filters. */
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@keyframes set-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 ::selection {
@@ -112,8 +144,9 @@ h3 {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-family: var(--font-mono);
   padding: var(--space-sm) var(--space-md);
   z-index: 100;
 }
@@ -126,7 +159,7 @@ h3 {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation: none !important;
     transition-duration: 0.01ms !important;
   }
 }
