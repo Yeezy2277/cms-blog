@@ -8,8 +8,8 @@ type Theme = "dark" | "light";
 
 /** Reads the pre-paint value set by the inline script in the root layout. */
 function currentTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 export function ThemeToggle() {
@@ -39,7 +39,7 @@ export function ThemeToggle() {
       aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
       title={theme === "light" ? "Dark theme" : "Light theme"}
     >
-      {theme === null ? "◐" : theme === "dark" ? "☀" : "☾"}
+      <span aria-hidden="true">{theme === null ? "◐" : theme === "dark" ? "☀" : "☾"}</span>
     </button>
   );
 }

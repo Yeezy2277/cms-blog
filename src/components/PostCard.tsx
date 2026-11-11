@@ -40,11 +40,12 @@ export function PostCard({ post, featured = false }: PostCardProps) {
               className={styles.image}
             />
           </div>
-        ) : (
+        ) : featured ? (
+          // Lead story without a picture: a big set initial holds the space.
           <div className={`${styles.media} ${styles.mediaEmpty}`} aria-hidden="true">
             <span>{post.title.charAt(0)}</span>
           </div>
-        )}
+        ) : null}
 
         <div className={styles.body}>
           {post.isSponsored ? (

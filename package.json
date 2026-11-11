@@ -22,7 +22,8 @@
     "seed:projects": "node --env-file-if-exists=.env.local scripts/seed-projects.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "lhci": "lhci autorun"
+    "lhci": "lhci autorun",
+    "test": "vitest run"
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^17.1.6",
@@ -37,11 +38,12 @@
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.10.0",
-    "contentful-cli": "^4.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "contentful-cli": "^4.0.0",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }

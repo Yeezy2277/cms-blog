@@ -1,16 +1,18 @@
 .header {
-  border-bottom: 1px solid var(--color-border);
   background: var(--header-veil);
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: saturate(160%) blur(10px);
-  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  /* The masthead's double rule: a heavy line over a hairline, as on a printed page. */
+  border-bottom: 1px solid var(--color-ink);
+  box-shadow: 0 3px 0 -2px var(--color-paper), 0 4px 0 -2px var(--color-ink);
 }
 .inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: var(--space-md);
+  padding: 0.9rem var(--space-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,50 +20,46 @@
 }
 .brand {
   display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
+  align-items: baseline;
+  gap: 0.7rem;
   flex-shrink: 0;
-}
-.mark {
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  font-family: var(--font-display);
-  font-weight: 700;
-  border-radius: 8px;
-}
-.nav {
-  align-items: center;
 }
 .wordmark {
   font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.9rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variation-settings: "SOFT" 100, "opsz" 72;
+}
+.edition {
+  color: var(--color-accent);
 }
 .nav {
   display: flex;
+  align-items: center;
   gap: var(--space-md);
 }
 .navLink {
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--color-muted);
   transition: color 0.15s ease;
 }
 .navLink:hover {
-  color: var(--color-ink);
+  color: var(--color-accent);
 }
 
-/* Mobile: keep the brand from touching the nav — drop the secondary link and
-   tighten spacing so "Lumen · Articles · toggle" breathe on a phone. */
+/* Mobile: drop the secondary link so "Lumen · Articles · toggle" breathe on a phone. */
 @media (max-width: 560px) {
   .nav {
     gap: var(--space-sm);
   }
-  .builtOn {
+  .builtOn,
+  .edition {
     display: none;
   }
 }
