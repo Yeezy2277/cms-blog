@@ -82,7 +82,7 @@ export function ValidationHubPage() {
       setBrokenRelated(findBrokenRelated(snapshots));
       setRan(true);
     } catch {
-      setError("Scan failed — check the app's CMA permissions.");
+      setError("Scan failed. Check the app's CMA permissions.");
     } finally {
       setLoading(false);
     }
