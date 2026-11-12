@@ -18,7 +18,7 @@ export default async function OpengraphImage({
   // The OG renderer ships base Noto Sans only: ⇄ is tofu and a VS15-forced
   // text arrow drops the glyph entirely, so ↔ (rendered via Satori's Twemoji,
   // which matches the accent blue) is the least-bad spelling here.
-  const title = (post?.title ?? "Lumen").replace(/⇄/g, "↔");
+  const title = post?.title ?? "Lumen";
   const tag = post?.tags?.[0] ?? "Article";
   const meta = [
     post?.publishedDate &&
@@ -31,7 +31,7 @@ export default async function OpengraphImage({
     post?.authorName,
   ]
     .filter(Boolean)
-    .join(" · ");
+    .join(", ");
 
   return new ImageResponse(
     (

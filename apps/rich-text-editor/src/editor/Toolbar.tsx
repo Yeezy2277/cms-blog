@@ -8,6 +8,7 @@ import {
   type Node as SlateNode,
 } from "slate";
 import type { FieldAppSDK } from "@contentful/app-sdk";
+import { Icon } from "../Icon";
 
 /**
  * Formatting toolbar. The Plate editor is a Slate editor under the hood, so we
@@ -201,7 +202,7 @@ export function Toolbar({ editor, sdk }: { editor: Ed; sdk: FieldAppSDK | null }
       <Btn title="Heading 1" active={isBlockActive(editor, "h1")} run={() => setBlockType(editor, "h1")}>H1</Btn>
       <Btn title="Heading 2" active={isBlockActive(editor, "h2")} run={() => setBlockType(editor, "h2")}>H2</Btn>
       <Btn title="Heading 3" active={isBlockActive(editor, "h3")} run={() => setBlockType(editor, "h3")}>H3</Btn>
-      <Btn title="Quote" active={isBlockActive(editor, "blockquote")} run={() => setBlockType(editor, "blockquote")}>❝</Btn>
+      <Btn title="Quote" active={isBlockActive(editor, "blockquote")} run={() => setBlockType(editor, "blockquote")}><Icon name="quote" /></Btn>
       <Sep />
       <Btn title="Bullet list" active={isBlockActive(editor, "ul")} run={() => toggleList(editor, "ul")}>• List</Btn>
       <Btn title="Numbered list" active={isBlockActive(editor, "ol")} run={() => toggleList(editor, "ol")}>1. List</Btn>
@@ -233,8 +234,8 @@ export function Toolbar({ editor, sdk }: { editor: Ed; sdk: FieldAppSDK | null }
           <button type="button" className="rte-tb__btn" onClick={confirmLink}>
             Add
           </button>
-          <button type="button" className="rte-tb__btn" onClick={() => setLinkOpen(false)}>
-            ✕
+          <button type="button" className="rte-tb__btn" onClick={() => setLinkOpen(false)} aria-label="Cancel link">
+            <Icon name="close" size={14} />
           </button>
         </div>
       )}

@@ -8,7 +8,7 @@
 
 Not just a blog: a **public site + the editorial tooling and automation around it**, built the way a real Contentful-backed product is. A typed Next.js frontend, a consolidated **Contentful App Framework** app for the editors, **webhook** automation, a **scheduled content audit**, and **content-model migrations** — all running on free infrastructure (Vercel + GitHub Actions + Contentful Hosting), no cloud billing account required.
 
-> **Live demo:** <https://lumen.vitaliipopov.dev> · [Rich Text Editor playground](https://rte.vitaliipopov.dev) · [Editorial Toolkit playground](https://toolkit.vitaliipopov.dev)
+> **Live demo:** <https://lumen.vitaliipopov.dev>, [Rich Text Editor playground](https://rte.vitaliipopov.dev), [Editorial Toolkit playground](https://toolkit.vitaliipopov.dev)
 > **Status:** demo / portfolio project
 
 ![Home page screenshot](./public/screenshot-home.png)
@@ -42,7 +42,7 @@ My recent production work was on a Contentful media platform under NDA: a team-b
 | **Webhooks** | Serverless route handlers: recompute reading time on publish, on-demand ISR revalidation | `src/app/api/` |
 | **Scheduled job** | CMA content audit (stale drafts, missing reading time, duplicate slugs) | `integrations/scheduled-jobs/` |
 | **Content model** | Migrations + a field-assignment script (content-model as code) | `content-model/` |
-| **CI/CD** | Lint·typecheck·build, app-bundle deploy, scheduled audit | `.github/workflows/` |
+| **CI/CD** | Lint, typecheck and build; app-bundle deploy; scheduled audit | `.github/workflows/` |
 
 ---
 
@@ -111,7 +111,7 @@ npm run migrate     # adds the editorial fields                   → 001-add-ed
 
 ## Setup, end to end
 
-> 📋 **Full step-by-step runbook — including accounts, the two Contentful apps,
+> **Full step-by-step runbook — including accounts, the two Contentful apps,
 > webhooks, the scheduled audit and the Portfolio Hub — is in [SETUP.md](SETUP.md).**
 > The summary below is the site + content-model essentials.
 
@@ -173,8 +173,8 @@ In Contentful → **Settings → Webhooks**, add two webhooks, both sending the 
 
 | Trigger | URL |
 | --- | --- |
-| Entry · Publish (blogPost) | `https://<your-app>/api/webhooks/reading-time` |
-| Entry · Publish & Unpublish (blogPost) | `https://<your-app>/api/revalidate` |
+| Entry: Publish (blogPost) | `https://<your-app>/api/webhooks/reading-time` |
+| Entry: Publish and Unpublish (blogPost) | `https://<your-app>/api/revalidate` |
 
 ### 5. CI/CD secrets (GitHub repo → Settings → Secrets)
 
@@ -235,7 +235,7 @@ integrations/
   scheduled-jobs/content-audit/index.mjs   # CMA audit run by GitHub Actions cron
 
 .github/workflows/
-  ci.yml                         # lint · typecheck · build
+  ci.yml                         # lint, typecheck, build
   deploy-toolkit.yml             # build + upload app bundle (replaces Cloud Build)
   scheduled-content-audit.yml    # cron audit (replaces Cloud Scheduler)
 ```

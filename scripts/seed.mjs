@@ -262,7 +262,7 @@ const articles = [
     ),
   },
   {
-    title: "Slate ⇄ Contentful: building a lossless rich-text transform",
+    title: "Slate and Contentful: building a lossless rich-text transform",
     slug: "slate-contentful-transform",
     excerpt:
       "A custom PlateJS editor is only as good as its serialisation layer. How this one round-trips Contentful Rich Text without losing a node.",

@@ -4,7 +4,6 @@ End-to-end steps to get everything running: the Lumen site, its two Contentful
 apps, webhooks, the scheduled audit, and the separate Portfolio Hub. Work top to
 bottom the first time — later phases depend on earlier ones.
 
-Legend: 🖥️ = run in a terminal · 🌐 = do it in a web dashboard.
 
 ---
 
@@ -17,7 +16,7 @@ Legend: 🖥️ = run in a terminal · 🌐 = do it in a web dashboard.
 
 ---
 
-## Phase 1 — Contentful space & tokens 🌐
+## Phase 1 — Contentful space & tokens
 
 1. In Contentful, create a **Space** (free tier). Note its **Space ID**:
    Settings → General settings.
@@ -33,7 +32,7 @@ You now have: `SPACE_ID`, `DELIVERY_TOKEN`, `PREVIEW_TOKEN`, `CMA_TOKEN`, `ORG_I
 
 ---
 
-## Phase 2 — Lumen site, locally 🖥️
+## Phase 2 — Lumen site, locally
 
 ```bash
 cd ~/cms-blog
@@ -72,13 +71,13 @@ Run it:
 npm run dev         # http://localhost:3000
 ```
 
-✅ Checkpoint: the home page lists the 3 seeded posts; a post page renders. In
+Checkpoint: the home page lists the 3 seeded posts; a post page renders. In
 Contentful → Content, you see the posts. (`estimatedReadingTime` is empty for
 now — the webhook fills it in Phase 6.)
 
 ---
 
-## Phase 3 — deploy Lumen to Vercel 🌐
+## Phase 3 — deploy Lumen to Vercel
 
 1. Push `~/cms-blog` to a GitHub repo.
 2. Vercel → **Add New… → Project** → import the repo.
@@ -88,12 +87,12 @@ now — the webhook fills it in Phase 6.)
    `CONTENTFUL_ENVIRONMENT`, `CONTENTFUL_WEBHOOK_SECRET`).
 4. **Deploy.** Note the production URL, e.g. `https://lumen-xyz.vercel.app`.
 
-✅ Checkpoint: the live URL shows your posts. Keep this URL — the webhooks in
+Checkpoint: the live URL shows your posts. Keep this URL — the webhooks in
 Phase 6 point at it.
 
 ---
 
-## Phase 4 — Editorial Toolkit app 🖥️ + 🌐
+## Phase 4 — Editorial Toolkit app
 
 ```bash
 cd ~/cms-blog/apps/editorial-toolkit
@@ -108,7 +107,7 @@ Copy the printed **App ID** into `~/cms-blog/.env.local` as
 npm run upload         # builds and uploads the bundle to Contentful Hosting
 ```
 
-🌐 In Contentful → **Apps → Custom apps** → find *Editorial Toolkit* → **Install**
+ In Contentful → **Apps → Custom apps** → find *Editorial Toolkit* → **Install**
 to your space/environment.
 
 Now point the `blogPost` fields at the app (automated):
@@ -119,13 +118,13 @@ set -a; source .env.local; set +a          # so the script sees the vars
 EDITORIAL_TOOLKIT_APP_ID=<App ID> node content-model/assign-toolkit-fields.mjs
 ```
 
-✅ Checkpoint: open a post in Contentful. The **Slug** field auto-fills from the
+Checkpoint: open a post in Contentful. The **Slug** field auto-fills from the
 title, **Sponsor name** only enables when *Sponsored article* is on, and
 **Related posts** shows tag-based suggestions.
 
 ---
 
-## Phase 5 — Rich Text Editor app 🖥️ + 🌐
+## Phase 5 — Rich Text Editor app
 
 ```bash
 cd ~/cms-blog/apps/rich-text-editor
@@ -139,17 +138,17 @@ Add it to `~/cms-blog/.env.local` as `RICH_TEXT_EDITOR_APP_ID=...`, then:
 npm run upload
 ```
 
-🌐 Contentful → **Apps → Custom apps** → *Rich Text Editor* → **Install**. Then
+ Contentful → **Apps → Custom apps** → *Rich Text Editor* → **Install**. Then
 **Content model → blogPost → field `body` → Appearance** → select **Rich Text
 Editor**. (Optional: under the field's Validations, enable the embed node types
 you want.)
 
-✅ Checkpoint: editing a post's body now uses the custom PlateJS editor — toolbar,
+Checkpoint: editing a post's body now uses the custom PlateJS editor — toolbar,
 `/` slash menu, and the *+ Entry / + Asset* embeds.
 
 ---
 
-## Phase 6 — webhooks 🌐
+## Phase 6 — webhooks
 
 Contentful → **Settings → Webhooks → Add webhook**. Create **two**, both adding a
 custom header **`x-webhook-secret`** = the `CONTENTFUL_WEBHOOK_SECRET` you chose.
@@ -161,13 +160,13 @@ custom header **`x-webhook-secret`** = the `CONTENTFUL_WEBHOOK_SECRET` you chose
 
 (You can scope both to the `blogPost` content type in the webhook filters.)
 
-✅ Checkpoint: edit and **publish** a post. Within a moment its
+Checkpoint: edit and **publish** a post. Within a moment its
 `estimatedReadingTime` is set in Contentful, and the change appears on the live
 site without a redeploy.
 
 ---
 
-## Phase 7 — scheduled content audit 🌐
+## Phase 7 — scheduled content audit
 
 This runs on GitHub Actions cron (`.github/workflows/scheduled-content-audit.yml`,
 weekdays 07:00 UTC). In your GitHub repo → **Settings → Secrets and variables →
@@ -178,7 +177,7 @@ Actions**, add:
 - `SLACK_WEBHOOK_URL` — optional; without it, results still show in the Actions
   run summary.
 
-✅ Checkpoint: **Actions → Scheduled content audit → Run workflow** → the run
+Checkpoint: **Actions → Scheduled content audit → Run workflow** → the run
 summary lists stale drafts / missing reading time / duplicate slugs.
 
 > Also add the app-deploy secrets if you want CI to re-upload the apps on push:
@@ -188,7 +187,7 @@ summary lists stale drafts / missing reading time / duplicate slugs.
 
 ---
 
-## Phase 8 — Portfolio Hub 🖥️ + 🌐
+## Phase 8 — Portfolio Hub
 
 ```bash
 cd ~/portfolio-hub
@@ -223,12 +222,12 @@ tags, preview image, `featured`, and `embeddable` for the in-hub iframe preview.
 Deploy the hub: push `~/portfolio-hub` to GitHub → import in Vercel → set the
 env vars → deploy.
 
-✅ Checkpoint: the hub shows a card per tagged repo, with search + tag filters,
+Checkpoint: the hub shows a card per tagged repo, with search + tag filters,
 and clicking a card opens the preview modal.
 
 ---
 
-## Phase 9 — instant hub refresh on new deploys 🌐 (optional)
+## Phase 9 — instant hub refresh on new deploys (optional)
 
 So a freshly deployed project appears on the hub immediately (not on the next
 hourly window):
@@ -238,7 +237,7 @@ hourly window):
    `.github/workflows/notify-hub.yml`, and add a repo secret
    `HUB_REVALIDATE_URL` = `https://<hub-domain>/api/revalidate?secret=<REVALIDATE_SECRET>`.
 
-✅ Checkpoint: after a spoke deploys, the hub reflects it within seconds.
+Checkpoint: after a spoke deploys, the hub reflects it within seconds.
 
 ---
 
@@ -248,7 +247,7 @@ hourly window):
 | --- | --- | --- |
 | Lumen site + webhooks | Vercel | Vercel env vars |
 | Editorial Toolkit / Rich Text apps | Contentful Hosting | `create-app` + `upload` |
-| Content model + demo data | Contentful | `bootstrap` · `migrate` · `seed` |
+| Content model + demo data | Contentful | `bootstrap`, `migrate`, `seed` |
 | Scheduled audit | GitHub Actions cron | GitHub repo secrets |
 | Portfolio Hub | Vercel | Vercel env vars |
 

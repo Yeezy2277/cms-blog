@@ -21,7 +21,7 @@ export default async function HomePage() {
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
-        <p className={`meta-label ${styles.kicker}`}>The Lumen Review · Front page</p>
+        <p className={`meta-label ${styles.kicker}`}>The Lumen Review / Front page</p>
         <h1 className={styles.headline}>
           Writing on <em>craft</em>, systems, and the work behind the screen.
         </h1>

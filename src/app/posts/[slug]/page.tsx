@@ -7,6 +7,7 @@ import { RichText } from "@/components/RichText";
 import { getAllSlugs, getPostBySlug } from "@/lib/contentful";
 
 import styles from "./post.module.css";
+import { Icon } from "@/components/Icon";
 
 export const revalidate = 3600;
 
@@ -60,7 +61,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <article className={styles.article}>
       <div className={styles.header}>
         <Link href="/" className={styles.back}>
-          ← All articles
+          <Icon name="arrowLeft" size={13} /> All articles
         </Link>
         {post.tags.length > 0 ? (
           <div className={styles.tags}>
@@ -86,11 +87,11 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.authorName ? <p className={styles.authorName}>{post.authorName}</p> : null}
             <p className={styles.authorMeta}>
               {post.authorTitle ? <span>{post.authorTitle}</span> : null}
-              {post.authorTitle && post.publishedDate ? " · " : null}
+              {post.authorTitle && post.publishedDate ? ", " : null}
               {post.publishedDate ? (
                 <time dateTime={post.publishedDate}>{formatDate(post.publishedDate)}</time>
               ) : null}
-              {post.readingTime ? <span> · {post.readingTime} min read</span> : null}
+              {post.readingTime ? <span>, {post.readingTime} min read</span> : null}
             </p>
           </div>
         </div>
