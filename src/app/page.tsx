@@ -26,8 +26,8 @@ export default async function HomePage() {
           Writing on <em>craft</em>, systems, and the work behind the screen.
         </h1>
         <p className={styles.sub}>
-          A demo publication powered by a headless CMS — every word here is
-          modelled and edited in Contentful, then rendered statically by Next.js.
+          A demo publication on a headless CMS. Every word here is modelled
+          and edited in Contentful, then rendered statically by Next.js.
         </p>
       </section>
 
