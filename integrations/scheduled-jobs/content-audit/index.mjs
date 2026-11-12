@@ -91,14 +91,14 @@ function renderMarkdown(report) {
   ];
 
   if (report.duplicateSlugs.length) {
-    lines.push("### ⚠️ Duplicate slugs");
+    lines.push("### Duplicate slugs");
     for (const dup of report.duplicateSlugs) {
       lines.push(`- \`${dup.slug}\` → ${dup.entries.map((e) => e.title).join(", ")}`);
     }
     lines.push("");
   }
   if (report.staleDrafts.length) {
-    lines.push("### 💤 Stale drafts");
+    lines.push("### Stale drafts");
     for (const d of report.staleDrafts) lines.push(`- ${d.title} (updated ${d.updatedAt})`);
     lines.push("");
   }

@@ -84,11 +84,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     ...validateProjects(projects, { throwOnError: false }),
   ];
   if (errors.length) {
-    console.error(`✗ ${errors.length} content problem(s):`);
+    console.error(`${errors.length} content problem(s):`);
     for (const e of errors) console.error(`  - ${e}`);
     process.exit(1);
   }
   console.log(
-    `✓ content OK — ${articles.length} articles, ${projects.length} projects, all links resolve.`,
+    `Content OK: ${articles.length} articles, ${projects.length} projects, all links resolve.`,
   );
 }
