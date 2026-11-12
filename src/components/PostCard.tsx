@@ -59,7 +59,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             {post.authorName ? <span>{post.authorName}</span> : null}
             {post.authorName && post.publishedDate ? (
               <span className={styles.dot} aria-hidden="true">
-                ·
+                /
               </span>
             ) : null}
             {post.publishedDate ? (
@@ -68,7 +68,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             {post.readingTime ? (
               <>
                 <span className={styles.dot} aria-hidden="true">
-                  ·
+                  /
                 </span>
                 <span>{post.readingTime} min read</span>
               </>

@@ -61,7 +61,7 @@ const projects = [
   },
   {
     slug: "depot",
-    title: "Depot · content API",
+    title: "Depot",
     summary:
       "The backend half of a CMS. Admins sign in with sessions, apps read with hashed delivery tokens, and content lives in a typed Postgres model of collections and items with a publish lifecycle. Every route validates input with Zod and is rate limited. Built with Next.js route handlers, Drizzle and Neon.",
     liveUrl: "https://depot.vitaliipopov.dev",
@@ -87,7 +87,7 @@ const projects = [
   },
   {
     slug: "live-ops-console",
-    title: "Pulse · live ops console",
+    title: "Pulse",
     summary:
       "A real-time console for a multiplayer game. The world is simulated in the browser and painted on canvas at 60 fps, outside React's render cycle. Break a region, watch the alert wait out its threshold, step through it tick by tick and share the seed to replay the run. No backend.",
     liveUrl: "https://pulse.vitaliipopov.dev",
@@ -100,7 +100,7 @@ const projects = [
   },
   {
     slug: "bim-clash-viewer",
-    title: "Girder · BIM clash viewer",
+    title: "Girder",
     summary:
       "A browser BIM coordination viewer. A procedural building renders in three.js with a section plane and ghosted clash isolation, and a pure, unit-tested engine finds hard and clearance clashes. Review them as a queue with J and K and export the report as CSV. No backend.",
     liveUrl: "https://girder.vitaliipopov.dev",

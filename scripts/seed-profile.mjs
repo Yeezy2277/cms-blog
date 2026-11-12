@@ -29,9 +29,9 @@ const f = (value) => ({ [LOCALE]: value });
 const data = {
   name: "Vitalii Popov",
   headline: "Senior Frontend Engineer",
-  tagline: "React · TypeScript · Next.js · Node.js",
+  tagline: "React, TypeScript, Next.js, Node.js",
   location: "Lisbon, Portugal",
-  timezone: "Remote · B2B contract · UTC+0/+1, overlaps European and US East Coast hours",
+  timezone: "Remote B2B contracts, UTC+0/+1, overlapping European and US East Coast hours",
   available: false,
   availability: "Remote B2B contractor based in Lisbon, Portugal (UTC+0/+1).",
   bio: [
@@ -48,7 +48,7 @@ const data = {
   experience: [
     {
       company: "Anakatech (via InDevLabs)",
-      title: "Senior Frontend Engineer · Contract",
+      title: "Senior Frontend Engineer, contract",
       period: "Jan 2026 – Present",
       summary:
         "Own the back-office frontend (React, TypeScript, MUI DataGrid) and its NestJS BFF for a B2B iGaming platform. Built the reporting and admin screens, added Brazilian regulatory time-zone support to reports and exports, and hardened permissions and brand scoping. Java/Spring Boot changes go through backend review.",
@@ -57,7 +57,7 @@ const data = {
     },
     {
       company: "Paris Match",
-      title: "Frontend / Fullstack Engineer (CMS) · Part-time contract",
+      title: "Frontend / Fullstack Engineer (CMS), part-time contract",
       period: "Nov 2025 – Jun 2026",
       summary:
         "Built the newsroom's rich-text editor on PlateJS as a Contentful app and most of the event-driven feeds platform: Contentful webhooks, a Cloud Run receiver, Pub/Sub and a Node.js worker that publishes RSS feeds and Google News sitemaps. Also built the reading-time webhook service.",
@@ -82,7 +82,7 @@ const data = {
     },
     {
       company: "Internetica",
-      title: "Frontend Engineer · Outsourcing",
+      title: "Frontend Engineer, outsourcing",
       period: "Apr 2020 – May 2022",
       summary:
         "Rewrote a hybrid mobile app in React Native and built three.js extensions for a construction-tech client's BIM viewer: 3D navigation and clash inspection.",

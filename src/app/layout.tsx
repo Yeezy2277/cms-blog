@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
     default: "Lumen — a headless-CMS content platform",
-    template: "%s · Lumen",
+    template: "%s | Lumen",
   },
   description:
     "A demo content platform built with Next.js (App Router), TypeScript and Contentful.",

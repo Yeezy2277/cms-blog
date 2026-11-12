@@ -4,7 +4,7 @@ End-to-end steps to get everything running: the Lumen site, its two Contentful
 apps, webhooks, the scheduled audit, and the separate Portfolio Hub. Work top to
 bottom the first time — later phases depend on earlier ones.
 
-Legend: 🖥️ = run in a terminal · 🌐 = do it in a web dashboard.
+Legend: 🖥️ = run in a terminal, 🌐 = do it in a web dashboard.
 
 ---
 
@@ -248,7 +248,7 @@ hourly window):
 | --- | --- | --- |
 | Lumen site + webhooks | Vercel | Vercel env vars |
 | Editorial Toolkit / Rich Text apps | Contentful Hosting | `create-app` + `upload` |
-| Content model + demo data | Contentful | `bootstrap` · `migrate` · `seed` |
+| Content model + demo data | Contentful | `bootstrap`, `migrate`, `seed` |
 | Scheduled audit | GitHub Actions cron | GitHub repo secrets |
 | Portfolio Hub | Vercel | Vercel env vars |
 

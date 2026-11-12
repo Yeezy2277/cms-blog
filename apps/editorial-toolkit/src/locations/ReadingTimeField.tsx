@@ -79,8 +79,8 @@ export function ReadingTimeField() {
           <Badge variant="secondary">{displayMinutes} min read</Badge>
           <Text fontSize="fontSizeS" fontColor="gray500" style={{ fontStyle: "italic" }}>
             {isDirty
-              ? "Updated · will be saved on next publish"
-              : "Calculated automatically · read-only"}
+              ? "Updated, saved on the next publish"
+              : "Calculated automatically, read-only"}
           </Text>
         </>
       ) : (

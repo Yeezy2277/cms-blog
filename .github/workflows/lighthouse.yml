@@ -8,7 +8,7 @@ on:
 
 jobs:
   lighthouse:
-    name: Lighthouse CI (Perf · A11y · Best-practices · SEO)
+    name: Lighthouse CI (performance, accessibility, best practices, SEO)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
