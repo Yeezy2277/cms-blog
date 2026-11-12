@@ -25,69 +25,69 @@ if (!SPACE_ID || !TOKEN) {
 const flags = parseFlags();
 const f = (value) => ({ [LOCALE]: value });
 
+// Mirrors portfolio-hub/config/profile.ts and the résumé (~/Documents/resume/build.js).
 const data = {
   name: "Vitalii Popov",
-  headline: "Senior Fullstack Engineer",
-  tagline: "React · Node.js · TypeScript · Headless CMS (Contentful)",
-  location: "São Paulo, Brazil",
-  timezone: "Remote · US business hours (UTC-3, 1–2h ahead of US Eastern)",
+  headline: "Senior Frontend Engineer",
+  tagline: "React · TypeScript · Next.js · Node.js",
+  location: "Lisbon, Portugal",
+  timezone: "Remote · B2B contract · UTC+0/+1, overlaps European and US East Coast hours",
   available: false,
-  availability:
-    "Remote · São Paulo, Brazil (UTC-3), working US business hours.",
+  availability: "Remote B2B contractor based in Lisbon, Portugal (UTC+0/+1).",
   bio: [
-    "Fullstack engineer with 6 years building product platforms, mostly React and Node.js in TypeScript. I own features end-to-end: the UI, the API, the service behind it and the release. Right now I own the back office of a B2B platform for regulated gaming operators (React, NestJS, Java/Spring); before that I built the event-driven feeds platform and the newsroom's rich-text editor at Paris Match.",
-    "The projects below are public rebuilds of patterns from my NDA work: Contentful apps and webhooks, a headless content API, real-time canvas and 3D/BIM. Read the code, click the demos.",
+    "Frontend engineer with six years in React and TypeScript who works across the stack in Node.js when a feature needs it. I currently own the back-office frontend and its NestJS BFF at a B2B iGaming platform. Before that I built the rich-text editor and the feeds platform for Paris Match on Contentful.",
+    "My client work is under NDA, so the projects below rebuild the same patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
   ].join("\n\n"),
-  stack: ["React", "Next.js", "TypeScript", "Node.js (NestJS, Express)", "Java (Spring Boot)", "Contentful", "GCP", "CI/CD"],
-  certifications: ["Contentful Certified Professional"],
+  stack: ["React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
   languages: [
     { name: "English", level: "Professional" },
-    { name: "German", level: "Limited working" },
     { name: "Russian", level: "Native" },
-    { name: "Polish", level: "Elementary" },
     { name: "Spanish", level: "Limited working" },
   ],
+  certifications: ["Contentful Certified Professional"],
   experience: [
     {
       company: "Anakatech (via InDevLabs)",
       title: "Senior Frontend Engineer · Contract",
-      period: "2026 – Present",
+      period: "Jan 2026 – Present",
       summary:
-        "Own the back office of a B2B iGaming platform for regulated operators, the React/TypeScript app and its NestJS layer, and ship changes into the Java/Spring Boot core services through backend review: promo tools, reporting, Brazilian regulatory time-zone support, and a tournament-prize data migration.",
+        "Own the back-office frontend (React, TypeScript, MUI DataGrid) and its NestJS BFF for a B2B iGaming platform. Built the reporting and admin screens, added Brazilian regulatory time-zone support to reports and exports, and hardened permissions and brand scoping. Java/Spring Boot changes go through backend review.",
+      href: "/projects/podium",
+      hrefLabel: "Promo back office rebuilt in public: Podium →",
     },
     {
       company: "Paris Match",
-      title: "Fullstack Engineer (CMS) · Part-time contract",
-      period: "2025 – 2026",
+      title: "Frontend / Fullstack Engineer (CMS) · Part-time contract",
+      period: "Nov 2025 – Jun 2026",
       summary:
-        "Built most of the event-driven feeds platform (Contentful webhooks → Cloud Run → Pub/Sub → Node.js worker → GCS/CDN): RSS, Google News sitemaps and partner feeds for MSN, Yahoo and Flipboard. Also built the newsroom's custom PlateJS rich-text editor app and the reading-time webhook service.",
+        "Built the newsroom's rich-text editor on PlateJS as a Contentful app and most of the event-driven feeds platform: Contentful webhooks, a Cloud Run receiver, Pub/Sub and a Node.js worker that publishes RSS feeds and Google News sitemaps. Also built the reading-time webhook service.",
       href: "/projects/wire",
       hrefLabel: "Feeds pipeline rebuilt in public: Wire →",
     },
     {
       company: "EvionRP",
-      title: "Senior Frontend Developer",
-      period: "2023 – 2025",
+      title: "Senior Frontend Engineer",
+      period: "Jan 2023 – Jul 2025",
       summary:
-        "Frontend owner of a real-time multiplayer game client: built the core UI framework every in-game screen rendered through (web UI over the game via CEF) and the real-time systems on top — player economy, messaging, interactive maps.",
+        "Owned the frontend of a multiplayer game client in a team of about six. Built the UI framework all ~23 in-game screens rendered through, moved the codebase to Feature-Sliced Design, and led an Ant Design based UI kit for the redesign.",
       href: "/projects/live-ops-console",
-      hrefLabel: "Real-time patterns demoed in Pulse →",
+      hrefLabel: "Real-time patterns shown in Pulse →",
     },
     {
       company: "Sberbank",
-      title: "Frontend Developer",
-      period: "2022 – 2023",
+      title: "Frontend Engineer",
+      period: "May 2022 – Jan 2023",
       summary:
-        "Short engagement on internal tooling: introduced feature-toggling for safe releases and contributed to a shared React component library.",
+        "Introduced feature flags for gradual rollouts and built a shared React component library with charts for analytics dashboards.",
     },
     {
       company: "Internetica",
-      title: "Frontend Developer · Outsourcing",
-      period: "2020 – 2022",
+      title: "Frontend Engineer · Outsourcing",
+      period: "Apr 2020 – May 2022",
       summary:
-        "Product work for telecom, marketplace and construction-tech clients: rewrote a hybrid app to native React Native (cutting launch time and UI latency) and built BIM viewer extensions on three.js — clash-review and element-grouping tooling on top of an embedded 3D component.",
+        "Rewrote a hybrid mobile app in React Native and built three.js extensions for a construction-tech client's BIM viewer: 3D navigation and clash inspection.",
       href: "/projects/bim-clash-viewer",
-      hrefLabel: "BIM tooling reproduced in Girder →",
+      hrefLabel: "BIM tooling rebuilt in Girder →",
     },
   ],
   links: [
