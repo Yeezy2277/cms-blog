@@ -37,7 +37,7 @@ const projects = [
     slug: "cms-blog",
     title: "Lumen",
     summary:
-      "A Contentful content platform: typed Next.js frontend plus custom editor apps, webhooks, a scheduled audit and content-model migrations — all on free infra.",
+      "A content platform on Contentful: a typed Next.js publication, custom editor apps, webhooks, a scheduled content audit and versioned content-model migrations, all on free infrastructure.",
     liveUrl: "https://lumen.vitaliipopov.dev",
     repoUrl: "https://github.com/Yeezy2277/cms-blog",
     tags: ["Next.js", "Contentful", "TypeScript", "App Framework"],
@@ -48,9 +48,9 @@ const projects = [
   },
   {
     slug: "rich-text-editor",
-    title: "Rich text editor",
+    title: "Rich Text Editor",
     summary:
-      "A custom PlateJS editor for Contentful Rich Text fields, with a round-trip-tested Contentful ⇄ Plate transform, slash menu and native embeds.",
+      "A custom PlateJS editor for Contentful rich-text fields, with a slash menu, native embeds and a round-trip-tested transform between Plate and Contentful's document JSON.",
     liveUrl: "https://rte.vitaliipopov.dev/?demo=1",
     repoUrl: "https://github.com/Yeezy2277/cms-blog/tree/main/apps/rich-text-editor",
     tags: ["PlateJS", "Slate", "Contentful", "TypeScript"],
@@ -61,9 +61,9 @@ const projects = [
   },
   {
     slug: "depot",
-    title: "Depot — content API",
+    title: "Depot · content API",
     summary:
-      "The backend half of a CMS: email/password sessions + hashed delivery tokens, a typed Postgres content model (collections → items with a publish lifecycle), Zod validation, rate limiting and a token-secured delivery API. Next.js route handlers + Drizzle + Neon.",
+      "The backend half of a CMS. Admins sign in with sessions, apps read with hashed delivery tokens, and content lives in a typed Postgres model of collections and items with a publish lifecycle. Every route validates input with Zod and is rate limited. Built with Next.js route handlers, Drizzle and Neon.",
     liveUrl: "https://depot.vitaliipopov.dev",
     repoUrl: "https://github.com/Yeezy2277/depot",
     tags: ["Next.js", "PostgreSQL", "Drizzle", "Auth", "REST API"],
@@ -76,7 +76,7 @@ const projects = [
     slug: "editorial-toolkit",
     title: "Editorial Toolkit",
     summary:
-      "One multi-location Contentful App, seven editor tools across four location types: slug, reading time, sponsored validation, related posts, URL→asset media importer, author sidebar and a validation hub — try them live against a mock CMS.",
+      "One Contentful app that puts seven editor tools in four locations: slug, reading time, sponsored-post checks, related posts, a URL-to-asset media importer, an author sidebar and a validation hub. The demo runs them against a mock CMS.",
     liveUrl: "https://toolkit.vitaliipopov.dev/?demo=1",
     repoUrl: "https://github.com/Yeezy2277/cms-blog/tree/main/apps/editorial-toolkit",
     tags: ["Contentful", "App Framework", "Forma 36", "TypeScript"],
@@ -87,9 +87,9 @@ const projects = [
   },
   {
     slug: "live-ops-console",
-    title: "Pulse — Live Ops Console",
+    title: "Pulse · live ops console",
     summary:
-      "A real-time game-ops console: the world is simulated client-side and painted on canvas — high-frequency state, 60fps rendering decoupled from React, and a debounced event feed. No backend. A change of register from the Contentful work.",
+      "A real-time console for a multiplayer game. The world is simulated in the browser and painted on canvas at 60 fps, outside React's render cycle. Break a region, watch the alert wait out its threshold, step through it tick by tick and share the seed to replay the run. No backend.",
     liveUrl: "https://pulse.vitaliipopov.dev",
     repoUrl: "https://github.com/Yeezy2277/live-ops-console",
     tags: ["React", "TypeScript", "Canvas", "Real-time"],
@@ -100,9 +100,9 @@ const projects = [
   },
   {
     slug: "bim-clash-viewer",
-    title: "Girder — BIM clash viewer",
+    title: "Girder · BIM clash viewer",
     summary:
-      "A browser BIM coordination viewer: procedural building model, three.js scene with section plane and NavisWorks-style ghosted clash isolation, and a pure, unit-tested clash-detection engine. No backend.",
+      "A browser BIM coordination viewer. A procedural building renders in three.js with a section plane and ghosted clash isolation, and a pure, unit-tested engine finds hard and clearance clashes. Review them as a queue with J and K and export the report as CSV. No backend.",
     liveUrl: "https://girder.vitaliipopov.dev",
     repoUrl: "https://github.com/Yeezy2277/bim-clash-viewer",
     tags: ["three.js", "BIM", "TypeScript", "Computational geometry"],
