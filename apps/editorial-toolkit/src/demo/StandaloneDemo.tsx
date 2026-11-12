@@ -123,7 +123,7 @@ export function StandaloneDemo() {
         <p>
           One Contentful App, seven editor tools. Everything below is the <em>real</em>{" "}
           production widget code running against an in-memory mock of the Contentful App
-          SDK — type in the entry fields and watch the tools react, exactly as editors see
+          SDK. Type in the entry fields and watch the tools react, exactly as editors see
           them inside the CMS.
         </p>
         <nav className="demo-tabs" aria-label="Demo sections">
@@ -148,7 +148,7 @@ export function StandaloneDemo() {
         <main className="demo-entry">
           <section className="demo-field">
             <label className="demo-label" htmlFor="demo-title">
-              Title <span className="demo-hint">plain Contentful field — type here</span>
+              Title <span className="demo-hint">plain Contentful field, type here</span>
             </label>
             <input
               id="demo-title"
@@ -208,7 +208,7 @@ export function StandaloneDemo() {
                 checked={sponsored}
                 onChange={(e) => updateSponsored(e.target.checked)}
               />
-              <span>{sponsored ? "Yes — sponsor name required" : "No"}</span>
+              <span>{sponsored ? "Yes, sponsor name required" : "No"}</span>
             </label>
           </section>
 
@@ -280,10 +280,10 @@ export function StandaloneDemo() {
       ) : (
         <main className="demo-qa">
           <p className="demo-qa-note">
-            The same bundle also ships a full-page location — a validation hub that runs
+            The same bundle also ships a full-page location: a validation hub that runs
             every editorial QA check in one scan: duplicate slugs, links to deleted posts,
             incomplete metadata and forgotten drafts. The demo space has one of each
-            planted — hit <strong>Re-scan</strong> and the summary lights up.
+            planted. Hit <strong>Re-scan</strong> and the summary lights up.
           </p>
           <div className="demo-widget demo-widget--page">
             <Widget sdk={sdks.page}>

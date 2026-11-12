@@ -188,7 +188,7 @@ const articles = [
     ),
   },
   {
-    title: "The webhook that writes back — without the infinite loop",
+    title: "The webhook that writes back without an infinite loop",
     slug: "webhook-that-writes-back",
     excerpt:
       "Computing reading time on publish means a webhook that edits the entry that triggered it. Here's how it avoids eating its own tail.",
@@ -307,7 +307,7 @@ const articles = [
     title: "The CI that couldn't upload: when a token isn't enough",
     slug: "ci-that-couldnt-upload",
     excerpt:
-      "A deploy pipeline that kept failing taught me to read the HTTP status, not the stack trace — and that the cheapest fix is often moving the work, not forcing the path.",
+      "A deploy pipeline that kept failing taught me to read the HTTP status, not the stack trace, and that the cheapest fix is often moving the work instead of forcing the path.",
     publishedDate: "2026-07-08T09:00:00Z",
     tags: ["CI/CD", "Architecture"],
     related: ["webhook-that-writes-back", "isr-in-practice"],
@@ -362,7 +362,7 @@ const articles = [
     title: "An invisible clash: the three.js transparency trap",
     slug: "threejs-transparency-trap",
     excerpt:
-      "Setting material.opacity did nothing. The fix was one line — and a reminder that in retained-mode 3D, some properties are compiled into the shader, not read every frame.",
+      "Setting material.opacity did nothing. The fix was one line, and a reminder that in retained-mode 3D some properties are compiled into the shader instead of read every frame.",
     publishedDate: "2026-07-09T09:00:00Z",
     tags: ["three.js", "Debugging", "Performance"],
     related: ["slate-contentful-transform", "living-world-no-server"],
@@ -415,7 +415,7 @@ const articles = [
     title: "A living world with no server: real-time on the client",
     slug: "living-world-no-server",
     excerpt:
-      "A live ops dashboard with no backend. The trick was decoupling the thing that changes fast (animation) from the thing that changes meaningfully (data) — three layers, one smooth result.",
+      "A live ops dashboard with no backend. The trick was decoupling what changes fast (animation) from what changes meaningfully (data): three layers, one smooth result.",
     publishedDate: "2026-07-10T09:00:00Z",
     tags: ["React", "Performance", "Real-time"],
     related: ["threejs-transparency-trap", "server-components-changed-structure"],
