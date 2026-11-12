@@ -13,6 +13,7 @@ import { ValidationHubPage } from "../locations/ValidationHubPage";
 import { createDemoSpace, LOCALE } from "./mockSdk";
 import { richTextToPlainText } from "../utils/readingTime";
 import "./demo.css";
+import { Icon } from "./Icon";
 
 /** Wraps a real widget in an SDKContext carrying a field-scoped mock SDK. */
 function Widget({ sdk, children }: { sdk: unknown; children: React.ReactNode }) {
@@ -115,7 +116,7 @@ export function StandaloneDemo() {
           aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           title={theme === "dark" ? "Light theme" : "Dark theme"}
         >
-          {theme === "dark" ? "☀" : "☾"}
+          <Icon name={theme === "dark" ? "sun" : "moon"} />
         </button>
         <span className="demo-badge">Live demo, no login</span>
         <h1>Editorial Toolkit</h1>
@@ -252,7 +253,7 @@ export function StandaloneDemo() {
             <div className="demo-label">
               Cover image <span className="demo-widget-tag">app widget</span>
               <span className="demo-hint">
-                paste an https image URL → asset is created, processed and linked
+                paste an https image URL and the asset is created, processed and linked
               </span>
             </div>
             <div className="demo-widget">

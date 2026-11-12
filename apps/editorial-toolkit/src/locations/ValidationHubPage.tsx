@@ -147,7 +147,7 @@ export function ValidationHubPage() {
       )}
 
       {ran && !error && totalIssues === 0 && (
-        <Note variant="positive">All {scanned} entries pass every check. 🎉</Note>
+        <Note variant="positive">All {scanned} entries pass every check.</Note>
       )}
 
       {duplicates.length > 0 && (

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import styles from "./ThemeToggle.module.css";
+import { Icon } from "./Icon";
 
 type Theme = "dark" | "light";
 
@@ -39,7 +40,7 @@ export function ThemeToggle() {
       aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
       title={theme === "light" ? "Dark theme" : "Light theme"}
     >
-      <span aria-hidden="true">{theme === null ? "◐" : theme === "dark" ? "☀" : "☾"}</span>
+      <Icon name={theme === "dark" ? "sun" : "moon"} />
     </button>
   );
 }

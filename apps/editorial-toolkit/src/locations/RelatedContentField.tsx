@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
 } from "@contentful/f36-components";
+import { XIcon } from "@contentful/f36-icons";
 
 const CONTENT_TYPE_ID = "blogPost";
 
@@ -193,7 +194,7 @@ export function RelatedContentField() {
                 size="small"
                 variant="transparent"
                 onClick={() => remove(post.id)}
-                icon={<span aria-hidden>✕</span>}
+                icon={<XIcon />}
               />
             </Flex>
           ))}
