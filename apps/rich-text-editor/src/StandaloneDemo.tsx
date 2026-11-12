@@ -48,7 +48,7 @@ const STARTER = {
       data: {},
       content: [
         { nodeType: "list-item", data: {}, content: [{ nodeType: "paragraph", data: {}, content: [{ nodeType: "text", value: "Headings, lists and quotes", marks: [], data: {} }] }] },
-        { nodeType: "list-item", data: {}, content: [{ nodeType: "paragraph", data: {}, content: [{ nodeType: "text", value: "Every keystroke maps to valid Contentful JSON →", marks: [], data: {} }] }] },
+        { nodeType: "list-item", data: {}, content: [{ nodeType: "paragraph", data: {}, content: [{ nodeType: "text", value: "Every keystroke maps to valid Contentful JSON on the right", marks: [], data: {} }] }] },
       ],
     },
     { nodeType: "blockquote", data: {}, content: [{ nodeType: "paragraph", data: {}, content: [{ nodeType: "text", value: "The editor owns the UI; the document model stays 100% Contentful.", marks: [], data: {} }] }] },
@@ -85,8 +85,8 @@ export function StandaloneDemo() {
         <h1>Rich Text Editor</h1>
         <p>
           A custom PlateJS editor for Contentful Rich Text fields. Type on the
-          left — the Contentful document JSON it produces updates live on the
-          right. This is the exact editor that runs inside the CMS.
+          left and the Contentful document JSON on the right updates as you go.
+          This is the same editor that runs inside the CMS.
         </p>
       </header>
 

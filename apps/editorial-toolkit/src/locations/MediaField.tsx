@@ -121,7 +121,7 @@ export function MediaField() {
       setUrl("");
       sdk.notifier.success("Image imported and linked.");
     } catch {
-      setError("Import failed — check the URL is publicly reachable and try again.");
+      setError("Import failed. Check that the URL is publicly reachable and try again.");
     } finally {
       setBusy(null);
     }
@@ -181,7 +181,7 @@ export function MediaField() {
           </Button>
         </Flex>
         <FormControl.HelpText>
-          Creates a processed, published asset from the URL and links it here — or{" "}
+          Creates a processed, published asset from the URL and links it here, or{" "}
           <Button variant="transparent" size="small" onClick={() => void pickExisting()} style={{ padding: 0, minHeight: "auto" }}>
             browse existing assets
           </Button>
