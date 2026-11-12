@@ -117,7 +117,7 @@ export function StandaloneDemo() {
         >
           {theme === "dark" ? "☀" : "☾"}
         </button>
-        <span className="demo-badge">Live demo · no login</span>
+        <span className="demo-badge">Live demo, no login</span>
         <h1>Editorial Toolkit</h1>
         <p>
           One Contentful App, seven editor tools. Everything below is the <em>real</em>{" "}
@@ -161,7 +161,7 @@ export function StandaloneDemo() {
             <div className="demo-label">
               Slug <span className="demo-widget-tag">app widget</span>
               <span className="demo-hint">
-                follows the title while draft · validates format + uniqueness
+                follows the title while in draft, checks format and uniqueness
               </span>
             </div>
             <div className="demo-widget">
@@ -239,7 +239,7 @@ export function StandaloneDemo() {
           <section className="demo-field">
             <div className="demo-label">
               Related posts <span className="demo-widget-tag">app widget</span>
-              <span className="demo-hint">suggests by shared tags · picker uses the native dialog</span>
+              <span className="demo-hint">suggests by shared tags; the picker is the native dialog</span>
             </div>
             <div className="demo-widget">
               <Widget sdk={sdks.related}>
@@ -266,7 +266,7 @@ export function StandaloneDemo() {
             <div className="demo-label">
               Author <span className="demo-widget-tag">app widget</span>
               <span className="demo-hint">
-                entry-sidebar location · switch the author or create one inline
+                entry sidebar: switch the author or create one inline
               </span>
             </div>
             <div className="demo-widget" style={{ maxWidth: 340 }}>
@@ -296,10 +296,10 @@ export function StandaloneDemo() {
         <a href="https://github.com/Yeezy2277/cms-blog/tree/main/apps/editorial-toolkit">
           Source on GitHub
         </a>
-        <span>·</span>
+        <span aria-hidden="true">/</span>
         <span>Locale {LOCALE}</span>
-        <span>·</span>
-        <span>React + Forma 36 + Contentful App SDK</span>
+        <span aria-hidden="true">/</span>
+        <span>React, Forma 36 and the Contentful App SDK</span>
       </footer>
     </div>
   );

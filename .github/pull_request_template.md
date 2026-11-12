@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] `npm run lint` · `npm run typecheck` · `npm run build` pass locally
+- [ ] `npm run lint`, `npm run typecheck` and `npm run build` pass locally
 - [ ] Unit tests added/updated where logic changed (`npm test` in the affected app)
 - [ ] Branch name follows `feature/*` | `fix/*` | `chore/*` | `docs/*` | `refactor/*`
 - [ ] App bundles re-uploaded if `apps/*` changed (`npm run upload`)

@@ -80,7 +80,7 @@ export function StandaloneDemo() {
         >
           {theme === "dark" ? "☀" : "☾"}
         </button>
-        <div className="rte-demo__badge">Live demo · no login</div>
+        <div className="rte-demo__badge">Live demo, no login</div>
         <h1>Rich Text Editor</h1>
         <p>
           A custom PlateJS editor for Contentful Rich Text fields. Type on the

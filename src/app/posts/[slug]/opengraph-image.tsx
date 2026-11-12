@@ -31,7 +31,7 @@ export default async function OpengraphImage({
     post?.authorName,
   ]
     .filter(Boolean)
-    .join(" · ");
+    .join(", ");
 
   return new ImageResponse(
     (

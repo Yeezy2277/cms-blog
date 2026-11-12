@@ -86,11 +86,11 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.authorName ? <p className={styles.authorName}>{post.authorName}</p> : null}
             <p className={styles.authorMeta}>
               {post.authorTitle ? <span>{post.authorTitle}</span> : null}
-              {post.authorTitle && post.publishedDate ? " · " : null}
+              {post.authorTitle && post.publishedDate ? ", " : null}
               {post.publishedDate ? (
                 <time dateTime={post.publishedDate}>{formatDate(post.publishedDate)}</time>
               ) : null}
-              {post.readingTime ? <span> · {post.readingTime} min read</span> : null}
+              {post.readingTime ? <span>, {post.readingTime} min read</span> : null}
             </p>
           </div>
         </div>
