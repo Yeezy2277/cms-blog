@@ -111,7 +111,7 @@ npm run migrate     # adds the editorial fields                   → 001-add-ed
 
 ## Setup, end to end
 
-> 📋 **Full step-by-step runbook — including accounts, the two Contentful apps,
+> **Full step-by-step runbook — including accounts, the two Contentful apps,
 > webhooks, the scheduled audit and the Portfolio Hub — is in [SETUP.md](SETUP.md).**
 > The summary below is the site + content-model essentials.
 

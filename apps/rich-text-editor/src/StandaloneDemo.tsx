@@ -3,6 +3,7 @@ import type { Document } from "@contentful/rich-text-types";
 import { RichTextEditor } from "./editor/RichTextEditor";
 import { deserialize, serialize } from "./transform";
 import "./demo.css";
+import { Icon } from "./Icon";
 
 type Theme = "dark" | "light";
 
@@ -78,7 +79,7 @@ export function StandaloneDemo() {
           aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           title={theme === "dark" ? "Light theme" : "Dark theme"}
         >
-          {theme === "dark" ? "☀" : "☾"}
+          <Icon name={theme === "dark" ? "sun" : "moon"} />
         </button>
         <div className="rte-demo__badge">Live demo, no login</div>
         <h1>Rich Text Editor</h1>

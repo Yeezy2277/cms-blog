@@ -133,7 +133,7 @@ export function RichTextEditor({
       { label: "Heading 1", hint: "H1", run: () => setBlockType(ed, "h1") },
       { label: "Heading 2", hint: "H2", run: () => setBlockType(ed, "h2") },
       { label: "Heading 3", hint: "H3", run: () => setBlockType(ed, "h3") },
-      { label: "Quote", hint: "❝", run: () => setBlockType(ed, "blockquote") },
+      { label: "Quote", run: () => setBlockType(ed, "blockquote") },
       { label: "Bullet list", hint: "•", run: () => toggleList(ed, "ul") },
       { label: "Numbered list", hint: "1.", run: () => toggleList(ed, "ol") },
       { label: "Divider", hint: "―", run: () => insertHr(ed) },

@@ -18,9 +18,9 @@ jobs:
           PATTERN='^(feat|feature|fix|chore|docs|refactor|ci|test|design)\/[a-z0-9][a-z0-9._-]*$'
           echo "Branch: $BRANCH"
           if [[ "$BRANCH" =~ $PATTERN ]]; then
-            echo "✅ Branch name follows the convention."
+            echo "Branch name follows the convention."
           else
-            echo "❌ Branch '$BRANCH' does not match '$PATTERN'."
+            echo "Branch '$BRANCH' does not match '$PATTERN'."
             echo "Use e.g. feature/related-posts, fix/slug-validation, chore/deps."
             exit 1
           fi
