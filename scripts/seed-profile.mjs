@@ -48,7 +48,7 @@ const data = {
   experience: [
     {
       company: "Anakatech (via InDevLabs)",
-      title: "Senior Frontend Engineer, contract",
+      title: "Senior Full-stack Engineer, contract",
       period: "Jan 2026 – Present",
       summary:
         "Own the back-office frontend (React, TypeScript, MUI DataGrid) and its NestJS BFF for a B2B iGaming platform. Built the reporting and admin screens, added Brazilian regulatory time-zone support to reports and exports, and hardened permissions and brand scoping. Java/Spring Boot changes go through backend review.",
