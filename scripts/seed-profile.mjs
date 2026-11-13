@@ -28,14 +28,14 @@ const f = (value) => ({ [LOCALE]: value });
 // Mirrors portfolio-hub/config/profile.ts and the résumé (~/Documents/resume/build.js).
 const data = {
   name: "Vitalii Popov",
-  headline: "Senior Frontend Engineer",
-  tagline: "who works full-stack: React, TypeScript, Next.js, Node.js",
+  headline: "Senior Full-stack Engineer",
+  tagline: "who started in frontend: React, TypeScript, Next.js, Node.js",
   location: "Lisbon, Portugal",
   timezone: "Remote B2B contracts, UTC+0/+1, overlapping European and US East Coast hours",
   available: false,
   availability: "Remote B2B contractor based in Lisbon, Portugal (UTC+0/+1).",
   bio: [
-    "Frontend engineer with six years in React and TypeScript who works full-stack in Node.js when a feature needs it. I build product web apps: data-heavy tools, editors and real-time interfaces. Right now I own the operator-facing web app and its NestJS BFF at a B2B iGaming platform. Before that I built the rich-text editor and the feeds platform for Paris Match on Contentful.",
+    "I started in frontend and grew into full-stack product work. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. Since 2025 I also take features through Node.js services and APIs. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, most of what I built at Paris Match was Node.js: an event-driven feeds platform on Cloud Run and Pub/Sub, plus the newsroom's rich-text editor on Contentful.",
     "My client work is under NDA, so the projects below rebuild the same patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
   ].join("\n\n"),
   stack: ["React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
