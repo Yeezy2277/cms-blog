@@ -28,17 +28,17 @@ const f = (value) => ({ [LOCALE]: value });
 // Mirrors portfolio-hub/config/profile.ts and the résumé (~/Documents/resume/build.js).
 const data = {
   name: "Vitalii Popov",
-  headline: "Senior Full-stack Engineer",
-  tagline: "who started in frontend: React, TypeScript, Next.js, Node.js",
+  headline: "Senior AI Product Engineer",
+  tagline: "LLM apps on React, Next.js, Node.js and TypeScript",
   location: "Lisbon, Portugal",
   timezone: "Remote B2B contracts, UTC+0/+1, overlapping European and US East Coast hours",
   available: false,
   availability: "Remote B2B contractor based in Lisbon, Portugal (UTC+0/+1).",
   bio: [
-    "I started in frontend and grew into full-stack product work. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. Since 2025 I also take features through Node.js services and APIs. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, most of what I built at Paris Match was Node.js: an event-driven feeds platform on Cloud Run and Pub/Sub, plus the newsroom's rich-text editor on Contentful.",
-    "My client work is under NDA, so the projects below rebuild the same patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
+    "I build product features end to end, and lately the LLM features in them. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. Since 2025 I also take features through Node.js services and APIs. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, at Paris Match, I built an event-driven feeds platform on Cloud Run and Pub/Sub and the newsroom's rich-text editor on Contentful. At both I ship with a coding agent (Claude Code), set up with project instructions, hooks, subagents and MCP servers.",
+    "Porter is my LLM product, built in public: a WordPress-to-Contentful migration where code converts every article and Claude does only the judgement calls, with structured output, retrieval (pgvector and hybrid search), a tool-using agent and evals in CI. My client work is under NDA, so the other projects rebuild its patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
   ].join("\n\n"),
-  stack: ["React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
+  stack: ["LLM apps (RAG, agents, evals)", "React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
   languages: [
     { name: "English", level: "Professional" },
     { name: "Russian", level: "Native" },
@@ -46,6 +46,15 @@ const data = {
   ],
   certifications: ["Contentful Certified Professional"],
   experience: [
+    {
+      company: "Porter (independent product)",
+      title: "AI Product Engineer",
+      period: "Nov 2026 – Present",
+      summary:
+        "My own LLM product: a WordPress-to-Contentful migration built around Claude. Field mapping with structured output and human approval, author and topic linking with retrieval (Voyage embeddings, pgvector, rank fusion; 98% correct on 53 hand-labelled cases), a tool-using agent that fills each entry for a review queue, and evals in CI.",
+      href: "/projects/porter",
+      hrefLabel: "Live product and code: Porter",
+    },
     {
       company: "Anakatech (via InDevLabs)",
       title: "Senior Full-stack Engineer, contract",
@@ -60,7 +69,7 @@ const data = {
       title: "Frontend / Fullstack Engineer (CMS), part-time contract",
       period: "Nov 2025 – Jun 2026",
       summary:
-        "Built the newsroom's rich-text editor on PlateJS as a Contentful app and most of the event-driven feeds platform: Contentful webhooks, a Cloud Run receiver, Pub/Sub and a Node.js worker that publishes RSS feeds and Google News sitemaps. Also built the reading-time webhook service.",
+        "Built the newsroom's rich-text editor on PlateJS as a Contentful app and most of the event-driven feeds platform: Contentful webhooks, a Cloud Run receiver, Pub/Sub and a Node.js worker that publishes RSS feeds and Google News sitemaps. Also built the reading-time webhook service, and set up the company-provided Claude Code with MCP servers (Contentful MCP among them).",
       href: "/projects/wire",
       hrefLabel: "Feeds pipeline rebuilt in public: Wire",
     },
