@@ -36,7 +36,7 @@ const data = {
   availability: "Remote B2B contractor, relocating to Berlin, Germany.",
   bio: [
     "I build product features end to end, and lately the LLM features in them. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. Since 2025 I also take features through Node.js services and APIs. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, at Paris Match, I built an event-driven feeds platform on Cloud Run and Pub/Sub and the newsroom's rich-text editor on Contentful. At both I ship with a coding agent (Claude Code), set up with project instructions, hooks, subagents and MCP servers.",
-    "Porter is my LLM product, built in public: a WordPress-to-Contentful migration where code converts every article and Claude does only the judgement calls, with structured output, retrieval (pgvector and hybrid search), a tool-using agent and evals in CI. My client work is under NDA, so the other projects rebuild its patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
+    "Porter is my LLM project, built in public and live: a WordPress-to-Contentful migration where code converts every article and Claude does only the judgement calls, with structured output, retrieval (pgvector and hybrid search), a tool-using agent and evals in CI. My client work is under NDA, so the other projects rebuild its patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
   ].join("\n\n"),
   stack: ["LLM apps (RAG, agents, evals)", "React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
   languages: [
@@ -46,15 +46,6 @@ const data = {
   ],
   certifications: ["Contentful Certified Professional"],
   experience: [
-    {
-      company: "Porter (independent product)",
-      title: "AI Product Engineer",
-      period: "Nov 2026 – Present",
-      summary:
-        "My own LLM product: a WordPress-to-Contentful migration built around Claude. Field mapping with structured output and human approval, author and topic linking with retrieval (Voyage embeddings, pgvector, rank fusion; 98% correct on 53 hand-labelled cases), a tool-using agent that fills each entry for a review queue, and evals in CI.",
-      href: "/projects/porter",
-      hrefLabel: "Live product and code: Porter",
-    },
     {
       company: "Anakatech (via InDevLabs)",
       title: "Senior Full-stack Engineer, contract",
