@@ -30,10 +30,10 @@ const data = {
   name: "Vitalii Popov",
   headline: "Senior AI Product Engineer",
   tagline: "LLM apps on React, Next.js, Node.js and TypeScript",
-  location: "Berlin, Germany (relocating)",
-  timezone: "Remote B2B contracts, overlapping European and US East Coast hours",
+  location: "Medellín, Colombia",
+  timezone: "Remote B2B contracts on US Eastern/Central hours (UTC-5), invoiced in USD",
   available: false,
-  availability: "Remote B2B contractor, relocating to Berlin, Germany.",
+  availability: "Remote B2B contractor in Medellín, Colombia (UTC-5).",
   bio: [
     "I build product features end to end, and lately the LLM features in them. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. I've written Node.js APIs since 2020 (Express and MongoDB, later NestJS), and since 2025 backend services are a main part of my work. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, at Paris Match, I built an event-driven feeds platform on Cloud Run and Pub/Sub and the newsroom's rich-text editor on Contentful. At both I ship with a coding agent (Claude Code), set up with project instructions, hooks, subagents and MCP servers.",
     "Porter is my LLM project, built in public and live: a WordPress-to-Contentful migration where code converts every article and Claude does only the judgement calls, with structured output, retrieval (pgvector and hybrid search), a tool-using agent and evals in CI. My client work is under NDA, so the other projects rebuild its patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
