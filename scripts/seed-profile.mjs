@@ -35,10 +35,10 @@ const data = {
   available: false,
   availability: "Remote B2B contractor, relocating to Berlin, Germany.",
   bio: [
-    "I build product features end to end, and lately the LLM features in them. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. Since 2025 I also take features through Node.js services and APIs. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, at Paris Match, I built an event-driven feeds platform on Cloud Run and Pub/Sub and the newsroom's rich-text editor on Contentful. At both I ship with a coding agent (Claude Code), set up with project instructions, hooks, subagents and MCP servers.",
+    "I build product features end to end, and lately the LLM features in them. For six years I have built web apps in React and TypeScript: data-heavy tools, editors and real-time interfaces. I've written Node.js APIs since 2020 (Express and MongoDB, later NestJS), and since 2025 backend services are a main part of my work. Right now I own the operator-facing app of a B2B iGaming platform from the React frontend through its NestJS BFF, with Java/Spring Boot changes going through backend review. Before that, at Paris Match, I built an event-driven feeds platform on Cloud Run and Pub/Sub and the newsroom's rich-text editor on Contentful. At both I ship with a coding agent (Claude Code), set up with project instructions, hooks, subagents and MCP servers.",
     "Porter is my LLM project, built in public and live: a WordPress-to-Contentful migration where code converts every article and Claude does only the judgement calls, with structured output, retrieval (pgvector and hybrid search), a tool-using agent and evals in CI. My client work is under NDA, so the other projects rebuild its patterns in public: Contentful apps and webhooks, a feeds pipeline, a promo back office, a real-time canvas console and a BIM viewer. Each one is live, and each has a demo you can drive.",
   ].join("\n\n"),
-  stack: ["LLM apps (RAG, agents, evals)", "React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
+  stack: ["LLM apps (RAG, agents, evals)", "React", "TypeScript", "Next.js", "Node.js (NestJS, Express)", "PostgreSQL", "MongoDB", "Contentful", "PlateJS", "Java/Spring Boot", "GCP"],
   languages: [
     { name: "English", level: "Professional" },
     { name: "Russian", level: "Native" },
@@ -69,7 +69,7 @@ const data = {
       title: "Senior Frontend Engineer",
       period: "Jan 2023 – Jul 2025",
       summary:
-        "Owned the frontend of a multiplayer game client in a team of about six. Built the UI framework all ~23 in-game screens rendered through, moved the codebase to Feature-Sliced Design, and led an Ant Design based UI kit for the redesign.",
+        "Owned the frontend of a multiplayer game client in a team of about six. Built the UI framework all ~23 in-game screens rendered through, moved the codebase to Feature-Sliced Design, led an Ant Design based UI kit for the redesign, and built REST and GraphQL endpoints in Node.js (NestJS) when features needed them.",
       href: "/projects/live-ops-console",
       hrefLabel: "Real-time patterns shown in Pulse",
     },
@@ -85,7 +85,7 @@ const data = {
       title: "Frontend Engineer, outsourcing",
       period: "Apr 2020 – May 2022",
       summary:
-        "Rewrote a hybrid mobile app in React Native and built three.js extensions for a construction-tech client's BIM viewer: 3D navigation and clash inspection.",
+        "Built REST and GraphQL APIs in Node.js (Express with MongoDB, later NestJS), rewrote a hybrid mobile app in React Native and built three.js extensions for a construction-tech client's BIM viewer: 3D navigation and clash inspection.",
       href: "/projects/bim-clash-viewer",
       hrefLabel: "BIM tooling rebuilt in Girder",
     },
